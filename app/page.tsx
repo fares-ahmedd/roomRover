@@ -1,6 +1,7 @@
 export default function Home() {
   return (
-    <div className="bg-graph">
+    <div>
+      
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tempore,
         itaque accusantium commodi facilis eaque enim. Quis odio consectetur

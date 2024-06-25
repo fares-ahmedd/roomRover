@@ -3,7 +3,7 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 function NavBar() {
   return (
     <div>
-      Test Na
+      Navbar
       <UserButton afterSignOutUrl="/" />
     </div>
   );

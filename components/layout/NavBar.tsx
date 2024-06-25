@@ -1,11 +1,11 @@
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 
 function NavBar() {
   return (
-    <div>
-      Navbar
+    <header className="sticky top-0">
+      NavBar
       <UserButton afterSignOutUrl="/" />
-    </div>
+    </header>
   );
 }
 

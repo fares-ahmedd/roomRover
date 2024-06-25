@@ -19,8 +19,10 @@ export default function Page() {
           footerActionLink: "text-btn-prim hover:text-btn-prim",
           footerActionText: "text-main-text",
           socialButtonsBlockButton:
-            "bg-white text-black hover:bg-gray-50 border border-b-color text-main-text",
+            "bg-white text-black hover:bg-gray-50 border border-b-color text-main-text ",
           socialButtonsProviderIcon: "w-5 h-5",
+          socialButtonsBlockButtonText: "text-black ",
+
           dividerText: "text-main-text",
           formFieldInputShowPasswordButton: "text-main-text",
         },

@@ -17,7 +17,8 @@ const config: Config = {
         "main-text": "var(--main-text)",
         "sec-text": "var(--second-text)",
         "btn-prim": "var(--btn-prim)",
-        "btn-prim-text": "var(--btn-prim-text)",
+        "btn-text": "var(--btn-text)",
+        "btn-sec": "var(--btn-sec)",
       },
       animation: {
         "gradient-x": "gradient-x 1s ease infinite",

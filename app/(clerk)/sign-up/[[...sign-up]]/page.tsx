@@ -10,7 +10,7 @@ export default function Page() {
       appearance={{
         elements: {
           formButtonPrimary: "bg-btn-prim hover:bg-btn-prim text-btn-prim-text",
-          card: "shadow-lg rounded-xl border-2 border-b-color bg-sec-background",
+          card: "shadow-lg rounded-xl border-2 border-b-color bg-sec-background ",
           headerTitle: "text-2xl font-bold text-center text-main-text",
           headerSubtitle: "text-main-text",
           formFieldLabel: "text-main-text",
@@ -20,7 +20,8 @@ export default function Page() {
           footerActionText: "text-main-text",
           socialButtonsBlockButton:
             "bg-white text-black hover:bg-gray-50 border border-b-color text-main-text",
-          socialButtonsProviderIcon: "w-5 h-5",
+          socialButtonsProviderIcon: "w-5 h-5 text-black",
+          socialButtonsBlockButtonText: "text-black ",
           dividerText: "text-main-text",
           formFieldInputShowPasswordButton: "text-main-text",
           identityPreview: "bg-third-background text-main-text",

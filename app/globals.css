@@ -7,12 +7,13 @@
   --second-background: #ffffff;
   --third-background: #969393;
 
-  --border-color: gray;
+  --border-color: rgb(226, 214, 214);
   --border-color-hover: #71757a;
   --main-text: #2c3e50;
   --second-text: #95a5a6;
   --btn-prim: #04522f;
-  --btn-prim-text: #e0e0e0;
+  --btn-sec: black;
+  --btn-text: #e0e0e0;
 }
 
 .dark {
@@ -24,6 +25,9 @@
   --main-text: #e0e0e0;
   --second-text: #a0a0a0;
   --btn-prim: #2d7555;
+  --btn-sec: #121212;
+
+  --btn-text: #e0e0e0;
 }
 
 body {
@@ -34,7 +38,6 @@ body {
 @layer utilities {
   .h-screen-78 {
     height: calc(100vh - 78px);
-    margin-top: 78px;
     overflow: auto;
   }
 }
@@ -44,5 +47,8 @@ body {
   }
   .flex-between {
     @apply flex items-center justify-between;
+  }
+  .container-layout {
+    @apply px-2 sm:px-6 lg:px-12 py-2;
   }
 }

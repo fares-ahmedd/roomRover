@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/layout/NavBar";
-import { ThemeProvider } from "@/components/context/ThemeContext";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +25,14 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <NavBar />
-
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="h-screen-minus-78"></main> {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

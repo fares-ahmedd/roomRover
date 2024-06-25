@@ -7,7 +7,7 @@
   --second-background: #ffffff;
   --third-background: #969393;
 
-  --border-color: hsl(217, 30%, 86%);
+  --border-color: gray;
   --border-color-hover: #71757a;
   --main-text: #2c3e50;
   --second-text: #95a5a6;
@@ -26,6 +26,18 @@
   --btn-prim: #2d7555;
 }
 
+body {
+  background-color: var(--main-background);
+  color: var(--main-text);
+}
+
+@layer utilities {
+  .h-screen-78 {
+    height: calc(100vh - 78px);
+    margin-top: 78px;
+    overflow: auto;
+  }
+}
 @layer components {
   .flex-center {
     @apply flex items-center justify-center;

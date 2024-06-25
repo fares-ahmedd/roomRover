@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --main-background: #f0f4f8;
+  --second-background: #ffffff;
+  --third-background: #969393;
+
+  --border-color: hsl(217, 30%, 86%);
+  --border-color-hover: #71757a;
+  --main-text: #2c3e50;
+  --second-text: #95a5a6;
+  --btn-prim: #04522f;
+  --btn-prim-text: #e0e0e0;
+}
+
+.dark {
+  --main-background: #121212;
+  --second-background: #1e1e1e;
+  --third-background: #2c2c2c;
+  --border-color: #686666;
+  --border-color-hover: #333333;
+  --main-text: #e0e0e0;
+  --second-text: #a0a0a0;
+  --btn-prim: #2d7555;
+}
+
 @layer components {
   .flex-center {
     @apply flex items-center justify-center;

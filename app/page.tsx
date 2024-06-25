@@ -1,13 +1,10 @@
+import ThemeSwitch from "@/components/ThemeSwitch";
+
 export default function Home() {
   return (
-    <div>
-      
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tempore,
-        itaque accusantium commodi facilis eaque enim. Quis odio consectetur
-        accusamus, nam omnis exercitationem, inventore nostrum voluptatum vel
-        amet, facilis excepturi!
-      </p>
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <h1 className="text-black dark:text-white">Hello, Next.js!</h1>
+      <ThemeSwitch />
     </div>
   );
 }

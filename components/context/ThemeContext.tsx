@@ -1,34 +1,57 @@
-// app/components/ThemeProvider.js
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, ReactNode } from "react";
 
-const ThemeContext = createContext({});
+type ThemeContextType = {
+  theme: "light" | "dark" | "system";
+  setTheme: (theme: "light" | "dark" | "system") => void;
+};
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [darkMode, setDarkMode] = useState(false);
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined
+);
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
 
   useEffect(() => {
-    const isDarkMode = localStorage.getItem("darkMode") === "true";
-    setDarkMode(isDarkMode);
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const savedTheme = localStorage.getItem("theme") as
+      | "light"
+      | "dark"
+      | "system";
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+      if (savedTheme !== "system") {
+        document.documentElement.classList.toggle(
+          "dark",
+          savedTheme === "dark"
+        );
+      }
+    } else {
+      setTheme("system");
+      document.documentElement.classList.toggle("dark", systemPrefersDark);
+    }
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
+    if (theme === "system") {
+      const systemPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      document.documentElement.classList.toggle("dark", systemPrefersDark);
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.toggle("dark", theme === "dark");
     }
-    localStorage.setItem("darkMode", String(darkMode));
-  }, [darkMode]);
-
-  const toggleDarkMode = () => setDarkMode(!darkMode);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 };
-
-export const useTheme = () => useContext(ThemeContext);

@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={roboto.className}>
+        <body className={`${roboto.className} overflow-x-hidden`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

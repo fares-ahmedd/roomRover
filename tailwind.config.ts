@@ -22,6 +22,7 @@ const config: Config = {
       },
       animation: {
         "gradient-x": "gradient-x 1s ease infinite",
+        "slide-left": "slide-left 0.4s ease-out",
       },
       keyframes: {
         "gradient-x": {
@@ -33,6 +34,10 @@ const config: Config = {
             "background-size": "200% 200%",
             "background-position": "right center",
           },
+        },
+        "slide-left": {
+          from: { transform: "translateX(1000px)" },
+          to: { transform: "translateX(0px)" },
         },
       },
     },

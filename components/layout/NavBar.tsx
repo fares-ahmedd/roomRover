@@ -3,6 +3,7 @@ import PrimaryButton from "../ui/PrimaryButton";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import { ToggleTheme } from "../ToggleTheme";
+import Menu from "./Menu";
 
 function NavBar() {
   return (
@@ -16,6 +17,8 @@ function NavBar() {
           <PrimaryButton>SignUp</PrimaryButton>
           <PrimaryButton>Login</PrimaryButton>
         </div>
+
+        <Menu />
       </div>
     </header>
   );

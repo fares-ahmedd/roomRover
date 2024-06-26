@@ -17,9 +17,9 @@ const links = [
   },
 ];
 
-function NavLinks() {
+function NavLinks({ menu = false }: { menu?: boolean }) {
   return (
-    <ul className="flex items-center max-md:hidden">
+    <ul className={`flex items-center ${!menu && "max-md:hidden"}`}>
       {links.map((link, index) => (
         <li key={link.href} className="flex items-center">
           <LinkButton href={link.href}>

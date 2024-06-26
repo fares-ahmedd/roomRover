@@ -28,13 +28,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={roboto.className}>
-          <NavBar />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
+            <NavBar />
+
             {children}
           </ThemeProvider>
         </body>

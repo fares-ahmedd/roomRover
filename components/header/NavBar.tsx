@@ -1,9 +1,8 @@
-import { UserButton } from "@clerk/nextjs";
-import PrimaryButton from "../ui/PrimaryButton";
-import Logo from "./Logo";
-import NavLinks from "./NavLinks";
 import { ToggleTheme } from "../ToggleTheme";
+import Auth from "./Auth";
+import Logo from "./Logo";
 import Menu from "./Menu";
+import NavLinks from "./NavLinks";
 
 function NavBar() {
   return (
@@ -13,9 +12,7 @@ function NavBar() {
         <NavLinks />
         <div className="space-x-2 flex-center max-md:hidden">
           <ToggleTheme />
-          <UserButton afterSignOutUrl="/" />
-          <PrimaryButton>SignUp</PrimaryButton>
-          <PrimaryButton>Login</PrimaryButton>
+          <Auth />
         </div>
 
         <Menu />

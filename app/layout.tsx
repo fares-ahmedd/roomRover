@@ -1,7 +1,7 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import NavBar from "@/components/layout/NavBar";
+import NavBar from "@/components/header/NavBar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const roboto = Roboto({

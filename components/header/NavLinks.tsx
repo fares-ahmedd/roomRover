@@ -4,14 +4,14 @@ import { FaHotel } from "react-icons/fa";
 import { FaBookBookmark } from "react-icons/fa6";
 
 const links = [
-  { href: "/create-hotels", label: "Add Hotels", icon: <IoIosAdd /> },
+  { href: "/hotel/new", label: "Add Hotels", icon: <IoIosAdd /> },
   {
     href: "/my-hotels",
     label: "My Hotels",
     icon: <FaHotel className="text-sec-text text-sm" />,
   },
   {
-    href: "/my-hotels",
+    href: "/my-bookings",
     label: "My Bookings",
     icon: <FaBookBookmark className="text-sec-text text-sm" />,
   },

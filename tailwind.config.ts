@@ -23,6 +23,7 @@ const config: Config = {
       animation: {
         "gradient-x": "gradient-x 1s ease infinite",
         "slide-left": "slide-left 0.4s ease-out",
+        skeleton: "skeleton 1.5s ease-in-out infinite",
       },
       keyframes: {
         "gradient-x": {
@@ -38,6 +39,11 @@ const config: Config = {
         "slide-left": {
           from: { transform: "translateX(1000px)" },
           to: { transform: "translateX(0px)" },
+        },
+        skeleton: {
+          "0%": { opacity: "1" },
+          "50%": { opacity: "0.4 " },
+          "100%": { opacity: "1" },
         },
       },
     },

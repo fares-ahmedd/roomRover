@@ -10,7 +10,7 @@ function NavBar() {
       <div className="flex-between container  m-auto">
         <Logo />
         <NavLinks />
-        <div className="space-x-2 flex-center max-md:hidden">
+        <div className="space-x-2 flex-center gap-4 max-md:hidden">
           <ToggleTheme />
           <Auth />
         </div>

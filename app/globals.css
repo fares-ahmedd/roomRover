@@ -51,6 +51,9 @@ body {
   .container-layout {
     @apply px-2 sm:px-6 lg:px-12 py-2;
   }
+  .error-message {
+    @apply py-1 px-4 w-fit bg-red-100 text-red-700 border border-red-400 rounded-md my-2;
+  }
 }
 
 .no-select {

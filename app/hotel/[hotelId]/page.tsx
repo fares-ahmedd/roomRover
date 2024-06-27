@@ -11,7 +11,6 @@ interface HotelPageProps {
 async function HotelPage({ params }: HotelPageProps) {
   const hotel = await getHotelById(params.hotelId);
   const { userId } = auth();
-  console.log(hotel);
 
   if (!userId) return <div className="m-8">You&apos;re Not Authenticate!</div>;
 

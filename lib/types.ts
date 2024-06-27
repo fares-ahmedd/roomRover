@@ -76,3 +76,11 @@ export type Booking = {
 export type HotelWithRooms = Hotels & {
   rooms: Rooms[];
 };
+
+export interface Errors {
+  title?: string;
+  description?: string;
+  locationDescription?: string;
+  image?: string;
+  country?: string;
+}

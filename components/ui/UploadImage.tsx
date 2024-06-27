@@ -47,7 +47,7 @@ function UploadImage({ hotel }: AddHotelFormProps) {
       </label>
 
       <>
-        <div className="flex relative bg-sec-background flex-col items-center max-w-[400px] p-12 border-2 border-dotted border-blue-600 rounded mt-4">
+        <div className="flex relative w-full bg-sec-background flex-col items-center max-w-[400px] p-12 border-2 border-dotted border-blue-600 rounded mt-4">
           <input
             className={"hidden"}
             type="file"

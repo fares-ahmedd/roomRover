@@ -85,7 +85,7 @@ function SelectLocation() {
       </label>
       <select
         className="py-2  bg-sec-background px-4 w-full border rounded-md font-bold disabled:opacity-35 "
-        name="state"
+        name="city"
         disabled={cities.length < 1}
       >
         <option value="" disabled selected>

@@ -2,7 +2,7 @@ import CheckBox from "./CheckBox";
 
 function CheckList() {
   return (
-    <div>
+    <div className="mb-6">
       <span className="block">Choose Amenities</span>
       <label className="block text-sec-text text-sm mb-3">
         Choose Amenities popular in your hotel

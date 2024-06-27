@@ -18,7 +18,7 @@ function Input({ name, label, placeholder, title }: Props) {
         type="text"
         id={name}
         name={name}
-        className="border rounded-lg py-1 px-2 w-full   mb-3 "
+        className="border rounded-lg py-1 px-2 w-full   mb-3 bg-sec-background "
         placeholder={placeholder}
       />
     </>

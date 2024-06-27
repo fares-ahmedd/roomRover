@@ -36,6 +36,7 @@ function UploadImage({ hotel }: AddHotelFormProps) {
     if (imageInputRef.current) {
       imageInputRef.current.value = "";
     }
+    toast.error("removed image done!");
   }
 
   return (

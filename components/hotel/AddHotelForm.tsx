@@ -3,6 +3,7 @@ import Input from "../ui/Input";
 import TextArea from "../ui/TextArea";
 import CheckList from "../ui/CheckList";
 import UploadImage from "../ui/UploadImage";
+import SelectLocation from "./SelectLocation";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -31,7 +32,18 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
           <CheckList />
           <UploadImage hotel={hotel} />
         </section>
-        <section className="flex-1">Another Section</section>
+        <section className="flex-1">
+          <SelectLocation />
+          <TextArea
+            label="Provide a detailed location description of your hotel"
+            name="locationDescription"
+            placeholder="Located at the vary end of the beach road"
+            title="Location Description"
+          />
+          <div>
+            <button></button>
+          </div>
+        </section>
       </form>
     </div>
   );

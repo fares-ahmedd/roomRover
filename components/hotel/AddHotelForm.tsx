@@ -2,6 +2,7 @@ import { HotelWithRooms } from "@/lib/types";
 import Input from "../ui/Input";
 import TextArea from "../ui/TextArea";
 import CheckList from "../ui/CheckList";
+import UploadImage from "../ui/UploadImage";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -28,6 +29,7 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
             title="Hotel Description"
           />
           <CheckList />
+          <UploadImage hotel={hotel} />
         </section>
         <section className="flex-1">Another Section</section>
       </form>

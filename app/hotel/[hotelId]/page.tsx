@@ -1,6 +1,8 @@
 import AddHotelForm from "@/components/hotel/AddHotelForm";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { getHotelById } from "@/lib/dataServices";
 import { auth } from "@clerk/nextjs";
+import { Suspense } from "react";
 
 interface HotelPageProps {
   params: {
@@ -18,7 +20,20 @@ async function HotelPage({ params }: HotelPageProps) {
     return <div className="m-8">Access denied!</div>;
   return (
     <div>
-      <AddHotelForm hotel={hotel} />
+      <div className="container container-layout mx-auto my-2">
+        <h1 className="text-lg md:text-3xl font-bold mb-4">
+          Describe your hotel
+        </h1>
+        <Suspense
+          fallback={
+            <div className="mt-10 text-center">
+              <LoadingSpinner />
+            </div>
+          }
+        >
+          <AddHotelForm hotel={hotel} />
+        </Suspense>
+      </div>
     </div>
   );
 }

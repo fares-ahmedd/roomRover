@@ -25,7 +25,6 @@ export default async function createHotel(_: any, formData: any) {
   const coffeeShop = formData.get("coffeeShop") ? true : false;
 
   let errors: Errors = {};
-
   if (!title || title.trim().length === 0) {
     errors.title = "* Please write a valid Hotel Name";
   }
@@ -44,7 +43,7 @@ export default async function createHotel(_: any, formData: any) {
   if (!image || image.size === 0) {
     errors.image = "* image is required please select a hotel image";
   }
-
+  await new Promise((res) => setTimeout(res, 3000));
   if (
     errors.country ||
     errors.description ||

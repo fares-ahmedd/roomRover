@@ -24,6 +24,7 @@ const config: Config = {
         "gradient-x": "gradient-x 1s ease infinite",
         "slide-left": "slide-left 0.4s ease-out",
         skeleton: "skeleton 1.5s ease-in-out infinite",
+        "lds-roller": "lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
       },
       keyframes: {
         "gradient-x": {
@@ -44,6 +45,10 @@ const config: Config = {
           "0%": { opacity: "1" },
           "50%": { opacity: "0.4 " },
           "100%": { opacity: "1" },
+        },
+        "lds-roller": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
       },
     },

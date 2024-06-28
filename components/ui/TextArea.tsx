@@ -5,9 +5,10 @@ type Props = {
   label: string;
   placeholder?: string;
   title: string;
+  value: any;
 };
 
-function TextArea({ name, label, placeholder, title }: Props) {
+function TextArea({ name, label, placeholder, title, value }: Props) {
   return (
     <>
       <span className="block">{title}</span>
@@ -17,6 +18,7 @@ function TextArea({ name, label, placeholder, title }: Props) {
       <textarea
         id={name}
         name={name}
+        value={value}
         className="border bg-sec-background rounded-lg py-1 px-2  w-full mb-3 "
         placeholder={placeholder}
         rows={5}

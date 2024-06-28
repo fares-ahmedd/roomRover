@@ -15,3 +15,11 @@ export async function getHotelById(hotelId: string) {
 
   return hotel;
 }
+
+export async function createHotelInDatabase(formData: any) {
+  const { data, error } = await supabase.from("hotels").insert([formData]);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

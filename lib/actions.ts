@@ -1,9 +1,14 @@
 "use server";
 
+import { auth } from "@clerk/nextjs";
 import { uploadImage } from "./cloudinary";
+import { createHotelInDatabase } from "./dataServices";
 import { Errors } from "./types";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 export default async function createHotel(_: any, formData: any) {
+  const { userId } = auth();
   const title = formData.get("title");
   const description = formData.get("description");
   const locationDescription = formData.get("locationDescription");
@@ -25,6 +30,10 @@ export default async function createHotel(_: any, formData: any) {
   const coffeeShop = formData.get("coffeeShop") ? true : false;
 
   let errors: Errors = {};
+
+  if (!userId) {
+    errors.unAuth = "* You're not able to create an Hotel !";
+  }
   if (!title || title.trim().length === 0) {
     errors.title = "* Please write a valid Hotel Name";
   }
@@ -34,7 +43,7 @@ export default async function createHotel(_: any, formData: any) {
   }
   if (!locationDescription || locationDescription.trim().length < 10) {
     errors.locationDescription =
-      "* Please write a valid Location  Description (at least 10 character are required)";
+      "* Please write a valid Location Description (at least 10 character are required)";
   }
   if (!country || country.trim().length === 0) {
     errors.country = "* Please Select a country";
@@ -43,13 +52,14 @@ export default async function createHotel(_: any, formData: any) {
   if (!image || image.size === 0) {
     errors.image = "* image is required please select a hotel image";
   }
-  await new Promise((res) => setTimeout(res, 3000));
+  // await new Promise((res) => setTimeout(res, 3000));
   if (
     errors.country ||
     errors.description ||
     errors.image ||
     errors.locationDescription ||
-    errors.title
+    errors.title ||
+    errors.unAuth
   ) {
     return errors;
   }
@@ -60,4 +70,29 @@ export default async function createHotel(_: any, formData: any) {
   } catch (error) {
     throw new Error("Image upload failed please try again later");
   }
+
+  const data = await createHotelInDatabase({
+    title,
+    userId,
+    description,
+    locationDescription,
+    image: imageUrl,
+    country,
+    state,
+    city,
+    gym,
+    spa,
+    bar,
+    laundry,
+    restaurant,
+    shopping,
+    freeParking,
+    bikeRental,
+    freeWifi,
+    movieNights,
+    swimmingPool,
+    coffeeShop,
+  });
+
+  redirect(`/hotel/${data.id}`);
 }

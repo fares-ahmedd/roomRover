@@ -1,5 +1,6 @@
 "use client";
 
+import { supabaseAnonKey, supabaseUrl } from "@/lib/supabase";
 import { useFormStatus } from "react-dom";
 
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
 
 function PrimaryButton({ children, onClick, type }: Props) {
   const { pending } = useFormStatus();
+
   return (
     <button
       onClick={onClick}

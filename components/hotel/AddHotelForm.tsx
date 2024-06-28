@@ -11,6 +11,7 @@ import SecondaryButton from "../ui/SecondaryButton";
 import TextArea from "../ui/TextArea";
 import UploadImage from "../ui/UploadImage";
 import SelectLocation from "./SelectLocation";
+import NoteMessage from "../ui/NoteMessage";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -27,6 +28,7 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
           name="title"
           placeholder="Beach hotel"
           title="Hotel Name"
+          value={hotel?.title}
         />
         {state?.title && <p className="error-message">{state.title}</p>}
 
@@ -35,28 +37,33 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
           name="description"
           placeholder="type description about your hotel"
           title="Hotel Description"
+          value={hotel?.description}
         />
         {state?.description && (
           <p className="error-message">{state.description}</p>
         )}
 
-        <CheckList />
+        <CheckList hotel={{ ...hotel }} />
         <UploadImage hotel={hotel} />
         {state?.image && <p className="error-message">{state.image}</p>}
       </section>
       <section className="flex-1">
-        <SelectLocation />
+        <SelectLocation
+          state={hotel?.state}
+          country={hotel?.country}
+          city={hotel?.city}
+        />
         {state?.country && <p className="error-message">{state.country}</p>}
         <TextArea
           label="Provide a detailed location description of your hotel"
           name="locationDescription"
           placeholder="Located at the vary end of the beach road"
           title="Location Description"
+          value={hotel?.locationDescription}
         />
         {state?.locationDescription && (
           <p className="error-message">{state.locationDescription}</p>
         )}
-
         <div className="flex justify-end gap-2 ">
           <Link href={".."}>
             <PrimaryButton type={"button"}>Cancel</PrimaryButton>
@@ -68,6 +75,8 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
             </SecondaryButton>
           )}
         </div>
+        <NoteMessage>It may take some time to create your hotel</NoteMessage>
+        {state?.unAuth && <p className="error-message">{state.unAuth}</p>}
       </section>
     </form>
   );

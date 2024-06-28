@@ -3,7 +3,13 @@ import useLocation from "@/hooks/useLocation";
 import { ICity, IState } from "country-state-city";
 import { useEffect, useState } from "react";
 
-function SelectLocation() {
+type Props = {
+  country: string | undefined;
+  city: string | undefined;
+  state: string | undefined;
+};
+
+function SelectLocation({ country, city, state }: Props) {
   const { getAllCountries, getCountryStates, getStateCities } = useLocation();
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
@@ -41,7 +47,7 @@ function SelectLocation() {
           <select
             name="country"
             className="py-2 bg-sec-background px-4 w-full border rounded-md font-bold"
-            value={selectedCountry}
+            value={selectedCountry ? selectedCountry : country}
             onChange={(e) => setSelectedCountry(e.target.value)}
           >
             <option value="" disabled selected>
@@ -64,7 +70,7 @@ function SelectLocation() {
             className="py-2  bg-sec-background px-4 w-full border rounded-md font-bold disabled:opacity-35 "
             name="state"
             disabled={states.length < 1}
-            value={selectedCity}
+            value={selectedCity ? selectedCity : state}
             onChange={(e) => setSelectedCity(e.target.value)}
           >
             <option value="" disabled selected>
@@ -87,6 +93,7 @@ function SelectLocation() {
         className="py-2  bg-sec-background px-4 w-full border rounded-md font-bold disabled:opacity-35 "
         name="city"
         disabled={cities.length < 1}
+        value={city}
       >
         <option value="" disabled selected>
           Please Select a City

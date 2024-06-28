@@ -5,9 +5,10 @@ type Props = {
   label: string;
   placeholder?: string;
   title: string;
+  value: any;
 };
 
-function Input({ name, label, placeholder, title }: Props) {
+function Input({ name, label, placeholder, title, value }: Props) {
   return (
     <>
       <span className="block">{title}</span>
@@ -17,6 +18,7 @@ function Input({ name, label, placeholder, title }: Props) {
       <input
         type="text"
         id={name}
+        value={value}
         name={name}
         className="border rounded-lg py-1 px-2 w-full   mb-3 bg-sec-background "
         placeholder={placeholder}

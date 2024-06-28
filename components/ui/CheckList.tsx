@@ -1,6 +1,8 @@
 import CheckBox from "./CheckBox";
 
-function CheckList() {
+function CheckList({ hotel }: { hotel: any }) {
+  console.log(hotel);
+
   return (
     <div className="mb-6">
       <span className="block">Choose Amenities</span>

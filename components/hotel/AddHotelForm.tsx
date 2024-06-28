@@ -2,18 +2,20 @@
 import { createHotel, updateHotel } from "@/lib/actions";
 import { HotelWithRooms } from "@/lib/types";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
+import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import CheckList from "../ui/CheckList";
 import Input from "../ui/Input";
+import NoteMessage from "../ui/NoteMessage";
 import PrimaryButton from "../ui/PrimaryButton";
 import SecondaryButton from "../ui/SecondaryButton";
 import TextArea from "../ui/TextArea";
 import UploadImage from "../ui/UploadImage";
+import DeleteHotel from "./DeleteHotel";
 import SelectLocation from "./SelectLocation";
-import NoteMessage from "../ui/NoteMessage";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -31,6 +33,7 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
     }
     if (state.success && !hotel) {
       toast.success("Created hotel successfully");
+      redirect(state.redirectUrl ?? "/");
     }
     if (state.success === false && hotel) {
       toast.error("failed to update hotel");
@@ -84,7 +87,8 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
         {state?.locationDescription && (
           <p className="error-message">{state.locationDescription}</p>
         )}
-        <div className="flex justify-end gap-2 ">
+        <div className="flex justify-end gap-2 flex-wrap ">
+          <DeleteHotel hotel={hotel} />
           <Link href={".."}>
             <PrimaryButton type={"button"}>go back</PrimaryButton>
           </Link>
@@ -95,9 +99,15 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
             </SecondaryButton>
           )}
         </div>
+        {hotel && (
+          <NoteMessage>
+            * One last step please add some rooms to complete your hotel setup!{" "}
+          </NoteMessage>
+        )}
         <NoteMessage>
           It may take some time to create your hotel or update your hotel
         </NoteMessage>
+
         {state?.unAuth && <p className="error-message">{state.unAuth}</p>}
       </section>
       {hotel && <input type="hidden" name="imageUrl" value={hotel.image} />}

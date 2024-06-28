@@ -69,6 +69,9 @@ body {
   .disabled-btn {
     @apply disabled:text-white disabled:bg-stone-600 disabled:opacity-80 disabled:hover:brightness-90 hover:scale-100;
   }
+  .delete-btn {
+    @apply bg-red-700 text-white p-2 rounded-lg flex-center gap-1;
+  }
 }
 
 .no-select {

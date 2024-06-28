@@ -17,7 +17,7 @@ function CheckBox({
         name={name}
         value="Bike"
         className="cursor-pointer"
-        checked={checked}
+        defaultChecked={checked}
       />
       <label htmlFor={name} className="no-select">
         {" "}

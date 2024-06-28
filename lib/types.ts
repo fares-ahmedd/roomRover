@@ -85,4 +85,10 @@ export interface Errors {
   country?: string;
   unAuth?: string;
   success?: boolean;
+  redirectUrl?: string;
 }
+
+export type DeleteHotelState = {
+  success: boolean | null;
+  redirectUrl: string;
+};

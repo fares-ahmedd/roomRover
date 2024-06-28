@@ -1,12 +1,14 @@
 "use server";
 
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { uploadImage } from "./cloudinary";
-import { createHotelInDatabase, updateHotelInDatabase } from "./dataServices";
-import { Errors } from "./types";
+import {
+  createHotelInDatabase,
+  deleteHotel,
+  updateHotelInDatabase,
+} from "./dataServices";
 import { getData } from "./helpers";
-import { revalidatePath } from "next/cache";
+import { DeleteHotelState, Errors } from "./types";
 
 export async function createHotel(_: any, formData: any) {
   let errors: Errors = {};
@@ -96,7 +98,10 @@ export async function createHotel(_: any, formData: any) {
     coffeeShop,
   });
 
-  redirect(`/hotel/${data[0].id}`);
+  return {
+    success: true,
+    redirectUrl: `/`,
+  };
 }
 
 export async function updateHotel(_: any, formData: any) {
@@ -191,5 +196,21 @@ export async function updateHotel(_: any, formData: any) {
     return { success: true };
   } catch {
     return { success: false };
+  }
+}
+
+export async function deleteHotelAction(
+  _: DeleteHotelState,
+  formData: FormData
+): Promise<DeleteHotelState> {
+  const hotelId = formData.get("hotelId");
+
+  console.log("is function ?");
+
+  try {
+    await deleteHotel(hotelId as string);
+    return { success: true, redirectUrl: `/` };
+  } catch (error) {
+    return { success: false, redirectUrl: "" };
   }
 }

@@ -84,4 +84,5 @@ export interface Errors {
   image?: string;
   country?: string;
   unAuth?: string;
+  success?: boolean;
 }

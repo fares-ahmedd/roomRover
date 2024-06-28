@@ -1,6 +1,14 @@
 import React from "react";
 
-function CheckBox({ label, name }: { label: string; name: string }) {
+function CheckBox({
+  label,
+  name,
+  checked,
+}: {
+  label: string;
+  name: string;
+  checked: boolean;
+}) {
   return (
     <div className="space-x-2">
       <input
@@ -9,6 +17,7 @@ function CheckBox({ label, name }: { label: string; name: string }) {
         name={name}
         value="Bike"
         className="cursor-pointer"
+        checked={checked}
       />
       <label htmlFor={name} className="no-select">
         {" "}

@@ -18,7 +18,7 @@ function Input({ name, label, placeholder, title, value }: Props) {
       <input
         type="text"
         id={name}
-        value={value}
+        defaultValue={value}
         name={name}
         className="border rounded-lg py-1 px-2 w-full   mb-3 bg-sec-background "
         placeholder={placeholder}

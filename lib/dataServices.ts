@@ -10,16 +10,26 @@ export async function getHotelById(hotelId: string) {
     )
     .eq("id", hotelId)
     .single();
+  console.log(hotel);
 
   if (!hotel.data) return null;
 
-  return hotel;
+  return hotel.data;
 }
 
 export async function createHotelInDatabase(formData: any) {
-  const { data, error } = await supabase.from("hotels").insert([formData]);
+  const { data, error } = await supabase
+    .from("hotels")
+    .insert([formData])
+    .select();
 
   if (error) throw new Error(error.message);
 
   return data;
+}
+
+export async function updateHotelInDatabase(id: string, formData: any) {
+  const { error } = await supabase.from("hotels").update(formData).eq("id", id);
+
+  if (error) throw new Error(error.message);
 }

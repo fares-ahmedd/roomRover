@@ -1,8 +1,8 @@
 "use client";
-import createHotel from "@/lib/actions";
+import { createHotel, updateHotel } from "@/lib/actions";
 import { HotelWithRooms } from "@/lib/types";
 import Link from "next/link";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { FaEdit } from "react-icons/fa";
 import CheckList from "../ui/CheckList";
 import Input from "../ui/Input";
@@ -12,13 +12,33 @@ import TextArea from "../ui/TextArea";
 import UploadImage from "../ui/UploadImage";
 import SelectLocation from "./SelectLocation";
 import NoteMessage from "../ui/NoteMessage";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
 }
 
 function AddHotelForm({ hotel }: AddHotelFormProps) {
-  const [state, formAction] = useFormState(createHotel, {});
+  const [state, formAction] = useFormState(
+    hotel ? updateHotel : createHotel,
+    {}
+  );
+
+  useEffect(() => {
+    if (state.success && hotel) {
+      toast.success("updated hotel done!");
+    }
+    if (state.success && !hotel) {
+      toast.success("Created hotel successfully");
+    }
+    if (state.success === false && hotel) {
+      toast.error("failed to update hotel");
+    }
+    if (state.success === false && !hotel) {
+      toast.error("failed to Create hotel");
+    }
+  }, [state, hotel]);
 
   return (
     <form action={formAction} className="flex flex-col  md:flex-row gap-3">
@@ -66,7 +86,7 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
         )}
         <div className="flex justify-end gap-2 ">
           <Link href={".."}>
-            <PrimaryButton type={"button"}>Cancel</PrimaryButton>
+            <PrimaryButton type={"button"}>go back</PrimaryButton>
           </Link>
           {!hotel && <SecondaryButton>Create a Hotel +</SecondaryButton>}
           {hotel && (
@@ -75,9 +95,13 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
             </SecondaryButton>
           )}
         </div>
-        <NoteMessage>It may take some time to create your hotel</NoteMessage>
+        <NoteMessage>
+          It may take some time to create your hotel or update your hotel
+        </NoteMessage>
         {state?.unAuth && <p className="error-message">{state.unAuth}</p>}
       </section>
+      {hotel && <input type="hidden" name="imageUrl" value={hotel.image} />}
+      {hotel && <input type="hidden" name="id" value={hotel.id} />}
     </form>
   );
 }

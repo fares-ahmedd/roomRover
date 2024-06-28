@@ -18,7 +18,7 @@ function TextArea({ name, label, placeholder, title, value }: Props) {
       <textarea
         id={name}
         name={name}
-        value={value}
+        defaultValue={value}
         className="border bg-sec-background rounded-lg py-1 px-2  w-full mb-3 "
         placeholder={placeholder}
         rows={5}

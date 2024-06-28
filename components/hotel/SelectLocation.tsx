@@ -2,6 +2,8 @@
 import useLocation from "@/hooks/useLocation";
 import { ICity, IState } from "country-state-city";
 import { useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
 
 type Props = {
   country: string | undefined;
@@ -16,25 +18,27 @@ function SelectLocation({ country, city, state }: Props) {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  console.log(selectedCountry);
-
   const countries = getAllCountries();
   useEffect(() => {
-    const country = selectedCountry;
-    const countryStates = getCountryStates(country);
+    const storeCountry = selectedCountry ? selectedCountry : country;
+    const countryStates = getCountryStates(storeCountry ?? "");
     if (countryStates) {
       setStates(countryStates);
     }
-  }, [selectedCountry, getCountryStates]);
+  }, [selectedCountry, getCountryStates, country]);
 
   useEffect(() => {
-    const country = selectedCountry;
-    const selectedState = selectedCity;
-    const stateCities = getStateCities(country, selectedState);
+    const storeCountry = selectedCountry ? selectedCountry : country;
+    const storeSelectedState = selectedCity ? selectedCity : state;
+    const stateCities = getStateCities(
+      storeCountry ?? "",
+      storeSelectedState ?? ""
+    );
     if (stateCities) {
       setCities(stateCities);
     }
-  }, [selectedCountry, selectedCity, getStateCities]);
+  }, [selectedCountry, selectedCity, getStateCities, country, state]);
+
   return (
     <section className="mb-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
@@ -93,7 +97,7 @@ function SelectLocation({ country, city, state }: Props) {
         className="py-2  bg-sec-background px-4 w-full border rounded-md font-bold disabled:opacity-35 "
         name="city"
         disabled={cities.length < 1}
-        value={city}
+        defaultValue={city}
       >
         <option value="" disabled selected>
           Please Select a City

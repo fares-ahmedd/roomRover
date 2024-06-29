@@ -1,11 +1,11 @@
 import React from "react";
 
 type Props = {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
   placeholder?: string;
-  title: string;
-  value: any;
+  title?: string;
+  value?: any;
 };
 
 function Input({ name, label, placeholder, title, value }: Props) {

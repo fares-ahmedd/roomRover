@@ -36,6 +36,7 @@ function Model({ children }: ModelProps) {
 
 interface OpenModelProps {
   id: string;
+  children: React.ReactNode;
 }
 
 function useModelContext() {
@@ -46,7 +47,7 @@ function useModelContext() {
   return context;
 }
 
-function OpenModel({ id }: OpenModelProps) {
+function OpenModel({ id, children }: OpenModelProps) {
   const { open } = useModelContext();
   const { pending } = useFormStatus();
   function handleClick() {
@@ -54,13 +55,8 @@ function OpenModel({ id }: OpenModelProps) {
   }
 
   return (
-    <button
-      disabled={pending}
-      onClick={handleClick}
-      className="delete-btn disabled:disabled-btn w-full"
-      type="button"
-    >
-      Delete <FaTrash />
+    <button disabled={pending} onClick={handleClick} type="button">
+      {children}
     </button>
   );
 }
@@ -82,7 +78,10 @@ function Content({ id, children }: ContentProps) {
 
   return createPortal(
     <div className="fixed z-[100px] w-full h-screen flex-center bg-black/30 backdrop-blur-sm top-0 left-0 animate-model overflow-auto ">
-      <div ref={elementRef} className="w-[70%] max-w-[450px] ">
+      <div
+        ref={elementRef}
+        className="w-[70%] max-w-[650px] h-screen-78 mt-[78px] "
+      >
         {children({ close })}
       </div>
     </div>,

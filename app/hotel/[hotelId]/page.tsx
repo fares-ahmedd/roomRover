@@ -1,7 +1,7 @@
 import AddHotelForm from "@/components/hotel/AddHotelForm";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { getHotelById } from "@/lib/dataServices";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { Suspense } from "react";
 
 interface HotelPageProps {
@@ -33,7 +33,7 @@ async function HotelPage({ params }: HotelPageProps) {
             </div>
           }
         >
-          <AddHotelForm hotel={hotel} />
+          <AddHotelForm hotel={hotel} userId={userId} />
         </Suspense>
       </div>
     </div>

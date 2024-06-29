@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaEye } from "react-icons/fa";
 import CheckList from "../ui/CheckList";
 import Input from "../ui/Input";
 import NoteMessage from "../ui/NoteMessage";
@@ -16,12 +16,14 @@ import UploadImage from "../ui/UploadImage";
 import DeleteHotel from "./DeleteHotel";
 import SelectLocation from "./SelectLocation";
 import { redirect } from "next/navigation";
+import CreateRoom from "./CreateRoom";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
+  userId: string;
 }
 
-function AddHotelForm({ hotel }: AddHotelFormProps) {
+function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
   const [state, formAction] = useFormState(
     hotel ? updateHotel : createHotel,
     {}
@@ -88,18 +90,28 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
           <p className="error-message">{state.locationDescription}</p>
         )}
         <div className="flex justify-end gap-2 flex-wrap-reverse ">
-          <Link href={".."}>
-            <PrimaryButton type={"button"}>go back</PrimaryButton>
-          </Link>
+          {!hotel && (
+            <Link href={".."}>
+              <PrimaryButton type={"button"}>go back</PrimaryButton>
+            </Link>
+          )}
+          {hotel && (
+            <Link href={`/hotel-details/${hotel.id}`}>
+              <PrimaryButton type={"button"} className="flex-center gap-2">
+                <span>View</span> <FaEye />
+              </PrimaryButton>
+            </Link>
+          )}
           <DeleteHotel hotel={hotel} />
 
           {!hotel && <SecondaryButton>Create a Hotel +</SecondaryButton>}
           {hotel && (
             <SecondaryButton className="max-sm:flex-1">
-              Edit Hotel <FaEdit />
+              Update Hotel <FaEdit />
             </SecondaryButton>
           )}
         </div>
+        {hotel && <CreateRoom />}
         {hotel && (
           <NoteMessage>
             * One last step please add some rooms to complete your hotel setup!{" "}
@@ -113,6 +125,7 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
       </section>
       {hotel && <input type="hidden" name="imageUrl" value={hotel.image} />}
       {hotel && <input type="hidden" name="id" value={hotel.id} />}
+      <input type="hidden" name="userId" value={userId} />
     </form>
   );
 }

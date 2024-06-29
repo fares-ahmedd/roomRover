@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { uploadImage } from "./cloudinary";
 import {
   createHotelInDatabase,

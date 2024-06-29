@@ -1,7 +1,5 @@
-import { auth } from "@clerk/nextjs";
-
 export function getData(formData: any) {
-  const { userId } = auth();
+  const userId = formData.get("userId");
   const title = formData.get("title");
   const description = formData.get("description");
   const locationDescription = formData.get("locationDescription");
@@ -23,7 +21,6 @@ export function getData(formData: any) {
   const coffeeShop = formData.get("coffeeShop") ? true : false;
 
   return {
-    userId,
     title,
     description,
     locationDescription,
@@ -43,5 +40,6 @@ export function getData(formData: any) {
     movieNights,
     swimmingPool,
     coffeeShop,
+    userId,
   };
 }

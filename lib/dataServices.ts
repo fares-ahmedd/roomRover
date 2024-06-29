@@ -43,3 +43,8 @@ export async function deleteHotel(hotelId: string) {
 
   if (error) throw new Error("could not delete hotel");
 }
+export async function deleteRoom(roomId: string) {
+  const { error } = await supabase.from("rooms").delete().eq("id", roomId);
+
+  if (error) throw new Error("could not delete hotel");
+}

@@ -17,6 +17,7 @@ import DeleteHotel from "./DeleteHotel";
 import SelectLocation from "./SelectLocation";
 import { redirect } from "next/navigation";
 import CreateRoom from "../room/CreateRoom";
+import Rooms from "../room/Rooms";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -112,6 +113,9 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
           )}
         </div>
         {hotel && <CreateRoom hotel={hotel} />}
+        {(hotel?.rooms?.length ?? 0) > 0 && (
+          <Rooms rooms={hotel?.rooms ?? []} />
+        )}{" "}
         {hotel && (
           <NoteMessage>
             * One last step please add some rooms to complete your hotel setup!{" "}
@@ -120,7 +124,6 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
         <NoteMessage>
           It may take some time to create your hotel or update your hotel
         </NoteMessage>
-
         {state?.unAuth && <p className="error-message">{state.unAuth}</p>}
       </section>
       {hotel && <input type="hidden" name="imageUrl" value={hotel.image} />}

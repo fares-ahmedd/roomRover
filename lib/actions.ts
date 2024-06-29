@@ -1,10 +1,12 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { uploadImage } from "./cloudinary";
 import {
   createHotelInDatabase,
   createRoomInDatabase,
   deleteHotel,
+  deleteRoom,
   updateHotelInDatabase,
 } from "./dataServices";
 import { getData, getRoomData } from "./helpers";
@@ -212,7 +214,21 @@ export async function deleteHotelAction(
 
   try {
     await deleteHotel(hotelId as string);
+    revalidatePath("/hotel/", "layout");
     return { success: true, redirectUrl: `/` };
+  } catch (error) {
+    return { success: false, redirectUrl: "" };
+  }
+}
+export async function deleteRoomAction(
+  _: DeleteHotelState,
+  formData: FormData
+): Promise<DeleteHotelState> {
+  const roomId = formData.get("roomId");
+
+  try {
+    await deleteRoom(roomId as string);
+    return { success: true, redirectUrl: "/" };
   } catch (error) {
     return { success: false, redirectUrl: "" };
   }
@@ -330,7 +346,7 @@ export async function createRoom(_: any, formData: any) {
       kingBed,
       queenBed,
     });
-
+    revalidatePath("/hotel/", "layout");
     return {
       success: true,
     };

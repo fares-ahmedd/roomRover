@@ -65,10 +65,11 @@ function OpenModel({ id, children }: OpenModelProps) {
 interface ContentProps {
   id: string;
   children: (props: { close: () => void }) => React.ReactNode;
-  isSuccess: boolean | undefined;
+  isSuccess?: boolean | undefined;
+  deleteModel?: boolean;
 }
 
-function Content({ id, children, isSuccess }: ContentProps) {
+function Content({ id, children, isSuccess, deleteModel }: ContentProps) {
   const { openId, close } = useModelContext();
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +77,7 @@ function Content({ id, children, isSuccess }: ContentProps) {
     if (isSuccess) {
       close();
     }
-  }, [isSuccess]);
+  }, [isSuccess, close]);
   useClickOutside([elementRef], () => {
     close();
   });
@@ -87,7 +88,9 @@ function Content({ id, children, isSuccess }: ContentProps) {
     <div className="fixed z-[100px] w-full h-screen flex-center bg-black/30 backdrop-blur-sm top-0 left-0 animate-model overflow-auto ">
       <div
         ref={elementRef}
-        className=" w-[90%] md:w-[70%] max-w-[650px] h-screen-78 mt-[78px] "
+        className={` w-[90%] md:w-[70%] max-w-[650px] ${
+          !deleteModel && "h-screen-78"
+        }  mt-[78px] `}
       >
         {children({ close })}
       </div>

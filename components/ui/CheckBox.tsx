@@ -10,7 +10,7 @@ function CheckBox({
   checked: boolean;
 }) {
   return (
-    <div className="space-x-2">
+    <div className="space-x-2 p-2 rounded-lg border">
       <input
         type="checkbox"
         id={name}

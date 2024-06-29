@@ -80,7 +80,7 @@ function Content({ id, children }: ContentProps) {
     <div className="fixed z-[100px] w-full h-screen flex-center bg-black/30 backdrop-blur-sm top-0 left-0 animate-model overflow-auto ">
       <div
         ref={elementRef}
-        className="w-[70%] max-w-[650px] h-screen-78 mt-[78px] "
+        className=" w-[90%] md:w-[70%] max-w-[650px] h-screen-78 mt-[78px] "
       >
         {children({ close })}
       </div>

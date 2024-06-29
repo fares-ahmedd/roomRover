@@ -92,3 +92,10 @@ export type DeleteHotelState = {
   success: boolean | null;
   redirectUrl: string;
 };
+
+export interface ErrorRoom {
+  title?: string;
+  description?: string;
+  image?: string;
+  roomPrice?: string;
+}

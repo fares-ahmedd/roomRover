@@ -6,9 +6,17 @@ type Props = {
   placeholder?: string;
   title?: string;
   value?: any;
+  type?: string;
 };
 
-function Input({ name, label, placeholder, title, value }: Props) {
+function Input({
+  name,
+  label,
+  placeholder,
+  title,
+  value,
+  type = "text",
+}: Props) {
   return (
     <>
       <span className="block">{title}</span>
@@ -16,7 +24,7 @@ function Input({ name, label, placeholder, title, value }: Props) {
         {label}
       </label>
       <input
-        type="text"
+        type={type}
         id={name}
         defaultValue={value}
         name={name}

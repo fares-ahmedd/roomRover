@@ -98,4 +98,11 @@ export interface ErrorRoom {
   description?: string;
   image?: string;
   roomPrice?: string;
+  bedCount?: string;
+  guestCount?: string;
+  breakFastPrice?: string;
+  bathroomCount?: string;
+  kingBed?: string;
+  queenBed?: string;
+  success?: boolean;
 }

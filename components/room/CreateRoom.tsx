@@ -1,3 +1,4 @@
+"use client";
 import { MdBedroomParent } from "react-icons/md";
 import Model from "../ui/Model";
 import Input from "../ui/Input";
@@ -8,6 +9,9 @@ import PrimaryButton from "../ui/PrimaryButton";
 import SecondaryButton from "../ui/SecondaryButton";
 import { useFormState } from "react-dom";
 import { HotelWithRooms } from "@/lib/types";
+import { createRoom } from "@/lib/actions";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
   // userId: string;
@@ -15,15 +19,23 @@ interface AddHotelFormProps {
 function CreateRoom({ hotel }: AddHotelFormProps) {
   const [state, formAction] = useFormState(createRoom, {});
 
+  useEffect(() => {
+    if (state?.success) {
+      toast.success("Created a  room");
+    } else if (state?.success === false) {
+      toast.error("failed to create a  room");
+    }
+  }, [state, hotel]);
+
   return (
-    <div className="border-t py-2 my-2  flex justify-end">
+    <div className="border-y py-2 my-2  flex justify-end">
       <Model>
         <Model.OpenModel id="create-room">
           <span className="bg-btn-prim flex-center gap-1 text-btn-text py-2 px-4 rounded-full duration-300 hover:brightness-125  disabled-btn">
             Add a room to hotel <MdBedroomParent />
           </span>
         </Model.OpenModel>
-        <Model.Content id="create-room">
+        <Model.Content id="create-room" isSuccess={state?.success}>
           {({ close }) => (
             <div className="bg-sec-background text-main-text py-6 px-4 w-[100%] rounded-md  h-full overflow-auto">
               <h2 className="text-xl md:text-3xl font-bold">Add a room</h2>
@@ -54,6 +66,7 @@ function CreateRoom({ hotel }: AddHotelFormProps) {
                 <div className="grid justify-center">
                   <UploadImage />
                 </div>
+                {state?.image && <p className="error-message">{state.image}</p>}
                 <div className="grid-layout my-4">
                   <section className="flex flex-col justify-between">
                     <Input

@@ -4,6 +4,7 @@ import React, {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -64,12 +65,18 @@ function OpenModel({ id, children }: OpenModelProps) {
 interface ContentProps {
   id: string;
   children: (props: { close: () => void }) => React.ReactNode;
+  isSuccess: boolean | undefined;
 }
 
-function Content({ id, children }: ContentProps) {
+function Content({ id, children, isSuccess }: ContentProps) {
   const { openId, close } = useModelContext();
   const elementRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (isSuccess) {
+      close();
+    }
+  }, [isSuccess]);
   useClickOutside([elementRef], () => {
     close();
   });

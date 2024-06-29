@@ -27,7 +27,11 @@ export async function createHotelInDatabase(formData: any) {
 
   return data;
 }
+export async function createRoomInDatabase(formData: any) {
+  const { error } = await supabase.from("rooms").insert([formData]);
 
+  if (error) throw new Error(error.message);
+}
 export async function updateHotelInDatabase(id: string, formData: any) {
   const { error } = await supabase.from("hotels").update(formData).eq("id", id);
 

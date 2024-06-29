@@ -55,16 +55,6 @@ function RoomCheckboxList({ hotel }: { hotel: any }) {
           label="Sound Proofed"
           checked={hotel?.movieNights === true}
         />
-        <CheckBox
-          name="swimmingPool"
-          label="Swimming Pool"
-          checked={hotel?.swimmingPool === true}
-        />
-        <CheckBox
-          name="coffeeShop"
-          label="Coffee Shop"
-          checked={hotel?.coffeeShop === true}
-        />
       </div>
     </div>
   );

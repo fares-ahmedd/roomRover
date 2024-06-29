@@ -23,9 +23,11 @@ export default function Error({ error, reset }: ErrorComponentProps) {
       <p className="text-lg text-sec-text">{error.message}</p>
 
       <div className="space-x-4">
-        <PrimaryButton onClick={reset}>Try again</PrimaryButton>
+        <PrimaryButton onClick={reset} type="button">
+          Try again
+        </PrimaryButton>
         <Link href={"/"}>
-          <PrimaryButton>Go Home</PrimaryButton>
+          <PrimaryButton type="button">Go Home</PrimaryButton>
         </Link>
       </div>
     </main>

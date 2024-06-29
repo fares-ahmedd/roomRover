@@ -28,10 +28,10 @@ function Auth() {
       {!userId && (
         <div className="flex space-x-2">
           <Link href={"sign-up"} className="block w-full h-full">
-            <PrimaryButton>SignUp</PrimaryButton>
+            <PrimaryButton type="button">SignUp</PrimaryButton>
           </Link>
           <Link href={"sign-in"}>
-            <PrimaryButton>Login</PrimaryButton>
+            <PrimaryButton type="button">Login</PrimaryButton>
           </Link>
         </div>
       )}

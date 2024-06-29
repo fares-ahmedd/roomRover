@@ -75,33 +75,38 @@ export async function createHotel(_: any, formData: any) {
     throw new Error("Image upload failed please try again later");
   }
 
-  const data = await createHotelInDatabase({
-    title,
-    userId,
-    description,
-    locationDescription,
-    image: imageUrl,
-    country,
-    state,
-    city,
-    gym,
-    spa,
-    bar,
-    laundry,
-    restaurant,
-    shopping,
-    freeParking,
-    bikeRental,
-    freeWifi,
-    movieNights,
-    swimmingPool,
-    coffeeShop,
-  });
-
-  return {
-    success: true,
-    redirectUrl: `/`,
-  };
+  try {
+    const data = await createHotelInDatabase({
+      title,
+      userId,
+      description,
+      locationDescription,
+      image: imageUrl,
+      country,
+      state,
+      city,
+      gym,
+      spa,
+      bar,
+      laundry,
+      restaurant,
+      shopping,
+      freeParking,
+      bikeRental,
+      freeWifi,
+      movieNights,
+      swimmingPool,
+      coffeeShop,
+    });
+    return {
+      success: true,
+      redirectUrl: `/hotel/${data[0].id}`,
+    };
+  } catch {
+    return {
+      success: false,
+    };
+  }
 }
 
 export async function updateHotel(_: any, formData: any) {
@@ -204,8 +209,6 @@ export async function deleteHotelAction(
   formData: FormData
 ): Promise<DeleteHotelState> {
   const hotelId = formData.get("hotelId");
-
-  console.log("is function ?");
 
   try {
     await deleteHotel(hotelId as string);

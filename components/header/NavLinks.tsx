@@ -1,7 +1,7 @@
-import LinkButton from "../ui/LinkButton";
-import { IoIosAdd } from "react-icons/io";
 import { FaHotel } from "react-icons/fa";
 import { FaBookBookmark } from "react-icons/fa6";
+import { IoIosAdd } from "react-icons/io";
+import LinkButton from "../ui/LinkButton";
 
 const links = [
   { href: "/hotel/new", label: "Add Hotels", icon: <IoIosAdd /> },

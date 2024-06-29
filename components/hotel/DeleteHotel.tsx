@@ -1,12 +1,13 @@
 "use client";
+import { deleteHotelAction } from "@/lib/actions";
 import { HotelWithRooms } from "@/lib/types";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
+import toast from "react-hot-toast";
 import Model from "../ui/Model";
 import PrimaryButton from "../ui/PrimaryButton";
-import { deleteHotelAction } from "@/lib/actions";
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import DeleteButton from "./DeleteButton";
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
 }
@@ -40,13 +41,7 @@ function DeleteHotel({ hotel }: AddHotelFormProps) {
                   </PrimaryButton>
                   <form action={formAction}>
                     <input type="hidden" name="hotelId" value={hotel.id} />
-                    <button
-                      className="delete-btn"
-                      type="submit"
-                      onClick={close}
-                    >
-                      Confirm
-                    </button>
+                    <DeleteButton />
                   </form>
                 </main>
               </div>

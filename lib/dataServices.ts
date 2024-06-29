@@ -33,6 +33,7 @@ export async function updateHotelInDatabase(id: string, formData: any) {
 
   if (error) throw new Error(error.message);
 }
+
 export async function deleteHotel(hotelId: string) {
   const { error } = await supabase.from("hotels").delete().eq("id", hotelId);
 

@@ -41,7 +41,7 @@ function Menu() {
       {isOpen && (
         <div className="backdrop-blur-sm bg-black/20 absolute h-screen-78 w-full left-0 top-[78px] animate-slide-left z-50">
           <div className="flex-between p-6 border-b">
-            <div className="space-x-2" onClick={handleToggle}>
+            <div className="space-x-2">
               <Auth />
             </div>
             <ToggleTheme />

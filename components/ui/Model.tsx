@@ -29,7 +29,7 @@ function Model({ children }: ModelProps) {
 
   return (
     <ModelContext.Provider value={{ openId, close, open }}>
-      <div>{children}</div>
+      <div className="max-sm:flex-1">{children}</div>
     </ModelContext.Provider>
   );
 }
@@ -57,7 +57,7 @@ function OpenModel({ id }: OpenModelProps) {
     <button
       disabled={pending}
       onClick={handleClick}
-      className="delete-btn disabled:disabled-btn "
+      className="delete-btn disabled:disabled-btn w-full"
       type="button"
     >
       Delete <FaTrash />

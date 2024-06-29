@@ -87,14 +87,15 @@ function AddHotelForm({ hotel }: AddHotelFormProps) {
         {state?.locationDescription && (
           <p className="error-message">{state.locationDescription}</p>
         )}
-        <div className="flex justify-end gap-2 flex-wrap ">
-          <DeleteHotel hotel={hotel} />
+        <div className="flex justify-end gap-2 flex-wrap-reverse ">
           <Link href={".."}>
             <PrimaryButton type={"button"}>go back</PrimaryButton>
           </Link>
+          <DeleteHotel hotel={hotel} />
+
           {!hotel && <SecondaryButton>Create a Hotel +</SecondaryButton>}
           {hotel && (
-            <SecondaryButton>
+            <SecondaryButton className="max-sm:flex-1">
               Edit Hotel <FaEdit />
             </SecondaryButton>
           )}

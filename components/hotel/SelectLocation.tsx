@@ -58,7 +58,7 @@ function SelectLocation({ country, city, state }: Props) {
               Please Select a country
             </option>
             {countries.map((country) => (
-              <option key={country.isoCode} value={country.isoCode}>
+              <option key={country.isoCode} value={country.name}>
                 {country.name}
               </option>
             ))}

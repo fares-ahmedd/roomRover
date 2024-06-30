@@ -14,7 +14,7 @@ function HotelRating({ starRating }: { starRating: any }) {
         name="startRating"
         className="py-2 bg-sec-background px-4 w-full border rounded-md font-bold"
         id="startRating"
-        value={starRating}
+        defaultValue={starRating}
       >
         <option value="" disabled selected>
           Please select a star rating

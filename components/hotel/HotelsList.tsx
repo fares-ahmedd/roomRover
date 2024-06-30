@@ -1,33 +1,32 @@
-import { getAllHotelsWithRooms } from "@/lib/dataServices";
-import Image from "next/image";
-import Link from "next/link";
+import {
+  filterHotelsWithRooms,
+  getAllHotelsWithRooms,
+} from "@/lib/dataServices";
+import HotelItem from "./HotelItem";
 
 async function HotelsList() {
-  const hotels = await getAllHotelsWithRooms();
+  const hotels = await filterHotelsWithRooms("Disnay hotell");
 
-  if (hotels.length === 0) return;
+  if (!hotels || hotels?.length === 0)
+    return (
+      <main className="text-center mt-8 text-xl">
+        <h4>Not Found any hotel </h4>
+      </main>
+    );
   return (
     <main>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        {hotels.map((hotel: any) => (
-          <li key={hotel.id}>
-            <Link
-              href={`hotel-details/${hotel.id}`}
-              className="flex rounded-lg "
-            >
-              <div className="w-1/2  min-h-[200px] md:min-h-[300px]  relative">
-                <Image
-                  src={hotel.image}
-                  alt={hotel.title}
-                  fill
-                  quality={100}
-                  className="rounded-s-lg"
-                />
-              </div>
-              <section></section>
-            </Link>
-          </li>
-        ))}
+        {hotels.map((hotel: any) => {
+          const features = [
+            { isTrue: hotel?.gym, label: "Gym" },
+            { isTrue: hotel?.spa, label: "Spa" },
+            { isTrue: hotel?.bar, label: "Bar" },
+            { isTrue: hotel?.laundry, label: "Laundry" },
+            { isTrue: hotel?.freeWifi, label: "FreeWifi" },
+            { isTrue: hotel?.swimmingPool, label: "SwimmingPool" },
+          ].filter((feature) => feature.isTrue === true);
+          return <HotelItem features={features} key={hotel.id} hotel={hotel} />;
+        })}
       </ul>
     </main>
   );

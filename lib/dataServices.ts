@@ -73,3 +73,26 @@ export async function getAllHotelsWithRooms() {
 
   return data;
 }
+
+export async function filterHotelsWithRooms(searchString: string) {
+  const { data, error } = await supabase
+    .from("hotels")
+    .select(
+      `
+      *,
+      rooms (*)
+    `
+    )
+    .ilike("title", `%${searchString}%`);
+
+  if (error) {
+    console.error("Error fetching hotels:", error);
+    return null;
+  }
+
+  if (!data || data.length === 0) {
+    return [];
+  }
+
+  return data;
+}

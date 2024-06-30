@@ -18,11 +18,6 @@ function useLocation() {
     return state;
   }
 
-  // function getCountryStates(countryCode: string) {
-  //   return State.getAllStates().filter(
-  //     (state) => state.countryCode === countryCode
-  //   );
-  // }
   const getCountryStates = useCallback((countryCode: string) => {
     return State.getAllStates().filter(
       (state) => state.countryCode === countryCode

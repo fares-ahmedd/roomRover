@@ -17,7 +17,7 @@ function RoomCheckboxList({ currentRoom }: Props) {
           label="24 hrs Room Services"
           checked={currentRoom?.roomService === true}
         />
-        <CheckBox name="TV" label="TV" checked={currentRoom?.tv === true} />
+        <CheckBox name="TV" label="TV" checked={currentRoom?.TV === true} />
         <CheckBox
           name="balcony"
           label="Balcony"

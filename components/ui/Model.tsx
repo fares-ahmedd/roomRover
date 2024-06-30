@@ -9,7 +9,6 @@ import React, {
   useState,
 } from "react";
 import { createPortal, useFormStatus } from "react-dom";
-import { FaTrash } from "react-icons/fa";
 
 interface ModelContextType {
   openId: string;
@@ -83,6 +82,7 @@ function Content({ id, children, isSuccess, deleteModel }: ContentProps) {
   });
 
   if (openId !== id) return null;
+  console.log("Exuted");
 
   return createPortal(
     <div className="fixed z-[100px] w-full h-screen flex-center bg-black/30 backdrop-blur-sm top-0 left-0 animate-model overflow-auto ">

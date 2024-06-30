@@ -18,6 +18,7 @@ import SelectLocation from "./SelectLocation";
 import { redirect } from "next/navigation";
 import CreateAndUpdateRoom from "../room/CreateAndUpdateRoom";
 import Rooms from "../room/Rooms";
+import HotelRating from "./HotelRating";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -74,6 +75,7 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
         {state?.image && <p className="error-message">{state.image}</p>}
       </section>
       <section className="flex-1">
+        <HotelRating starRating={hotel?.starRating} />
         <SelectLocation
           state={hotel?.state}
           country={hotel?.country}

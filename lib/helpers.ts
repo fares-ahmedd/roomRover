@@ -1,5 +1,6 @@
 export function getData(formData: any) {
   const userId = formData.get("userId");
+  const starRating = formData.get("startRating");
   const title = formData.get("title");
   const description = formData.get("description");
   const locationDescription = formData.get("locationDescription");
@@ -41,6 +42,7 @@ export function getData(formData: any) {
     swimmingPool,
     coffeeShop,
     userId,
+    starRating,
   };
 }
 

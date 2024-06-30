@@ -1,6 +1,7 @@
 export type Hotels = {
   id: string;
   userId: string;
+  starRating: string;
   title: string;
   description: string;
   image: string;
@@ -41,7 +42,7 @@ export type Rooms = {
   breakfastPrice: number;
   roomPrice: number;
   roomService: boolean;
-  tv: boolean;
+  TV: boolean;
   balcony: boolean;
   freeWifi: boolean;
   cityView: boolean;
@@ -86,6 +87,7 @@ export interface Errors {
   unAuth?: string;
   success?: boolean;
   redirectUrl?: string;
+  starRating?: string;
 }
 
 export type DeleteHotelState = {

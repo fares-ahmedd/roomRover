@@ -55,3 +55,21 @@ export async function deleteRoom(roomId: string) {
 
   if (error) throw new Error("could not delete hotel");
 }
+
+export async function getAllHotelsWithRooms() {
+  const { data, error } = await supabase.from("hotels").select(`
+      *,
+      rooms (*)
+    `);
+
+  if (error) {
+    console.error("Error fetching hotels:", error);
+    return null;
+  }
+
+  if (!data || data.length === 0) {
+    return [];
+  }
+
+  return data;
+}

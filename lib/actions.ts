@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { uploadImage } from "./cloudinary";
 import {
   createHotelInDatabase,
@@ -19,6 +18,7 @@ export async function createHotel(_: any, formData: any) {
   const {
     bar,
     bikeRental,
+    starRating,
     city,
     coffeeShop,
     country,
@@ -59,6 +59,9 @@ export async function createHotel(_: any, formData: any) {
   if (!image || image.size === 0) {
     errors.image = "* image is required please select a hotel image";
   }
+  if (!starRating || Number(starRating) === 0) {
+    errors.starRating = "* Please Select a hotel Star Rating";
+  }
 
   if (
     errors.country ||
@@ -66,7 +69,8 @@ export async function createHotel(_: any, formData: any) {
     errors.image ||
     errors.locationDescription ||
     errors.title ||
-    errors.unAuth
+    errors.unAuth ||
+    errors.starRating
   ) {
     return errors;
   }
@@ -100,6 +104,7 @@ export async function createHotel(_: any, formData: any) {
       movieNights,
       swimmingPool,
       coffeeShop,
+      starRating,
     });
     return {
       success: true,
@@ -116,6 +121,7 @@ export async function updateHotel(_: any, formData: any) {
   const {
     bar,
     bikeRental,
+    starRating,
     city,
     coffeeShop,
     country,
@@ -156,13 +162,16 @@ export async function updateHotel(_: any, formData: any) {
   if (!country || country.trim().length === 0) {
     errors.country = "* Please Select a country";
   }
-
+  if (!starRating || Number(starRating) === 0) {
+    errors.starRating = "* Please Select a hotel Star Rating";
+  }
   if (
     errors.country ||
     errors.description ||
     errors.locationDescription ||
     errors.title ||
-    errors.unAuth
+    errors.unAuth ||
+    errors.starRating
   ) {
     return errors;
   }
@@ -190,6 +199,8 @@ export async function updateHotel(_: any, formData: any) {
       city,
       gym,
       spa,
+      starRating,
+
       bar,
       laundry,
       restaurant,

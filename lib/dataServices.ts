@@ -10,7 +10,6 @@ export async function getHotelById(hotelId: string) {
     )
     .eq("id", hotelId)
     .single();
-  console.log(hotel);
 
   if (!hotel.data) return null;
 
@@ -34,6 +33,14 @@ export async function createRoomInDatabase(formData: any) {
 }
 export async function updateHotelInDatabase(id: string, formData: any) {
   const { error } = await supabase.from("hotels").update(formData).eq("id", id);
+
+  if (error) throw new Error(error.message);
+}
+export async function updateRoomInDatabase(roomId: string, formData: any) {
+  const { error } = await supabase
+    .from("rooms")
+    .update(formData)
+    .eq("id", roomId);
 
   if (error) throw new Error(error.message);
 }

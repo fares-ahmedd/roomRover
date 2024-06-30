@@ -1,6 +1,9 @@
+import { Rooms } from "@/lib/types";
 import CheckBox from "../ui/CheckBox";
-
-function RoomCheckboxList({ hotel }: { hotel: any }) {
+type Props = {
+  currentRoom: Rooms | undefined;
+};
+function RoomCheckboxList({ currentRoom }: Props) {
   return (
     <div className="mb-6">
       <span className="block">Choose Room Amenities</span>
@@ -12,48 +15,48 @@ function RoomCheckboxList({ hotel }: { hotel: any }) {
         <CheckBox
           name="roomService"
           label="24 hrs Room Services"
-          checked={hotel?.gym === true}
+          checked={currentRoom?.roomService === true}
         />
-        <CheckBox name="TV" label="TV" checked={hotel?.spa === true} />
+        <CheckBox name="TV" label="TV" checked={currentRoom?.tv === true} />
         <CheckBox
           name="balcony"
           label="Balcony"
-          checked={hotel?.bar === true}
+          checked={currentRoom?.balcony === true}
         />
         <CheckBox
           name="freeWifi"
           label="Free Wifi"
-          checked={hotel?.laundry === true}
+          checked={currentRoom?.freeWifi === true}
         />
         <CheckBox
           name="cityView"
           label="City View"
-          checked={hotel?.restaurant === true}
+          checked={currentRoom?.cityView === true}
         />
         <CheckBox
           name="oceanView"
           label="Ocean View"
-          checked={hotel?.shopping === true}
+          checked={currentRoom?.oceanView === true}
         />
         <CheckBox
           name="forestView"
           label="Forest View"
-          checked={hotel?.freeParking === true}
+          checked={currentRoom?.forestView === true}
         />
         <CheckBox
           name="mountainView"
           label="Mountain View"
-          checked={hotel?.bikeRental === true}
+          checked={currentRoom?.mountainView === true}
         />
         <CheckBox
           name="airConditions"
           label="Air Conditions"
-          checked={hotel?.freeWifi === true}
+          checked={currentRoom?.airConditions === true}
         />
         <CheckBox
           name="soundProofed"
           label="Sound Proofed"
-          checked={hotel?.movieNights === true}
+          checked={currentRoom?.soundProofed === true}
         />
       </div>
     </div>

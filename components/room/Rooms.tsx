@@ -2,8 +2,11 @@ import Image from "next/image";
 import RoomInfoList from "./RoomInfoList";
 import RoomPrices from "./RoomPrices";
 import DeleteRoom from "./DeleteRoom";
+import CreateAndUpdateRoom from "./CreateAndUpdateRoom";
+import { HotelWithRooms } from "@/lib/types";
+export const revalidate = 0; // ! it will revalidate the request after 5s
 
-function Rooms({ rooms }: { rooms: any }) {
+function Rooms({ rooms, hotel }: { rooms: any; hotel: HotelWithRooms | null }) {
   return (
     <div>
       <h3 className="text-lg md:text-2xl font-bold mb-3">Rooms</h3>
@@ -26,6 +29,7 @@ function Rooms({ rooms }: { rooms: any }) {
             <RoomPrices room={room} />
             <div className="mt-4 flex-between">
               <DeleteRoom roomId={room.id} />
+              <CreateAndUpdateRoom hotel={hotel} room={room} />
             </div>
           </li>
         ))}

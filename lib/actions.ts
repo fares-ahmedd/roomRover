@@ -8,6 +8,7 @@ import {
   deleteHotel,
   deleteRoom,
   updateHotelInDatabase,
+  updateRoomInDatabase,
 } from "./dataServices";
 import { getData, getRoomData } from "./helpers";
 import { DeleteHotelState, ErrorRoom, Errors } from "./types";
@@ -214,7 +215,6 @@ export async function deleteHotelAction(
 
   try {
     await deleteHotel(hotelId as string);
-    revalidatePath("/hotel/", "layout");
     return { success: true, redirectUrl: `/` };
   } catch (error) {
     return { success: false, redirectUrl: "" };
@@ -261,7 +261,6 @@ export async function createRoom(_: any, formData: any) {
     kingBed,
     queenBed,
   } = getRoomData(formData);
-  console.log(getRoomData(formData));
 
   if (!title || title.trim().length === 0) {
     errors.title = "* Please write a valid Hotel Name";
@@ -346,7 +345,129 @@ export async function createRoom(_: any, formData: any) {
       kingBed,
       queenBed,
     });
-    revalidatePath("/hotel/", "layout");
+    return {
+      success: true,
+    };
+  } catch (error: any) {
+    console.log(error?.message);
+
+    return {
+      success: false,
+    };
+  }
+}
+
+export async function updateRoom(_: any, formData: any) {
+  let errors: ErrorRoom = {};
+
+  const {
+    roomId,
+    title,
+    description,
+    TV,
+    image,
+    roomPrice,
+
+    soundProofed,
+    airConditions,
+    mountainView,
+    forestView,
+    balcony,
+    cityView,
+    oceanView,
+    freeWifi,
+    roomService,
+    bedCount,
+    guestCount,
+    bathroomCount,
+    breakFastPrice,
+    kingBed,
+    queenBed,
+  } = getRoomData(formData);
+  const selectedImage = formData.get("imageUrl");
+  if (!title || title.trim().length === 0) {
+    errors.title = "* Please write a valid Hotel Name";
+  }
+  if (!description || description.trim().length < 10) {
+    errors.description =
+      "* Please write a valid description (at least 10 character are required)";
+  }
+
+  if (!roomPrice || Number(roomPrice) === 0) {
+    errors.roomPrice = "* Please write a valid Price";
+  }
+
+  if (!bedCount || Number(bedCount) > 10 || Number(bedCount) === 0) {
+    errors.bedCount = "* Required (bed Count must be between 1 to 10) ";
+  }
+  if (!guestCount || Number(guestCount) > 10 || Number(guestCount) === 0) {
+    errors.guestCount = "* Required (guest Count must be between 1 to 10) ";
+  }
+  if (
+    !bathroomCount ||
+    Number(bathroomCount) > 10 ||
+    Number(bathroomCount) === 0
+  ) {
+    errors.bathroomCount =
+      "* Required (bathroom Count must be between 1 to 10) ";
+  }
+  if (!kingBed || Number(kingBed) > 10 || Number(kingBed) === 0) {
+    errors.kingBed = "* Required (kingBed Count must be between 1 to 10) ";
+  }
+  if (!queenBed || Number(queenBed) > 10 || Number(queenBed) === 0) {
+    errors.queenBed = "* Required (queenBed Count must be between 1 to 10) ";
+  }
+
+  if (
+    errors.roomPrice ||
+    errors.description ||
+    errors.title ||
+    errors.bedCount ||
+    errors.guestCount ||
+    errors.bathroomCount ||
+    errors.kingBed ||
+    errors.queenBed
+  ) {
+    return errors;
+  }
+
+  let imageUrl;
+  if (image.size > 0) {
+    try {
+      imageUrl = await uploadImage(image);
+    } catch (error) {
+      throw new Error("Image upload failed please try again later");
+    }
+  } else {
+    imageUrl = selectedImage;
+  }
+
+  try {
+    await updateRoomInDatabase(roomId, {
+      id: roomId,
+      title,
+      description,
+      TV,
+      image: imageUrl,
+      roomPrice,
+
+      soundProofed,
+      airConditions,
+      mountainView,
+      forestView,
+      balcony,
+      cityView,
+      oceanView,
+      freeWifi,
+      roomService,
+      bedCount,
+      guestCount,
+      bathroomCount,
+      breakFastPrice,
+      kingBed,
+      queenBed,
+    });
+
     return {
       success: true,
     };

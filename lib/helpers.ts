@@ -46,6 +46,7 @@ export function getData(formData: any) {
 
 export function getRoomData(formData: any) {
   const hotelId = formData.get("hotelId");
+  const roomId = formData.get("roomId");
   const title = formData.get("title");
   const description = formData.get("description");
   const image = formData.get("image");
@@ -89,5 +90,6 @@ export function getRoomData(formData: any) {
     breakFastPrice,
     kingBed,
     queenBed,
+    roomId,
   };
 }

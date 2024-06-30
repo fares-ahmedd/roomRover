@@ -16,7 +16,7 @@ import UploadImage from "../ui/UploadImage";
 import DeleteHotel from "./DeleteHotel";
 import SelectLocation from "./SelectLocation";
 import { redirect } from "next/navigation";
-import CreateRoom from "../room/CreateRoom";
+import CreateAndUpdateRoom from "../room/CreateAndUpdateRoom";
 import Rooms from "../room/Rooms";
 
 interface AddHotelFormProps {
@@ -112,9 +112,9 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
             </SecondaryButton>
           )}
         </div>
-        {hotel && <CreateRoom hotel={hotel} />}
+        {hotel && <CreateAndUpdateRoom hotel={hotel} />}
         {(hotel?.rooms?.length ?? 0) > 0 && (
-          <Rooms rooms={hotel?.rooms ?? []} />
+          <Rooms rooms={hotel?.rooms ?? []} hotel={hotel} />
         )}{" "}
         {hotel && (
           <NoteMessage>

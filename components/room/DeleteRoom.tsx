@@ -6,19 +6,22 @@ import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { deleteHotelAction, deleteRoomAction } from "@/lib/actions";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function DeleteRoom({ roomId }: { roomId: string }) {
+  const router = useRouter();
   const [state, formAction] = useFormState(deleteRoomAction, {
     success: null,
     redirectUrl: "",
   });
   useEffect(() => {
     if (state.success) {
+      router.refresh();
       toast.success("Deleted Room successfully");
     } else if (state.success === false) {
       toast.error("Failed to delete Room");
     }
-  }, [state, roomId]);
+  }, [state, roomId, router]);
 
   return (
     <Model>

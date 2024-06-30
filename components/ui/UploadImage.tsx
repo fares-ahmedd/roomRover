@@ -1,12 +1,11 @@
 "use client";
-import { HotelWithRooms } from "@/lib/types";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
 
 interface AddHotelFormProps {
-  hotel: HotelWithRooms | null;
+  hotel: any;
 }
 
 function UploadImage({ hotel }: AddHotelFormProps) {

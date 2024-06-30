@@ -12,6 +12,7 @@ interface HotelPageProps {
 export const metadata = {
   title: "Hotel Operations",
 };
+
 async function HotelPage({ params }: HotelPageProps) {
   const hotel = await getHotelById(params.hotelId);
   const { userId } = auth();

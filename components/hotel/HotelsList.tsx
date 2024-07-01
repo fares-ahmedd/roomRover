@@ -4,8 +4,12 @@ import {
 } from "@/lib/dataServices";
 import HotelItem from "./HotelItem";
 
-async function HotelsList() {
-  const hotels = await filterHotelsWithRooms("Disnay hotell");
+async function HotelsList({ query }: { query: string | undefined }) {
+  console.log(query);
+
+  const hotels = query
+    ? await filterHotelsWithRooms(query)
+    : await getAllHotelsWithRooms();
 
   if (!hotels || hotels?.length === 0)
     return (

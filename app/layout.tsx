@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/header/NavBar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "react-hot-toast";
+import DataProvider from "@/components/DataContext";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -36,7 +37,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NavBar />
-            {children}
+            <DataProvider> {children}</DataProvider>
             <Toaster position="top-right" reverseOrder={false} />
           </ThemeProvider>
         </body>

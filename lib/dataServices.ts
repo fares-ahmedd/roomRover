@@ -74,7 +74,7 @@ export async function getAllHotelsWithRooms() {
   return data;
 }
 
-export async function filterHotelsWithRooms(searchString: string) {
+export async function filterHotelsWithRooms(searchString: string | undefined) {
   const { data, error } = await supabase
     .from("hotels")
     .select(

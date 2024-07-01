@@ -1,14 +1,13 @@
 "use client";
 
-import { FaSearch } from "react-icons/fa";
-import { useDataContext } from "../DataContext";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import qs from "query-string";
+import { useEffect, useState } from "react";
+import { FaSearch } from "react-icons/fa";
 
 import useDebounce from "@/hooks/useDebounce";
 
-function SearchInput() {
+function SearchInput({ hotelTitles }: { hotelTitles: string[] }) {
   const [value, setValue] = useState("");
   const [initialRender, setInitialRender] = useState(true);
   const debouncedValue = useDebounce<string>(value, 300);
@@ -29,11 +28,13 @@ function SearchInput() {
           : query,
     });
     router.push(url);
-  }, [debouncedValue, router, initialRender]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue, router]);
 
   useEffect(() => {
     setInitialRender(false);
-  }, [initialRender]);
+  }, []);
+
   if (pathname !== "/") return null;
 
   return (
@@ -44,7 +45,13 @@ function SearchInput() {
         placeholder="Search for hotel..."
         className="py-2 pl-2 pr-4 w-full bg-transparent outline-none duration-300 min-w-[250px] focus:min-w-[265px] lg:min-w-[350px] lg:focus:min-w-[365px]"
         onChange={(e) => setValue(e.target.value)}
+        list="countries-names"
       />
+      <datalist id="countries-names">
+        {hotelTitles.map((title, index) => (
+          <option value={title} key={index}></option>
+        ))}
+      </datalist>
     </div>
   );
 }

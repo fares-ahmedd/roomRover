@@ -3,10 +3,16 @@ import {
   getAllHotelsWithRooms,
 } from "@/lib/dataServices";
 import HotelItem from "./HotelItem";
+import {
+  FaDumbbell,
+  FaSpa,
+  FaCocktail,
+  FaTshirt,
+  FaWifi,
+  FaSwimmingPool,
+} from "react-icons/fa";
 
 async function HotelsList({ query }: { query: string | undefined }) {
-  console.log(query);
-
   const hotels = query
     ? await filterHotelsWithRooms(query)
     : await getAllHotelsWithRooms();
@@ -22,12 +28,16 @@ async function HotelsList({ query }: { query: string | undefined }) {
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {hotels.map((hotel: any) => {
           const features = [
-            { isTrue: hotel?.gym, label: "Gym" },
-            { isTrue: hotel?.spa, label: "Spa" },
-            { isTrue: hotel?.bar, label: "Bar" },
-            { isTrue: hotel?.laundry, label: "Laundry" },
-            { isTrue: hotel?.freeWifi, label: "FreeWifi" },
-            { isTrue: hotel?.swimmingPool, label: "SwimmingPool" },
+            { isTrue: hotel?.gym, label: "Gym", icon: <FaDumbbell /> },
+            { isTrue: hotel?.spa, label: "Spa", icon: <FaSpa /> },
+            { isTrue: hotel?.bar, label: "Bar", icon: <FaCocktail /> },
+            { isTrue: hotel?.laundry, label: "Laundry", icon: <FaTshirt /> },
+            { isTrue: hotel?.freeWifi, label: "Free Wifi", icon: <FaWifi /> },
+            {
+              isTrue: hotel?.swimmingPool,
+              label: "Swimming Pool",
+              icon: <FaSwimmingPool />,
+            },
           ].filter((feature) => feature.isTrue === true);
           return <HotelItem features={features} key={hotel.id} hotel={hotel} />;
         })}

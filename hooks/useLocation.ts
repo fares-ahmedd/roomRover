@@ -17,22 +17,19 @@ function useLocation() {
 
     return state;
   }
+  console.log(State.getAllStates());
 
-  const getCountryStates = useCallback((countryCode: string) => {
-    return State.getAllStates().filter(
-      (state) => state.countryCode === countryCode
-    );
+  const getCountryStates = useCallback((name: string) => {
+    return State.getAllStates().filter((state) => {
+      return state.name === name;
+    });
   }, []);
 
-  const getStateCities = useCallback(
-    (countryCode: string, stateCode: string) => {
-      return City.getAllCities().filter(
-        (city) =>
-          city.countryCode === countryCode && city.stateCode === stateCode
-      );
-    },
-    []
-  );
+  const getStateCities = useCallback((name: string, stateCode: string) => {
+    return City.getAllCities().filter(
+      (city) => city.name === name && city.stateCode === stateCode
+    );
+  }, []);
 
   return {
     getAllCountries: Country.getAllCountries,

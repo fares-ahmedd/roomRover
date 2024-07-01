@@ -2,8 +2,6 @@
 import useLocation from "@/hooks/useLocation";
 import { ICity, IState } from "country-state-city";
 import { useEffect, useState } from "react";
-import { useFormStatus } from "react-dom";
-import toast from "react-hot-toast";
 
 type Props = {
   country: string | undefined;
@@ -17,8 +15,8 @@ function SelectLocation({ country, city, state }: Props) {
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-
   const countries = getAllCountries();
+
   useEffect(() => {
     const storeCountry = selectedCountry ? selectedCountry : country;
     const countryStates = getCountryStates(storeCountry ?? "");

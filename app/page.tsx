@@ -24,13 +24,6 @@ export default function Home({ searchParams }: Props) {
       >
         <HotelsList query={searchParams.query} />
       </Suspense>
-      {/* <label htmlFor="browser">Choose your browser from the list:</label>
-      <input list="browsers" name="browser" id="browser" />
-
-      <datalist id="browsers">
-        <option value="Chrome" />
-        <option value="Firefox" />
-      </datalist> */}
     </div>
   );
 }

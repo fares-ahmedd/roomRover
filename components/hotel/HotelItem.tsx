@@ -5,7 +5,7 @@ import Link from "next/link";
 
 type Props = {
   hotel: any;
-  features: { isTrue: any; label: string }[];
+  features: { isTrue: any; label: string; icon: any }[];
 };
 
 function HotelItem({ hotel, features }: Props) {
@@ -40,9 +40,9 @@ function HotelItem({ hotel, features }: Props) {
             {features.map((feature, index) => (
               <li
                 key={index}
-                className="bg-main-background p-1 px-3 rounded-lg "
+                className="bg-main-background p-1 px-3 rounded-lg flex gap-2 text-sm items-center "
               >
-                {feature.label}
+                {feature.icon} {feature.label}
               </li>
             ))}
           </ul>

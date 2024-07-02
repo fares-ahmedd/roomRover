@@ -13,28 +13,22 @@ function Filter() {
   const [selectedCity, setSelectedCity] = useState("");
   const countries = getAllCountries();
 
-  console.log(states);
-
   useEffect(() => {
-    const countryStates = getCountryStates("Egypt" ?? "");
+    const countryStates = getCountryStates(selectedCountry ?? "");
     if (countryStates) {
       setStates(countryStates);
-      console.log(countryStates);
     }
   }, [selectedCountry, getCountryStates]);
 
   useEffect(() => {
-    const storeCountry = selectedCountry;
-    const storeSelectedState = selectedCity;
     const stateCities = getStateCities(
-      storeCountry ?? "",
-      storeSelectedState ?? ""
+      selectedCountry ?? "",
+      selectedCity ?? ""
     );
     if (stateCities) {
       setCities(stateCities);
     }
   }, [selectedCountry, selectedCity, getStateCities]);
-  console.log(selectedCountry);
 
   return (
     <div className="flex space-x-2">
@@ -63,7 +57,10 @@ function Filter() {
                   Filter By Country
                 </option>
                 {countries.map((country) => (
-                  <option key={country.isoCode} value={country.name}>
+                  <option
+                    key={country.isoCode}
+                    value={`${country.name}?${country.isoCode}`}
+                  >
                     {country.name}
                   </option>
                 ))}
@@ -83,7 +80,7 @@ function Filter() {
                   Filter By State
                 </option>
                 {states.map((state) => (
-                  <option key={state.isoCode} value={state.name}>
+                  <option key={state.isoCode} value={state.isoCode}>
                     {state.name}
                   </option>
                 ))}

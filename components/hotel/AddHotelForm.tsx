@@ -15,7 +15,7 @@ import TextArea from "../ui/TextArea";
 import UploadImage from "../ui/UploadImage";
 import DeleteHotel from "./DeleteHotel";
 import SelectLocation from "./SelectLocation";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import CreateAndUpdateRoom from "../room/CreateAndUpdateRoom";
 import Rooms from "../room/Rooms";
 import HotelRating from "./HotelRating";
@@ -26,6 +26,7 @@ interface AddHotelFormProps {
 }
 
 function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
+  const router = useRouter();
   const [state, formAction] = useFormState(
     hotel ? updateHotel : createHotel,
     {}
@@ -37,7 +38,7 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
     }
     if (state.success && !hotel) {
       toast.success("Created hotel successfully");
-      redirect(state.redirectUrl ?? "/");
+      router.push(state.redirectUrl ?? "/");
     }
     if (state.success === false && hotel) {
       toast.error("failed to update hotel");
@@ -45,7 +46,7 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
     if (state.success === false && !hotel) {
       toast.error("failed to Create hotel");
     }
-  }, [state, hotel]);
+  }, [state, hotel, router]);
 
   return (
     <form action={formAction} className="flex flex-col  md:flex-row gap-3">

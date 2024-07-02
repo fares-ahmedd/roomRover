@@ -1,18 +1,19 @@
 "use client";
 import { deleteHotelAction } from "@/lib/actions";
 import { HotelWithRooms } from "@/lib/types";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
+import { FaTrash } from "react-icons/fa";
+import DeleteButton from "../ui/DeleteButton";
 import Model from "../ui/Model";
 import PrimaryButton from "../ui/PrimaryButton";
-import DeleteButton from "../ui/DeleteButton";
-import { FaTrash } from "react-icons/fa";
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
 }
 function DeleteHotel({ hotel }: AddHotelFormProps) {
+  const router = useRouter();
   const [state, formAction] = useFormState(deleteHotelAction, {
     success: null,
     redirectUrl: "",
@@ -20,11 +21,12 @@ function DeleteHotel({ hotel }: AddHotelFormProps) {
   useEffect(() => {
     if (state.success) {
       toast.success("Deleted hotel successfully");
-      redirect(state.redirectUrl);
+      router.push("/");
+      router.refresh();
     } else if (state.success === false) {
       toast.error("Failed to delete hotel");
     }
-  }, [state, hotel]);
+  }, [state, hotel, router]);
   return (
     <>
       {hotel && (

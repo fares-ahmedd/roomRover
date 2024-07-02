@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { uploadImage } from "./cloudinary";
 import {
   createHotelInDatabase,
@@ -89,7 +90,9 @@ export async function createHotel(_: any, formData: any) {
       description,
       locationDescription,
       image: imageUrl,
-      country,
+      country: country.split("?")[0],
+      latitude: country.split("?")[2],
+      longitude: country.split("?")[3],
       state,
       city,
       gym,
@@ -106,6 +109,7 @@ export async function createHotel(_: any, formData: any) {
       coffeeShop,
       starRating,
     });
+    // revalidatePath("/");
     return {
       success: true,
       redirectUrl: `/hotel/${data[0].id}`,
@@ -194,7 +198,7 @@ export async function updateHotel(_: any, formData: any) {
       description,
       locationDescription,
       image: imageUrl,
-      country,
+      country: country.split("?")[0],
       state,
       city,
       gym,
@@ -212,6 +216,9 @@ export async function updateHotel(_: any, formData: any) {
       swimmingPool,
       coffeeShop,
     });
+
+    revalidatePath("/");
+
     return { success: true };
   } catch {
     return { success: false };

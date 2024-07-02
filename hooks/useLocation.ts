@@ -17,17 +17,16 @@ function useLocation() {
 
     return state;
   }
-  console.log(State.getAllStates());
-
-  const getCountryStates = useCallback((name: string) => {
-    return State.getAllStates().filter((state) => {
-      return state.name === name;
-    });
+  const getCountryStates = useCallback((value: string) => {
+    return State.getAllStates().filter(
+      (state) => state.countryCode === value.split("?")[1]
+    );
   }, []);
 
-  const getStateCities = useCallback((name: string, stateCode: string) => {
+  const getStateCities = useCallback((value: string, stateCode: string) => {
     return City.getAllCities().filter(
-      (city) => city.name === name && city.stateCode === stateCode
+      (city) =>
+        city.countryCode === value.split("?")[1] && city.stateCode === stateCode
     );
   }, []);
 

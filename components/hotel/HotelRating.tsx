@@ -2,7 +2,7 @@ const ratingArray = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
 
 function HotelRating({ starRating }: { starRating: any }) {
   return (
-    <div>
+    <div className="mt-2">
       <span className="block">Hotel Star Rating</span>
       <label
         htmlFor={"startRating"}

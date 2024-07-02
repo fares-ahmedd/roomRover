@@ -109,7 +109,10 @@ export async function createHotel(_: any, formData: any) {
       coffeeShop,
       starRating,
     });
-    // revalidatePath("/");
+    setTimeout(() => {
+      revalidatePath("/");
+      console.log("executed");
+    }, 0);
     return {
       success: true,
       redirectUrl: `/hotel/${data[0].id}`,
@@ -217,8 +220,10 @@ export async function updateHotel(_: any, formData: any) {
       coffeeShop,
     });
 
-    revalidatePath("/");
-
+    setTimeout(() => {
+      revalidatePath("/");
+      revalidatePath("/hotel", "layout");
+    }, 0);
     return { success: true };
   } catch {
     return { success: false };

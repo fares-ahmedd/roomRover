@@ -2,8 +2,15 @@
 import { IoFilter } from "react-icons/io5";
 import Model from "../ui/Model";
 import useLocation from "@/hooks/useLocation";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ICity, IState } from "country-state-city";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import PrimaryButton from "../ui/PrimaryButton";
+const priceArray = [
+  { label: "All", value: "all" },
+  { label: "Lowest price", value: "lowest" },
+  { label: "highest price", value: "highest" },
+];
 
 function Filter() {
   const { getAllCountries, getCountryStates, getStateCities } = useLocation();
@@ -12,6 +19,9 @@ function Filter() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const countries = getAllCountries();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const countryStates = getCountryStates(selectedCountry ?? "");
@@ -29,9 +39,34 @@ function Filter() {
       setCities(stateCities);
     }
   }, [selectedCountry, selectedCity, getStateCities]);
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>, type: string) => {
+    const value = e.target.value;
 
+    if (type === "country") {
+      setSelectedCountry(value);
+    }
+    if (type === "states") {
+      setSelectedCity(value);
+    }
+    const params = new URLSearchParams(searchParams);
+    params.set(type, type === "country" ? value.split("?")[0] : value);
+    router.replace(`${pathname}?${params.toString()}`, {
+      scroll: false,
+    });
+  };
+  const clearFilters = () => {
+    setSelectedCountry("");
+    setSelectedCity("");
+    setCities([]);
+    setStates([]);
+    router.replace(pathname, { scroll: false });
+  };
+  const hasActiveFilters = () =>
+    searchParams.get("country") !== null ||
+    searchParams.get("states") !== null ||
+    searchParams.get("cities") !== null;
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-2 items-center">
       <Model>
         <Model.OpenModel id="filter">
           <span className="flex items-center gap-1 bg-sec-background py-2 px-3 rounded duration-300 hover:brightness-110">
@@ -50,7 +85,7 @@ function Filter() {
               <select
                 className="py-2  bg-sec-background px-4 w-full  border rounded-md font-bold disabled:opacity-35 "
                 value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
+                onChange={(e) => handleChange(e, "country")}
                 id="country"
               >
                 <option value="" disabled selected>
@@ -74,7 +109,7 @@ function Filter() {
                 id="states"
                 disabled={states.length < 1}
                 value={selectedCity}
-                onChange={(e) => setSelectedCity(e.target.value)}
+                onChange={(e) => handleChange(e, "states")}
               >
                 <option value="" disabled selected>
                   Filter By State
@@ -93,6 +128,7 @@ function Filter() {
                 className="py-2  bg-sec-background px-4 w-full mt-2 border rounded-md font-bold disabled:opacity-35 "
                 disabled={cities.length < 1}
                 id="cities"
+                onChange={(e) => handleChange(e, "cities")}
               >
                 <option value="" disabled selected>
                   Filter By City
@@ -103,11 +139,33 @@ function Filter() {
                   </option>
                 ))}
               </select>
+              <section className="flex justify-end items-center gap-2 mt-2">
+                <PrimaryButton type="button" onClick={close}>
+                  Close
+                </PrimaryButton>
+                {hasActiveFilters() && (
+                  <button
+                    onClick={clearFilters}
+                    className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
+                  >
+                    Clear Filters
+                  </button>
+                )}{" "}
+              </section>
             </div>
           )}
         </Model.Content>
       </Model>
-      <h1>Place holder</h1>
+      <select className="p-2   bg-sec-background  w-full max-w-[150px]  border rounded-md font-bold disabled:opacity-35 ">
+        <option value="" disabled selected>
+          (Sort by price)
+        </option>
+        {priceArray.map((price) => (
+          <option key={price.value} value={price.value}>
+            {price.label}
+          </option>
+        ))}
+      </select>
       <h1>Place holder</h1>
     </div>
   );

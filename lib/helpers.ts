@@ -1,3 +1,5 @@
+export const PAGE_SIZE = 6;
+
 export function getData(formData: any) {
   const userId = formData.get("userId");
   const starRating = formData.get("startRating");

@@ -24,7 +24,7 @@ async function HotelPage({ params }: HotelPageProps) {
   return (
     <div>
       <div className="container container-layout mx-auto my-2">
-        <h1 className="text-lg md:text-3xl font-bold mb-4">
+        <h1 className="text-lg md:text-3xl font-bold mb-2 border-b pb-2 ">
           Describe your hotel
         </h1>
         <Suspense

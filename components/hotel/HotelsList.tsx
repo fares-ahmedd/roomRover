@@ -2,15 +2,17 @@ import {
   filterHotelsWithRooms,
   getAllHotelsWithRooms,
 } from "@/lib/dataServices";
-import HotelItem from "./HotelItem";
+import { PAGE_SIZE } from "@/lib/helpers";
 import {
+  FaCocktail,
   FaDumbbell,
   FaSpa,
-  FaCocktail,
+  FaSwimmingPool,
   FaTshirt,
   FaWifi,
-  FaSwimmingPool,
 } from "react-icons/fa";
+import Pagination from "../ui/Pagination";
+import HotelItem from "./HotelItem";
 
 async function HotelsList({ searchParams }: { searchParams: any }) {
   const hotels = searchParams.query
@@ -18,6 +20,8 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
     : await getAllHotelsWithRooms();
 
   let filteredHotels = hotels;
+
+  // todo : filter
 
   if (searchParams.country)
     filteredHotels = hotels.filter(
@@ -33,10 +37,22 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
       (hotel: any) => hotel.city === searchParams.cities
     );
 
+  // todo : sort
   if (searchParams.rating === "lowest")
-    filteredHotels.sort((a:any, b:any) => a.starRating - b.starRating);
+    filteredHotels.sort((a: any, b: any) => a.starRating - b.starRating);
   if (searchParams.rating === "highest")
-    filteredHotels.sort((a:any, b:any) => b.starRating - a.starRating);
+    filteredHotels.sort((a: any, b: any) => b.starRating - a.starRating);
+
+  // todo : pagination
+
+  const currentPage = searchParams.page ? Number(searchParams.page) : 1;
+
+  const from = (currentPage - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE;
+  const pageCount = Math.ceil(filteredHotels.length / PAGE_SIZE);
+
+  filteredHotels = filteredHotels.slice(from, to);
+
   if (!filteredHotels || filteredHotels?.length === 0)
     return (
       <main className="text-center mt-8 text-xl">
@@ -62,6 +78,8 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
           return <HotelItem features={features} key={hotel.id} hotel={hotel} />;
         })}
       </ul>
+
+      <Pagination currentPage={currentPage} pageCount={pageCount} />
     </main>
   );
 }

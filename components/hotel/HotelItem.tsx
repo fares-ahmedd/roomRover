@@ -13,7 +13,7 @@ function HotelItem({ hotel, features }: Props) {
     <li key={hotel.id}>
       <Link
         // href={`hotel-details/${hotel.id}`}
-        href={`hotel/${hotel.id}`}
+        href={`hotel-details/${hotel.id}`}
         className="grid grid-cols-2 rounded-lg bg-sec-background group relative "
       >
         <div className=" min-h-[200px] md:min-h-[300px]  relative overflow-hidden rounded-s-lg">

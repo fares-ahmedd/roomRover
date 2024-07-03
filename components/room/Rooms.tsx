@@ -4,9 +4,14 @@ import RoomPrices from "./RoomPrices";
 import DeleteRoom from "./DeleteRoom";
 import CreateAndUpdateRoom from "./CreateAndUpdateRoom";
 import { HotelWithRooms } from "@/lib/types";
-export const revalidate = 0; // ! it will revalidate the request after 5s
-
-function Rooms({ rooms, hotel }: { rooms: any; hotel: HotelWithRooms | null }) {
+export const revalidate = 0;
+function Rooms({
+  rooms,
+  hotel,
+}: {
+  rooms: any;
+  hotel?: HotelWithRooms | null;
+}) {
   return (
     <div>
       <h3 className="text-lg md:text-2xl font-bold mb-3">Rooms</h3>

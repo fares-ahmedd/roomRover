@@ -9,7 +9,7 @@ async function FilterAndSearch() {
 
   return (
     <>
-      <section className="mt-2 mb-4 flex-between">
+      <section className="mt-2 mb-4 flex-between gap-2 flex-wrap-reverse max-md:flex-col">
         <Filter />
         <SearchInput hotelTitles={hotelTitles} />
       </section>

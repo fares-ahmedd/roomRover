@@ -11,7 +11,7 @@ interface Props {
   };
 }
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 export default function Home({ searchParams }: Props) {
   return (
     <div className="container-layout container mx-auto">

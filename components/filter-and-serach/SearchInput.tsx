@@ -43,7 +43,7 @@ function SearchInput({ hotelTitles }: { hotelTitles: string[] }) {
       <input
         type="search"
         placeholder="Search for hotel..."
-        className="py-2 pl-2 pr-4 w-full bg-transparent outline-none duration-300 min-w-[250px] focus:min-w-[265px] lg:min-w-[350px] lg:focus:min-w-[365px]"
+        className="py-2 pl-2 pr-4 w-full bg-transparent outline-none duration-300 min-w-[250px]  focus:min-w-[265px] lg:min-w-[350px] lg:focus:min-w-[365px]"
         onChange={(e) => setValue(e.target.value)}
         list="countries-names"
       />

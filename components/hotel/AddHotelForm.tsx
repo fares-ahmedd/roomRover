@@ -2,10 +2,13 @@
 import { createHotel, updateHotel } from "@/lib/actions";
 import { HotelWithRooms } from "@/lib/types";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import toast from "react-hot-toast";
 import { FaEdit, FaEye } from "react-icons/fa";
+import CreateAndUpdateRoom from "../room/CreateAndUpdateRoom";
+import Rooms from "../room/Rooms";
 import CheckList from "../ui/CheckList";
 import Input from "../ui/Input";
 import NoteMessage from "../ui/NoteMessage";
@@ -14,11 +17,8 @@ import SecondaryButton from "../ui/SecondaryButton";
 import TextArea from "../ui/TextArea";
 import UploadImage from "../ui/UploadImage";
 import DeleteHotel from "./DeleteHotel";
-import SelectLocation from "./SelectLocation";
-import { redirect, useRouter } from "next/navigation";
-import CreateAndUpdateRoom from "../room/CreateAndUpdateRoom";
-import Rooms from "../room/Rooms";
 import HotelRating from "./HotelRating";
+import SelectLocation from "./SelectLocation";
 
 interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
@@ -26,11 +26,9 @@ interface AddHotelFormProps {
 }
 
 function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
-  const router = useRouter();
-  const [state, formAction] = useFormState(
-    hotel ? updateHotel : createHotel,
-    {}
-  );
+  const [state, formAction] = useFormState(hotel ? updateHotel : createHotel, {
+    success: undefined,
+  });
 
   useEffect(() => {
     if (state.success && hotel) {
@@ -38,7 +36,7 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
     }
     if (state.success && !hotel) {
       toast.success("Created hotel successfully");
-      router.push(state.redirectUrl ?? "/");
+      redirect(state.redirectUrl ?? "/");
     }
     if (state.success === false && hotel) {
       toast.error("failed to update hotel");
@@ -46,7 +44,7 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
     if (state.success === false && !hotel) {
       toast.error("failed to Create hotel");
     }
-  }, [state, hotel, router]);
+  }, [state, hotel]);
 
   return (
     <form action={formAction} className="flex flex-col  md:flex-row gap-3">
@@ -99,6 +97,8 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
               <PrimaryButton type={"button"}>go back</PrimaryButton>
             </Link>
           )}
+          <DeleteHotel hotel={hotel} />
+
           {hotel && (
             <Link href={`/hotel-details/${hotel.id}`}>
               <PrimaryButton type={"button"} className="flex-center gap-2">
@@ -106,13 +106,12 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
               </PrimaryButton>
             </Link>
           )}
-          <DeleteHotel hotel={hotel} />
 
           {!hotel && <SecondaryButton>Create a Hotel +</SecondaryButton>}
           {hotel && (
-            <SecondaryButton className="max-sm:flex-1">
+            <PrimaryButton className="max-sm:flex-1 flex gap-1" type="submit">
               Update Hotel <FaEdit />
-            </SecondaryButton>
+            </PrimaryButton>
           )}
         </div>
         {hotel && <CreateAndUpdateRoom hotel={hotel} />}

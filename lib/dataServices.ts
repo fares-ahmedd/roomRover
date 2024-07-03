@@ -32,9 +32,14 @@ export async function createRoomInDatabase(formData: any) {
   if (error) throw new Error(error.message);
 }
 export async function updateHotelInDatabase(id: string, formData: any) {
-  const { error } = await supabase.from("hotels").update(formData).eq("id", id);
+  const { data, error } = await supabase
+    .from("hotels")
+    .update(formData)
+    .eq("id", id)
+    .select();
 
   if (error) throw new Error(error.message);
+  return data;
 }
 export async function updateRoomInDatabase(roomId: string, formData: any) {
   const { error } = await supabase

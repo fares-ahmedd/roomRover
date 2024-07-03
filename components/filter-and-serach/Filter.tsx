@@ -22,6 +22,7 @@ function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const defaultPrice = searchParams.get("price");
 
   useEffect(() => {
     const countryStates = getCountryStates(selectedCountry ?? "");
@@ -39,6 +40,7 @@ function Filter() {
       setCities(stateCities);
     }
   }, [selectedCountry, selectedCity, getStateCities]);
+
   const handleChange = (e: ChangeEvent<HTMLSelectElement>, type: string) => {
     const value = e.target.value;
 
@@ -61,12 +63,20 @@ function Filter() {
     setStates([]);
     router.replace(pathname, { scroll: false });
   };
+  const handlePriceChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("price", e.target.value);
+    router.replace(`${pathname}?${params.toString()}`, {
+      scroll: false,
+    });
+  };
   const hasActiveFilters = () =>
     searchParams.get("country") !== null ||
     searchParams.get("states") !== null ||
-    searchParams.get("cities") !== null;
+    searchParams.get("cities") !== null ||
+    searchParams.get("price");
   return (
-    <div className="flex space-x-2 items-center">
+    <div className="flex space-x-2 items-center flex-1">
       <Model>
         <Model.OpenModel id="filter">
           <span className="flex items-center gap-1 bg-sec-background py-2 px-3 rounded duration-300 hover:brightness-110">
@@ -150,13 +160,17 @@ function Filter() {
                   >
                     Clear Filters
                   </button>
-                )}{" "}
+                )}
               </section>
             </div>
           )}
         </Model.Content>
       </Model>
-      <select className="p-2   bg-sec-background  w-full max-w-[150px]  border rounded-md font-bold disabled:opacity-35 ">
+      <select
+        className="p-2   bg-sec-background  w-full max-w-[150px]  text-sm  border rounded-md font-bold disabled:opacity-35  max-md:max-w-[250px]"
+        onChange={handlePriceChange}
+        value={defaultPrice || ""}
+      >
         <option value="" disabled selected>
           (Sort by price)
         </option>
@@ -166,7 +180,14 @@ function Filter() {
           </option>
         ))}
       </select>
-      <h1>Place holder</h1>
+      {hasActiveFilters() && (
+        <button
+          onClick={clearFilters}
+          className="bg-red-500 w-full max-w-[180px] text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
+        >
+          Clear Filters
+        </button>
+      )}
     </div>
   );
 }

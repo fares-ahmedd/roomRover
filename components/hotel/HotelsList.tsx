@@ -12,12 +12,32 @@ import {
   FaSwimmingPool,
 } from "react-icons/fa";
 
-async function HotelsList({ query }: { query: string | undefined }) {
-  const hotels = query
-    ? await filterHotelsWithRooms(query)
+async function HotelsList({ searchParams }: { searchParams: any }) {
+  const hotels = searchParams.query
+    ? await filterHotelsWithRooms(searchParams.query)
     : await getAllHotelsWithRooms();
 
-  if (!hotels || hotels?.length === 0)
+  let filteredHotels = hotels;
+
+  if (searchParams.country)
+    filteredHotels = hotels.filter(
+      (hotel: any) => hotel.country === searchParams.country
+    );
+  if (searchParams.states)
+    filteredHotels = hotels.filter(
+      (hotel: any) => hotel.state === searchParams.states
+    );
+
+  if (searchParams.cities)
+    filteredHotels = hotels.filter(
+      (hotel: any) => hotel.city === searchParams.cities
+    );
+
+  if (searchParams.rating === "lowest")
+    filteredHotels.sort((a:any, b:any) => a.starRating - b.starRating);
+  if (searchParams.rating === "highest")
+    filteredHotels.sort((a:any, b:any) => b.starRating - a.starRating);
+  if (!filteredHotels || filteredHotels?.length === 0)
     return (
       <main className="text-center mt-8 text-xl">
         <h4>Not Found any hotel </h4>
@@ -26,7 +46,7 @@ async function HotelsList({ query }: { query: string | undefined }) {
   return (
     <main>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        {hotels.map((hotel: any) => {
+        {filteredHotels.map((hotel: any) => {
           const features = [
             { isTrue: hotel?.gym, label: "Gym", icon: <FaDumbbell /> },
             { isTrue: hotel?.spa, label: "Spa", icon: <FaSpa /> },

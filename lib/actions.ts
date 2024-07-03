@@ -109,7 +109,9 @@ export async function createHotel(_: any, formData: any) {
       coffeeShop,
       starRating,
     });
-    revalidatePath("/");
+    setTimeout(() => {
+      revalidatePath("/");
+    }, 0);
     return {
       success: true,
       redirectUrl: `/hotel/${data[0].id}`,
@@ -216,9 +218,10 @@ export async function updateHotel(_: any, formData: any) {
       swimmingPool,
       coffeeShop,
     });
-
-    revalidatePath("/", "layout");
-    revalidatePath(`/hotel/${data[0].id}`);
+    setTimeout(() => {
+      revalidatePath("/", "layout");
+      revalidatePath(`/hotel/${data[0].id}`);
+    }, 0);
 
     return { success: true };
   } catch {

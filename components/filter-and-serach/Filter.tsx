@@ -2,14 +2,13 @@
 import { IoFilter } from "react-icons/io5";
 import Model from "../ui/Model";
 import useLocation from "@/hooks/useLocation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { ICity, IState } from "country-state-city";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PrimaryButton from "../ui/PrimaryButton";
 const priceArray = [
-  { label: "All", value: "all" },
-  { label: "Lowest price", value: "lowest" },
-  { label: "highest price", value: "highest" },
+  { label: "Lowest Stars", value: "lowest" },
+  { label: "highest Stars", value: "highest" },
 ];
 
 function Filter() {
@@ -22,8 +21,21 @@ function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const defaultPrice = searchParams.get("price");
+  const defaultRating = searchParams.get("rating");
 
+  const clearFilters = () => {
+    setSelectedCountry("");
+    setSelectedCity("");
+    setCities([]);
+    setStates([]);
+
+    const newParams = new URLSearchParams();
+    newParams.set("display", "all");
+
+    router.replace(`${pathname}?${newParams.toString()}`, {
+      scroll: false,
+    });
+  };
   useEffect(() => {
     const countryStates = getCountryStates(selectedCountry ?? "");
     if (countryStates) {
@@ -56,16 +68,9 @@ function Filter() {
       scroll: false,
     });
   };
-  const clearFilters = () => {
-    setSelectedCountry("");
-    setSelectedCity("");
-    setCities([]);
-    setStates([]);
-    router.replace(pathname, { scroll: false });
-  };
-  const handlePriceChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleRating = (e: ChangeEvent<HTMLSelectElement>) => {
     const params = new URLSearchParams(searchParams);
-    params.set("price", e.target.value);
+    params.set("rating", e.target.value);
     router.replace(`${pathname}?${params.toString()}`, {
       scroll: false,
     });
@@ -74,7 +79,8 @@ function Filter() {
     searchParams.get("country") !== null ||
     searchParams.get("states") !== null ||
     searchParams.get("cities") !== null ||
-    searchParams.get("price");
+    searchParams.get("rating");
+
   return (
     <div className="flex space-x-2 items-center flex-1">
       <Model>
@@ -168,11 +174,11 @@ function Filter() {
       </Model>
       <select
         className="p-2   bg-sec-background  w-full max-w-[150px]  text-sm  border rounded-md font-bold disabled:opacity-35  max-md:max-w-[250px]"
-        onChange={handlePriceChange}
-        value={defaultPrice || ""}
+        onChange={handleRating}
+        value={defaultRating || ""}
       >
         <option value="" disabled selected>
-          (Sort by price)
+          (Sort by Stars)
         </option>
         {priceArray.map((price) => (
           <option key={price.value} value={price.value}>

@@ -26,9 +26,10 @@ interface AddHotelFormProps {
 }
 
 function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
-  const [state, formAction] = useFormState(hotel ? updateHotel : createHotel, {
-    success: undefined,
-  });
+  const [state, formAction] = useFormState(
+    hotel ? updateHotel : createHotel,
+    {}
+  );
 
   useEffect(() => {
     if (state.success && hotel) {

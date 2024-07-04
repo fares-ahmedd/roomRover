@@ -13,7 +13,7 @@ const DynamicMap = ({ latitude, longitude }: Props) => {
       style={{ border: 0 }}
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
-      className="min-h-[350px]  sm:max-w-[200px]"
+      className="min-h-[350px]  sm:max-w-[250px]"
     ></iframe>
   );
 };

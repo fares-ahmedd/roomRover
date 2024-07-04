@@ -86,14 +86,9 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, auto));
   gap: 5px;
 }
-
 .rdp {
-  --rdp-cell-size: 32px !important;
-  --rdp-accent-color: red !important;
-  --rdp-background-color: var(--second-background) !important;
-  margin: 0 !important;
+  background-color: #795548;
 }
-
 .my-custom-day-picker .rdp-day_disabled {
   opacity: 0.5;
 }

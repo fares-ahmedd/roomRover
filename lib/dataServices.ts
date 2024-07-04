@@ -101,3 +101,22 @@ export async function filterHotelsWithRooms(searchString: string | undefined) {
 
   return data;
 }
+
+export const getFoundBooking = async (
+  userId: string,
+  paymentIntentId: string
+) => {
+  const { data, error } = await supabase
+    .from("your_table_name")
+    .select("*")
+    .eq("userId", userId)
+    .eq("paymentIntentId", paymentIntentId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+};

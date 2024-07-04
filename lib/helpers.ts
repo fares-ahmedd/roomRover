@@ -103,3 +103,12 @@ export const calculateDayCount = (from: Date, to: Date) => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays + 1;
 };
+
+export function formatDate(date: Date | undefined) {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}

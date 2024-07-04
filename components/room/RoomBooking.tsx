@@ -5,11 +5,25 @@ import { DateRange, DayPicker } from "react-day-picker";
 import { useDataContext } from "../DataContext";
 import SecondaryButton from "../ui/SecondaryButton";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import toast from "react-hot-toast";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-function RoomBooking({ room }: { room: any }) {
-  const { setRange, range, includeBreakfast, setIncludeBreakfast } =
-    useDataContext();
-  const [totalPrice, setTotalPrice] = useState(room?.roomPrice || 0);
+function RoomBooking({ room, hotel }: { room: any; hotel: any }) {
+  const { userId } = useAuth();
+  const router = useRouter();
+
+  const {
+    setRange,
+    range,
+    includeBreakfast,
+    setIncludeBreakfast,
+    setBookingRoomData,
+    setClientSecret,
+    paymentIntentId,
+    setPaymentIntentId,
+  } = useDataContext();
+  const [totalPrice, setTotalPrice] = useState<number>(room?.roomPrice || 0);
   const [days, setDays] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -40,6 +54,65 @@ function RoomBooking({ room }: { room: any }) {
         ? { from: selectedRange?.from, to: selectedRange?.to }
         : { from: undefined, to: undefined }
     );
+  };
+  const handleBookingRoom = () => {
+    if (!userId) return toast.error("Opps! Make sure you are logged in.");
+
+    if (!hotel?.userId)
+      return toast.error(
+        "Something went wrong , please refresh the page and try again"
+      );
+    if (range?.from && range?.to) {
+      setIsLoading(true);
+
+      const bookingRoomData = {
+        room,
+        totalPrice,
+        breakFastIncluded: includeBreakfast,
+        startDate: range.from,
+        endDate: range.to,
+      };
+      setBookingRoomData(bookingRoomData);
+      fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          booking: {
+            hotelOwnerId: hotel.userId,
+            hotelId: hotel.id,
+            roomId: room.id,
+            startDate: range.from,
+            endDate: range.to,
+            breakFastIncluded: includeBreakfast,
+            totalPrice: totalPrice,
+          },
+          payment_intent_id: paymentIntentId,
+        }),
+      })
+        .then((res) => {
+          setIsLoading(false);
+
+          if (res.status === 401) {
+            return router.push("/login");
+          }
+
+          return res.json();
+        })
+        .then((data) => {
+          setClientSecret(data.paymentIntent.client_secret);
+          setPaymentIntentId(data.paymentIntent.id);
+          router.push("/book-room");
+          // toast
+        })
+        .catch((error: any) => {
+          console.log("Error: ", error);
+          toast.error("Something Went wrong!");
+        });
+    } else {
+      toast.error("please Select a Date");
+    }
   };
   return (
     <div className="my-3">
@@ -99,7 +172,8 @@ function RoomBooking({ room }: { room: any }) {
       </p>
       <SecondaryButton
         className="w-full mt-3"
-        disabled={isLoading || !range?.to || !range?.from}
+        disabled={isLoading}
+        onClick={() => handleBookingRoom()}
       >
         {isLoading ? <LoadingSpinner /> : "Book Now"}
       </SecondaryButton>

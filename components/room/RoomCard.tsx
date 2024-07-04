@@ -17,7 +17,7 @@ function RoomCard({ hotel, room }: { hotel: any; room: any }) {
       </section>
       <RoomInfoList room={room} />
       <RoomPrices room={room} />
-      <RoomBooking room={room} />
+      <RoomBooking room={room} hotel={hotel} />
     </li>
   );
 }

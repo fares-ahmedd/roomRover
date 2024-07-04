@@ -1,4 +1,4 @@
-import { getFoundBooking } from "@/lib/dataServices";
+import { createBookingInDatabase, getFoundBooking } from "@/lib/dataServices";
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   const bookingData = {
     ...booking,
     userName: user.firstName,
-    userEmail: user.emailAddresses,
+    userEmail: user.emailAddresses[0].emailAddress,
     userId: user.id,
     currency: "usd",
     paymentIntentId: payment_intent_id,
@@ -44,6 +44,9 @@ export async function POST(req: Request) {
 
     bookingData.paymentIntentId = paymentIntent.id;
 
-    await
+    await createBookingInDatabase(bookingData);
+    return NextResponse.json({ paymentIntent });
   }
+
+  return new NextResponse("Internal Server Error", { status: 500 });
 }

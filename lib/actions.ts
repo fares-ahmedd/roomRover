@@ -367,6 +367,9 @@ export async function createRoom(_: any, formData: any) {
       kingBed,
       queenBed,
     });
+    setTimeout(() => {
+      revalidatePath("/", "layout");
+    }, 0);
     return {
       success: true,
     };

@@ -36,6 +36,7 @@ function Model({ children }: ModelProps) {
 
 interface OpenModelProps {
   id: string;
+  isDate?: boolean;
   children: React.ReactNode;
 }
 
@@ -47,7 +48,7 @@ function useModelContext() {
   return context;
 }
 
-function OpenModel({ id, children }: OpenModelProps) {
+function OpenModel({ id, children, isDate }: OpenModelProps) {
   const { open } = useModelContext();
   const { pending } = useFormStatus();
   function handleClick() {
@@ -55,7 +56,12 @@ function OpenModel({ id, children }: OpenModelProps) {
   }
 
   return (
-    <button disabled={pending} onClick={handleClick} type="button">
+    <button
+      disabled={pending}
+      onClick={handleClick}
+      type="button"
+      className={`${isDate ? "w-full" : ""}`}
+    >
       {children}
     </button>
   );

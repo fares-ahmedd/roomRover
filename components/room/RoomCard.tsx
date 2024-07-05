@@ -2,15 +2,18 @@ import Image from "next/image";
 import RoomInfoList from "./RoomInfoList";
 import RoomPrices from "./RoomPrices";
 import RoomBooking from "./RoomBooking";
+import RoomBookingPrice from "./RoomBookingPrice";
 
 function RoomCard({
   hotel,
   room,
   bookings,
+  isPayment = false,
 }: {
-  hotel: any;
-  room: any;
-  bookings: any;
+  hotel?: any;
+  room?: any;
+  bookings?: any;
+  isPayment?: boolean;
 }) {
   return (
     <li className="border rounded-lg p-2 bg-sec-background text-main-text  max-w-[400px] ">
@@ -25,7 +28,11 @@ function RoomCard({
       </section>
       <RoomInfoList room={room} />
       <RoomPrices room={room} />
-      <RoomBooking room={room} hotel={hotel} bookings={bookings} />
+      {!isPayment ? (
+        <RoomBooking room={room} hotel={hotel} bookings={bookings} />
+      ) : (
+        <RoomBookingPrice />
+      )}
     </li>
   );
 }

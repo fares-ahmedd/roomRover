@@ -1,4 +1,8 @@
-import { createBookingInDatabase, getFoundBooking } from "@/lib/dataServices";
+import {
+  createBookingInDatabase,
+  getFoundBooking,
+  updateBookingData,
+} from "@/lib/dataServices";
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -34,6 +38,20 @@ export async function POST(req: Request) {
 
   if (foundBooking && payment_intent_id) {
     // update
+    const current_intent = await stripe.paymentIntents.retrieve(
+      payment_intent_id
+    );
+
+    if (current_intent) {
+      const updated_intent = await stripe.paymentIntents.update(
+        payment_intent_id,
+        { amount: booking.totalPrice * 100 }
+      );
+
+      await updateBookingData(bookingData, payment_intent_id, user.id);
+
+      return NextResponse.json({ paymentIntent: updated_intent });
+    }
   } else {
     // create
     const paymentIntent = await stripe.paymentIntents.create({

@@ -1,6 +1,6 @@
 "use client";
-import { calculateDayCount, formatDate } from "@/lib/helpers";
-import { useEffect, useState } from "react";
+import { calculateDayCount, formatDate, isDateDisabled } from "@/lib/helpers";
+import { useEffect, useMemo, useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
 import { useDataContext } from "../DataContext";
 import SecondaryButton from "../ui/SecondaryButton";
@@ -9,7 +9,15 @@ import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
-function RoomBooking({ room, hotel }: { room: any; hotel: any }) {
+function RoomBooking({
+  room,
+  hotel,
+  bookings = [],
+}: {
+  room: any;
+  hotel: any;
+  bookings: any;
+}) {
   const { userId } = useAuth();
   const router = useRouter();
 
@@ -25,6 +33,14 @@ function RoomBooking({ room, hotel }: { room: any; hotel: any }) {
   } = useDataContext();
   const [totalPrice, setTotalPrice] = useState<number>(room?.roomPrice || 0);
   const [days, setDays] = useState(0);
+  // const disabledDates = useMemo(() => {
+  //   let dates: Date[] = [];
+
+  //   const roomBookings = bookings.filter((booking:any) => booking.roomId === room.id);
+  //   roomBookings.forEach((booking:any) => {
+  //     const range =
+  //   })
+  // }, []);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (range && range?.from && range?.to) {
@@ -104,7 +120,6 @@ function RoomBooking({ room, hotel }: { room: any; hotel: any }) {
           setClientSecret(data.paymentIntent.client_secret);
           setPaymentIntentId(data.paymentIntent.id);
           router.push("/book-room");
-          // toast
         })
         .catch((error: any) => {
           console.log("Error: ", error);
@@ -125,10 +140,7 @@ function RoomBooking({ room, hotel }: { room: any; hotel: any }) {
         fromDate={new Date()}
         onSelect={handleRangeSelect}
         selected={range}
-        // disabled={(currentDate) =>
-        //   isPast(currentDate) ||
-        //   bookedDate.some((date) => isSameDay(date, currentDate))
-        // }
+        disabled={(date) => isDateDisabled(date, bookings)}
       />
       {range?.to && range?.from && (
         <>

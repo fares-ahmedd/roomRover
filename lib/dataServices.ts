@@ -47,6 +47,33 @@ export async function updateHotelInDatabase(id: string, formData: any) {
   if (error) throw new Error(error.message);
   return data;
 }
+
+export async function updateBookingData(
+  bookingData: any,
+  payment_intent_id: string,
+  userId: string
+) {
+  const { error } = await supabase
+    .from("bookings")
+    .update(bookingData)
+    .match({ paymentIntentId: payment_intent_id, userId: userId });
+
+  if (error) throw new Error(error.message);
+}
+
+export async function getBookingsByHotelId(hotelId: string) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*")
+    .eq("hotelId", hotelId);
+
+  if (error) {
+    console.error("Error fetching bookings:", error);
+    return null;
+  }
+
+  return data;
+}
 export async function updateRoomInDatabase(roomId: string, formData: any) {
   const { error } = await supabase
     .from("rooms")

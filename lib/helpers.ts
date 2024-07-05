@@ -1,3 +1,5 @@
+import { isBefore, isAfter, isSameDay, parseISO } from "date-fns";
+
 export const PAGE_SIZE = 6;
 
 export function getData(formData: any) {
@@ -111,4 +113,20 @@ export function formatDate(date: Date | undefined) {
     month: "long",
     day: "numeric",
   }).format(date);
+}
+
+interface Booking {
+  startDate: string;
+  endDate: string;
+}
+
+export function isDateDisabled(date: Date, bookings: any): boolean {
+  return bookings.some((booking: any) => {
+    const start = parseISO(booking.startDate);
+    const end = parseISO(booking.endDate);
+    return (
+      (isAfter(date, start) || isSameDay(date, start)) &&
+      (isBefore(date, end) || isSameDay(date, end))
+    );
+  });
 }

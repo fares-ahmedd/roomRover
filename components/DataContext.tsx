@@ -72,8 +72,14 @@ export default function DataProvider({
   children: React.ReactNode;
 }) {
   const [range, setRange] = useState(initialState);
-  const [paymentIntentId, setPaymentIntentId] = useState<null | string>(null);
-  const [clientSecret, setClientSecret] = useState<null | string>(null);
+  const [paymentIntentId, setPaymentIntentId] = useLocalStorage<null | string>(
+    "paymentIntentId",
+    null
+  );
+  const [clientSecret, setClientSecret] = useLocalStorage<null | string>(
+    "clientSecret",
+    null
+  );
   const [includeBreakfast, setIncludeBreakfast] = useState(false);
   const [bookingRoomData, setBookingRoomData] = useLocalStorage<{
     room: any;

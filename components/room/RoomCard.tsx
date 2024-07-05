@@ -3,7 +3,15 @@ import RoomInfoList from "./RoomInfoList";
 import RoomPrices from "./RoomPrices";
 import RoomBooking from "./RoomBooking";
 
-function RoomCard({ hotel, room }: { hotel: any; room: any }) {
+function RoomCard({
+  hotel,
+  room,
+  bookings,
+}: {
+  hotel: any;
+  room: any;
+  bookings: any;
+}) {
   return (
     <li className="border rounded-lg p-2 bg-sec-background text-main-text  max-w-[400px] ">
       <h5 className="font-extrabold text-lg">#{room.title}</h5>
@@ -17,7 +25,7 @@ function RoomCard({ hotel, room }: { hotel: any; room: any }) {
       </section>
       <RoomInfoList room={room} />
       <RoomPrices room={room} />
-      <RoomBooking room={room} hotel={hotel} />
+      <RoomBooking room={room} hotel={hotel} bookings={bookings} />
     </li>
   );
 }

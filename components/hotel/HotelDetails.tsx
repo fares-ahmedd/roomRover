@@ -1,17 +1,29 @@
-import { getHotelById } from "@/lib/dataServices";
+import { getBookingsByHotelId, getHotelById } from "@/lib/dataServices";
 import Image from "next/image";
-import DynamicMap from "../ui/DynamicMap";
 import { IoLocation } from "react-icons/io5";
-import Activities from "../ui/Activities";
-import Rooms from "../room/Rooms";
 import RoomCard from "../room/RoomCard";
+import Activities from "../ui/Activities";
+import DynamicMap from "../ui/DynamicMap";
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa";
 
 async function HotelDetails({ hotelId }: { hotelId: string }) {
   const hotel = await getHotelById(hotelId);
   if (!hotel) return <div>Something Went Wrong</div>;
+
+  const bookings = await getBookingsByHotelId(hotelId);
+
   return (
     <>
-      <h1 className="font-extrabold text-xl md:text-3xl mb-2">{hotel.title}</h1>
+      <div className="flex-between">
+        <h1 className="font-extrabold text-xl md:text-3xl mb-2">
+          {hotel.title}
+        </h1>
+        <Link href={".."}>
+          {" "}
+          <FaArrowLeft className="text-xl md:text-3xl" />
+        </Link>
+      </div>
       <p className="text-sec-text flex gap-1 items-center my-2 ">
         <IoLocation className="text-blue-800 text-lg" /> {hotel.country}
         {hotel.city} {hotel.city && ` , ${hotel.city}`}
@@ -45,7 +57,12 @@ async function HotelDetails({ hotelId }: { hotelId: string }) {
       {!!hotel.rooms.length ? (
         <ul className="grid-layout">
           {hotel.rooms.map((room: any) => (
-            <RoomCard hotel={hotel} room={room} key={room.id} />
+            <RoomCard
+              hotel={hotel}
+              room={room}
+              key={room.id}
+              bookings={bookings}
+            />
           ))}
         </ul>
       ) : (

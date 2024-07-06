@@ -74,6 +74,16 @@ body {
   }
 }
 
+@layer base {
+  fieldset {
+    @apply border border-solid border-gray-300 p-4 rounded;
+  }
+
+  legend {
+    @apply px-2 font-bold;
+  }
+}
+
 .no-select {
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */

@@ -7,6 +7,7 @@ type Props = {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit";
 };
 
 function SecondaryButton({
@@ -14,6 +15,7 @@ function SecondaryButton({
   onClick,
   className = "",
   disabled = false,
+  type = "button",
 }: Props) {
   const { pending } = useFormStatus();
 
@@ -35,6 +37,7 @@ function SecondaryButton({
     <button
       onClick={onClick}
       disabled={pending || disabled}
+      type={type}
       className={`bg-btn-prim flex-center gap-1 text-btn-text py-2 px-4 rounded-full duration-300 hover:brightness-125  disabled-btn ${className}`}
     >
       {getButtonText()}

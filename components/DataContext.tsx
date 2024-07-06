@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState } from "react";
 
 interface ModelContextType {
   range: { from: undefined | Date; to: undefined | Date };
+  resetData: () => void;
   includeBreakfast: boolean;
   setPaymentIntentId: React.Dispatch<React.SetStateAction<string | null>>;
   paymentIntentId: null | string;
@@ -88,6 +89,16 @@ export default function DataProvider({
     startDate: Date;
     endDate: Date;
   }>("bookingData", initialData);
+  const resetData = () => {
+    setRange(initialState);
+    setPaymentIntentId(null);
+    setClientSecret(null);
+    setIncludeBreakfast(false);
+    setBookingRoomData(initialData);
+    localStorage.setItem("paymentIntentId", "");
+    localStorage.setItem("clientSecret", "");
+  };
+
   const value: ModelContextType = {
     range,
     setRange,
@@ -99,6 +110,7 @@ export default function DataProvider({
     setPaymentIntentId,
     clientSecret,
     setClientSecret,
+    resetData,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

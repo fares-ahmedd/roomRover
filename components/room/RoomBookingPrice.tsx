@@ -8,14 +8,14 @@ function RoomBookingPrice() {
   return (
     <div className="my-2">
       <h6 className="text-sm text-sec-text mt-2 flex gap-2 items-center">
-        Check in from:{" "}
+        Check-in on:{" "}
         <span className="text-white">
           {bookingRoomData?.startDate.toString().split("00:00:00")[0]}
         </span>
       </h6>
 
       <h6 className="text-sm text-sec-text mt-2 flex gap-2 items-center">
-        Check out at:{" "}
+        Check-out on:{" "}
         <span className="text-white">
           {bookingRoomData?.endDate.toString().split("00:00:00")[0]}
         </span>

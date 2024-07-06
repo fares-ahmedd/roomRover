@@ -115,11 +115,6 @@ export function formatDate(date: Date | undefined) {
   }).format(date);
 }
 
-interface Booking {
-  startDate: string;
-  endDate: string;
-}
-
 export function isDateDisabled(date: Date, bookings: any): boolean {
   return bookings.some((booking: any) => {
     const start = parseISO(booking.startDate);

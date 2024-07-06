@@ -61,6 +61,20 @@ export async function updateBookingData(
   if (error) throw new Error(error.message);
 }
 
+export async function updateBookingStatus(paymentIntentId: string) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .update({ paymentStatus: true })
+    .match({ paymentIntentId: paymentIntentId });
+
+  if (error) {
+    console.error("Error fetching bookings:", error);
+    return null;
+  }
+
+  return data;
+}
+
 export async function getBookingsByHotelId(hotelId: string) {
   const { data, error } = await supabase
     .from("bookings")

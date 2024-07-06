@@ -1,15 +1,15 @@
 "use client";
 import { useFormStatus } from "react-dom";
 
-function DeleteButton() {
+function DeleteButton({ disabled = false }: { disabled?: boolean }) {
   const { pending } = useFormStatus();
   return (
     <button
-      disabled={pending}
+      disabled={pending || disabled}
       className="delete-btn flex-center disabled:bg-red-950 "
       type="submit"
     >
-      {pending ? "Confirming..." : "Confirm"}
+      {pending || disabled ? "Confirming..." : "Confirm"}
     </button>
   );
 }

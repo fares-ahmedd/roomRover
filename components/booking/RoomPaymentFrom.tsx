@@ -16,14 +16,10 @@ import { Booking } from "@/lib/types";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 
 interface RoomPaymentFormProps {
-  clientSecret: string;
   handleSetPaymentSuccess: (value: boolean) => void;
 }
 
-function RoomPaymentFrom({
-  clientSecret,
-  handleSetPaymentSuccess,
-}: RoomPaymentFormProps) {
+function RoomPaymentFrom({ handleSetPaymentSuccess }: RoomPaymentFormProps) {
   const { bookingRoomData, resetData } = useDataContext();
   const stripe = useStripe();
   const elements = useElements();
@@ -124,7 +120,7 @@ function RoomPaymentFrom({
       </SecondaryButton>
       {isLoading && (
         <NoteMessage>
-          Payment Processing Please Stay on thi page as we process your
+          Payment Processing Please Stay on the page as we process your
         </NoteMessage>
       )}
     </form>

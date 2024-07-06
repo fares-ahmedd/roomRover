@@ -1,4 +1,5 @@
 import HotelDetails from "@/components/hotel/HotelDetails";
+import HotelDetailsSkeleton from "@/components/hotel/HotelDetailsSkeleton";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { Suspense } from "react";
 interface HotelPageProps {
@@ -9,13 +10,7 @@ interface HotelPageProps {
 function page({ params }: HotelPageProps) {
   return (
     <div className="container container-layout mx-auto my-2">
-      <Suspense
-        fallback={
-          <div className="mt-10 text-center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
+      <Suspense fallback={<HotelDetailsSkeleton />}>
         <HotelDetails hotelId={params.hotelId} />
       </Suspense>
     </div>

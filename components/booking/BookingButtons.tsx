@@ -1,19 +1,20 @@
 "use client";
 import Link from "next/link";
-import PrimaryButton from "../ui/PrimaryButton";
-import SecondaryButton from "../ui/SecondaryButton";
-import Model from "../ui/Model";
-import { FaTrash } from "react-icons/fa";
-import DeleteButton from "../ui/DeleteButton";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import LoadingSpinner from "../ui/LoadingSpinner";
+import { FaTrash } from "react-icons/fa";
+import DeleteButton from "../ui/DeleteButton";
+import Model from "../ui/Model";
+import PrimaryButton from "../ui/PrimaryButton";
+import SecondaryButton from "../ui/SecondaryButton";
+import { useDataContext } from "../DataContext";
 
 function BookingButtons({ booking }: { booking: any }) {
+  const { setBookingRoomData, setPaymentIntentId } = useDataContext();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { hotels: hotel } = booking;
+  const { hotels: hotel, rooms: room } = booking;
 
   console.log(booking);
 
@@ -36,6 +37,18 @@ function BookingButtons({ booking }: { booking: any }) {
 
     router.refresh();
   }
+  const handlePay = () => {
+    setBookingRoomData({
+      room: room,
+      breakFastIncluded: booking.breakFastIncluded,
+      totalPrice: booking.totalPrice,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
+    });
+    setPaymentIntentId(booking.paymentIntentId);
+
+    router.push("/book-room");
+  };
   return (
     <div className="flex-between flex-wrap gap-2">
       <Model>
@@ -55,7 +68,7 @@ function BookingButtons({ booking }: { booking: any }) {
                   Cancel
                 </PrimaryButton>
                 <form onSubmit={handleDelete}>
-                  <DeleteButton />
+                  <DeleteButton disabled={isLoading} />
                 </form>
               </main>
             </div>
@@ -67,9 +80,9 @@ function BookingButtons({ booking }: { booking: any }) {
         <PrimaryButton type="button">View Hotel</PrimaryButton>
       </Link>
       {!booking.paymentStatus && (
-        <Link href={`/hotel-details/${hotel.id}`}>
-          <SecondaryButton type="button">Pay Now</SecondaryButton>
-        </Link>
+        <SecondaryButton type="button" onClick={handlePay}>
+          Pay Now
+        </SecondaryButton>
       )}
     </div>
   );

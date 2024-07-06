@@ -3,10 +3,8 @@ import Image from "next/image";
 import { IoLocation } from "react-icons/io5";
 import RoomCard from "../room/RoomCard";
 import Activities from "../ui/Activities";
-import DynamicMap from "../ui/DynamicMap";
-import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa";
 import BackButton from "../ui/BackButton";
+import DynamicMap from "../ui/DynamicMap";
 
 async function HotelDetails({ hotelId }: { hotelId: string }) {
   const hotel = await getHotelById(hotelId);

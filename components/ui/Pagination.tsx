@@ -6,9 +6,10 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 type Props = {
   currentPage: number;
   pageCount: number;
+  query?: string | undefined;
 };
 
-function Pagination({ currentPage, pageCount }: Props) {
+function Pagination({ currentPage, pageCount, query }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -26,6 +27,9 @@ function Pagination({ currentPage, pageCount }: Props) {
     router.push(`?${params.toString()}`);
   }
 
+  console.log(query);
+
+  if (query && query !== " ") return;
   return (
     <div className="mt-4 flex-center gap-4">
       <PrimaryButton

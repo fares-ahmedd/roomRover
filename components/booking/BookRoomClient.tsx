@@ -16,7 +16,7 @@ const stripePromise = loadStripe(
 );
 
 function BookRoomClient() {
-  const { clientSecret, bookingRoomData } = useDataContext();
+  const { clientSecret, paymentIntentId, bookingRoomData } = useDataContext();
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
@@ -34,19 +34,15 @@ function BookRoomClient() {
   };
 
   useEffect(() => {
-    if (!clientSecret) {
+    if (!paymentIntentId && !clientSecret) {
       setPaymentSuccess(true);
     }
-  }, [clientSecret]);
+  }, [paymentIntentId, clientSecret]);
   useEffect(() => {
     setPageLoaded(true);
   }, []);
   if (paymentSuccess) return <SuccessPayment />;
-  if (
-    pageLoaded &&
-    !paymentSuccess &&
-    (!bookingRoomData?.totalPrice || !clientSecret)
-  ) {
+  if (pageLoaded && !paymentSuccess && !bookingRoomData?.totalPrice) {
     return (
       <div className="flex items-center flex-col gap-4 mt-2">
         <h3 className="text-rose-500">
@@ -81,7 +77,6 @@ function BookRoomClient() {
           </div>
           <Elements stripe={stripePromise} options={options}>
             <RoomPaymentFrom
-              clientSecret={clientSecret}
               handleSetPaymentSuccess={handleSetPaymentSuccess}
             />
           </Elements>

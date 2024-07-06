@@ -45,14 +45,17 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
 
   // todo : pagination
 
-  const currentPage = searchParams.page ? Number(searchParams.page) : 1;
+  let pageCount = 0;
+  let currentPage = 0;
+  if (!searchParams.query || searchParams.query === " ") {
+    currentPage = searchParams.page ? Number(searchParams.page) : 1;
 
-  const from = (currentPage - 1) * PAGE_SIZE;
-  const to = from + PAGE_SIZE;
-  const pageCount = Math.ceil(filteredHotels.length / PAGE_SIZE);
+    const from = (currentPage - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE;
+    pageCount = Math.ceil(filteredHotels.length / PAGE_SIZE);
 
-  filteredHotels = filteredHotels.slice(from, to);
-
+    filteredHotels = filteredHotels.slice(from, to);
+  }
   if (!filteredHotels || filteredHotels?.length === 0)
     return (
       <main className="text-center mt-8 text-xl">
@@ -79,7 +82,11 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
         })}
       </ul>
 
-      <Pagination currentPage={currentPage} pageCount={pageCount} />
+      <Pagination
+        currentPage={currentPage}
+        pageCount={pageCount}
+        query={searchParams.query}
+      />
     </main>
   );
 }

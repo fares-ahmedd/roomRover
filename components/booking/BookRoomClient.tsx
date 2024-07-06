@@ -19,6 +19,7 @@ function BookRoomClient() {
   const { clientSecret, bookingRoomData } = useDataContext();
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
   const router = useRouter();
   const { theme } = useTheme();
   const options: StripeElementsOptions = {
@@ -37,9 +38,15 @@ function BookRoomClient() {
       setPaymentSuccess(true);
     }
   }, [clientSecret]);
-
+  useEffect(() => {
+    setPageLoaded(true);
+  }, []);
   if (paymentSuccess) return <SuccessPayment />;
-  if (!paymentSuccess && (!bookingRoomData?.totalPrice || !clientSecret)) {
+  if (
+    pageLoaded &&
+    !paymentSuccess &&
+    (!bookingRoomData?.totalPrice || !clientSecret)
+  ) {
     return (
       <div className="flex items-center flex-col gap-4 mt-2">
         <h3 className="text-rose-500">

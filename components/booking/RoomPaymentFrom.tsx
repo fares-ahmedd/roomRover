@@ -13,6 +13,7 @@ import { useDataContext } from "../DataContext";
 import NoteMessage from "../ui/NoteMessage";
 import SecondaryButton from "../ui/SecondaryButton";
 import { Booking } from "@/lib/types";
+import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 
 interface RoomPaymentFormProps {
   clientSecret: string;
@@ -48,7 +49,20 @@ function RoomPaymentFrom({
         endDate: new Date(booking.endDate),
       }));
 
-      console.log(roomBookingDates);
+      const overlapFound = hasOverFound(
+        bookingRoomData.startDate,
+        bookingRoomData.endDate,
+        roomBookingDates
+      );
+
+      if (overlapFound) {
+        setIsLoading(false);
+        return toast.error(
+          "Some of the days that you're trying to book have already been reserved"
+        );
+      }
+
+      console.log("Pass");
 
       // const overlapFound= hasOverlap(roomBookingDates.)
       // const result = await stripe.confirmPayment({
@@ -121,3 +135,40 @@ function RoomPaymentFrom({
 }
 
 export default RoomPaymentFrom;
+
+type DateRangesType = {
+  startDate: Date;
+  endDate: Date;
+};
+
+function hasOverFound(
+  startDate: Date,
+  endDate: Date,
+  dateRanges: DateRangesType[]
+) {
+  const targetInterval = {
+    start: startOfDay(new Date(startDate)),
+    end: endOfDay(new Date(endDate)),
+  };
+
+  for (const range of dateRanges) {
+    const rangeStart = startOfDay(new Date(range.startDate));
+    const rangeEnd = endOfDay(new Date(range.endDate));
+
+    if (
+      isWithinInterval(targetInterval.start, {
+        start: rangeStart,
+        end: rangeEnd,
+      }) ||
+      isWithinInterval(targetInterval.end, {
+        start: rangeStart,
+        end: rangeEnd,
+      }) ||
+      (targetInterval.start < rangeStart && targetInterval.end > rangeEnd)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+}

@@ -1,3 +1,4 @@
+import { auth } from "@clerk/nextjs/server";
 import { supabase } from "./supabase";
 export async function getHotelById(hotelId: string) {
   const hotel = await supabase
@@ -14,6 +15,23 @@ export async function getHotelById(hotelId: string) {
   if (!hotel.data) return null;
 
   return hotel.data;
+}
+export async function getHotelByUserId() {
+  const { userId } = auth();
+
+  const hotel = await supabase
+    .from("hotels")
+    .select(
+      `
+          *,
+          rooms (*)
+        `
+    )
+    .eq("userId", userId);
+
+  if (!hotel?.data) return [];
+
+  return hotel?.data;
 }
 
 export async function createHotelInDatabase(formData: any) {

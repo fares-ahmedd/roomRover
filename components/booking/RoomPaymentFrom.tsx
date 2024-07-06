@@ -62,31 +62,28 @@ function RoomPaymentFrom({
         );
       }
 
-      console.log("Pass");
+      const result = await stripe.confirmPayment({
+        elements,
+        redirect: "if_required",
+      });
 
-      // const overlapFound= hasOverlap(roomBookingDates.)
-      // const result = await stripe.confirmPayment({
-      //   elements,
-      //   redirect: "if_required",
-      // });
+      if (result.error) {
+        toast.error(`Failed , ${result.error.message}`);
+        throw new Error(result.error.message);
+      }
 
-      // if (result.error) {
-      //   toast.error(`Failed , ${result.error.message}`);
-      //   throw new Error(result.error.message);
-      // }
+      const response = await fetch(`/api/booking/${result.paymentIntent.id}`, {
+        method: "PATCH",
+      });
 
-      // const response = await fetch(`/api/booking/${result.paymentIntent.id}`, {
-      //   method: "PATCH",
-      // });
+      if (!response.ok) {
+        throw new Error("Failed to update booking status");
+      }
 
-      // if (!response.ok) {
-      //   throw new Error("Failed to update booking status");
-      // }
-
-      // toast.success("Room Reserved ! 💸");
-      // router.refresh();
-      // resetData();
-      // handleSetPaymentSuccess(true);
+      toast.success("Room Reserved ! 💸");
+      router.refresh();
+      resetData();
+      handleSetPaymentSuccess(true);
     } catch (error: any) {
       console.error(error.message);
     } finally {

@@ -75,9 +75,9 @@ function BookRoomClient() {
             Complete payment to reserve this room!
           </h3>
           <div className="mb-6 grid justify-center">
-            <div className="mb-6">
+            <ul className="mb-6">
               <RoomCard room={bookingRoomData.room} isPayment={true} />
-            </div>
+            </ul>
           </div>
           <Elements stripe={stripePromise} options={options}>
             <RoomPaymentFrom

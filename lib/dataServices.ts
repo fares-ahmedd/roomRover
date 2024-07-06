@@ -11,7 +11,6 @@ export async function getHotelById(hotelId: string) {
     )
     .eq("id", hotelId)
     .single();
-
   if (!hotel.data) return null;
 
   return hotel.data;
@@ -19,6 +18,7 @@ export async function getHotelById(hotelId: string) {
 export async function getHotelByUserId() {
   const { userId } = auth();
 
+  if (!userId) throw new Error("UnAuthorized");
   const hotel = await supabase
     .from("hotels")
     .select(
@@ -32,6 +32,28 @@ export async function getHotelByUserId() {
   if (!hotel?.data) return [];
 
   return hotel?.data;
+}
+
+export async function getBookingsByUserId() {
+  const { userId } = auth();
+
+  if (!userId) throw new Error("UnAuthorized");
+
+  const bookings = await supabase
+    .from("bookings")
+    .select(
+      `
+          *,
+          rooms (*),
+          hotels (*)
+        `
+    )
+    .eq("userId", userId)
+    .order("bookedAt", { ascending: false });
+
+  if (!bookings?.data) return [];
+
+  return bookings?.data;
 }
 
 export async function createHotelInDatabase(formData: any) {
@@ -119,6 +141,16 @@ export async function deleteHotel(hotelId: string) {
   const { error } = await supabase.from("hotels").delete().eq("id", hotelId);
 
   if (error) throw new Error("could not delete hotel");
+}
+export async function deleteBookingHotel(bookingId: string) {
+  const { error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", bookingId);
+
+  if (error) throw new Error("could not delete hotel");
+
+  return true;
 }
 export async function deleteRoom(roomId: string) {
   const { error } = await supabase.from("rooms").delete().eq("id", roomId);

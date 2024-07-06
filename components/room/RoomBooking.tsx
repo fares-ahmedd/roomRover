@@ -102,9 +102,9 @@ function RoomBooking({
         }),
       })
         .then((res) => {
-          setIsLoading(false);
-
           if (res.status === 401) {
+            setIsLoading(false);
+
             return router.push("/login");
           }
 
@@ -113,6 +113,7 @@ function RoomBooking({
         .then((data) => {
           setClientSecret(data.paymentIntent.client_secret);
           setPaymentIntentId(data.paymentIntent.id);
+          setIsLoading(false);
           router.push("/book-room");
         })
         .catch((error: any) => {

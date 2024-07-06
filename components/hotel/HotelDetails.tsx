@@ -6,6 +6,7 @@ import Activities from "../ui/Activities";
 import DynamicMap from "../ui/DynamicMap";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
+import BackButton from "../ui/BackButton";
 
 async function HotelDetails({ hotelId }: { hotelId: string }) {
   const hotel = await getHotelById(hotelId);
@@ -19,10 +20,7 @@ async function HotelDetails({ hotelId }: { hotelId: string }) {
         <h1 className="font-extrabold text-xl md:text-3xl mb-2">
           {hotel.title}
         </h1>
-        <Link href={".."}>
-          {" "}
-          <FaArrowLeft className="text-xl md:text-3xl" />
-        </Link>
+        <BackButton />
       </div>
       <p className="text-sec-text flex gap-1 items-center my-2 ">
         <IoLocation className="text-blue-800 text-lg" /> {hotel.country}
@@ -54,7 +52,7 @@ async function HotelDetails({ hotelId }: { hotelId: string }) {
       <p className="text-sec-text tracking-wider">{hotel.description}</p>
       <Activities hotel={hotel} />
       <h3 className="mb-1 text-lg md:text-xl font-bold my-2">Hotel Rooms</h3>
-      {!!hotel.rooms.length ? (
+      {!!hotel?.rooms?.length ? (
         <ul className="grid-layout">
           {hotel.rooms.map((room: any) => (
             <RoomCard

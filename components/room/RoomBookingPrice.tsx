@@ -1,6 +1,5 @@
 "use client";
 
-import { formatDate } from "@/lib/helpers";
 import { useDataContext } from "../DataContext";
 
 function RoomBookingPrice() {
@@ -19,9 +18,6 @@ function RoomBookingPrice() {
         <span className="text-white">
           {bookingRoomData?.endDate.toString().split("00:00:00")[0]}
         </span>
-      </h6>
-      <h6 className="text-sm text-sec-text">
-        {/* Check out To: {formatDate(bookingRoomData?.endDate)} */}
       </h6>
       <p className="mt-4">
         Total Price:{" "}

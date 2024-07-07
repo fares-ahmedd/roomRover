@@ -188,7 +188,7 @@ function CreateAndUpdateRoom({ hotel, room }: AddHotelFormProps) {
                   <PrimaryButton type="button" onClick={close}>
                     Cancel
                   </PrimaryButton>
-                  <SecondaryButton>
+                  <SecondaryButton type="submit">
                     Confirm {currentRoom ? "Update" : "Create"}
                   </SecondaryButton>
                 </main>

@@ -110,7 +110,7 @@ export async function createHotel(_: any, formData: any) {
       starRating,
     });
     setTimeout(() => {
-      revalidatePath("/");
+      revalidatePath("/", "layout");
     }, 0);
     return {
       success: true,

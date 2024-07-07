@@ -47,7 +47,10 @@ function Menu() {
             <ToggleTheme />
           </div>
 
-          <div className="my-6 w-fit mx-auto" onClick={handleToggle}>
+          <div
+            className="my-6 w-fit mx-auto bg-sec-background p-2 rounded-md"
+            onClick={handleToggle}
+          >
             <NavLinks menu={true} />
           </div>
         </div>

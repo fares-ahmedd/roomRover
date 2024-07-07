@@ -108,7 +108,9 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
             </Link>
           )}
 
-          {!hotel && <SecondaryButton>Create a Hotel +</SecondaryButton>}
+          {!hotel && (
+            <SecondaryButton type="submit">Create a Hotel +</SecondaryButton>
+          )}
           {hotel && (
             <PrimaryButton className="max-sm:flex-1 flex gap-1" type="submit">
               Update Hotel <FaEdit />

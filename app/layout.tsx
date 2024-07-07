@@ -19,6 +19,13 @@ export const metadata = {
   },
   description:
     "Book your hotel now. or you can List your own properties and rooms for rent as well. ",
+  // openGraph: {
+  //   title: 'RoomRover',
+  //   description: 'Reserve your stay today, or become a host and offer your space to travelers.',
+  //   images: ['/preview.png'],
+  //   url: 'https://social-linx.vercel.app/',
+  //   type: 'website',
+  // },
 };
 
 export default function RootLayout({
@@ -32,7 +39,7 @@ export default function RootLayout({
         <body className={`${roboto.className} overflow-x-hidden`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >

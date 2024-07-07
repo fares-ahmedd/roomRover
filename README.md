@@ -49,3 +49,15 @@ To create a production build:
 ```sh
 npm run build
 ```
+
+## App User Experience 
+(note) If your internet speed is slow, please be patient as the GIF may take some time to download
+<div align="center">
+  <img src="https://github.com/fares-ahmedd/roomRover/assets/110955622/11711200-1eb1-4747-af16-0be61d1defc2"  alt="App user experience">
+</div>
+
+---
+
+<div align="center">
+  <img src="https://github.com/fares-ahmedd/roomRover/assets/110955622/e9cc7eeb-16f2-4339-982f-1c3a6728404e"  alt="App user experience">
+</div>

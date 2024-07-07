@@ -19,13 +19,14 @@ export const metadata = {
   },
   description:
     "Book your hotel now. or you can List your own properties and rooms for rent as well. ",
-  // openGraph: {
-  //   title: 'RoomRover',
-  //   description: 'Reserve your stay today, or become a host and offer your space to travelers.',
-  //   images: ['/preview.png'],
-  //   url: 'https://social-linx.vercel.app/',
-  //   type: 'website',
-  // },
+  openGraph: {
+    title: "RoomRover",
+    description:
+      "Reserve your stay today, or become a host and offer your space to travelers.",
+    images: ["/preview.png"],
+    url: "https://room-rover-bice.vercel.app/",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

@@ -1,5 +1,3 @@
-"use client";
-
 import BookRoomClient from "@/components/booking/BookRoomClient";
 export const metadata = {
   title: "Booking a room",

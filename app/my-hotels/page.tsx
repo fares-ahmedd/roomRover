@@ -2,6 +2,10 @@ import HotelsListSkeleton from "@/components/hotel/HotelsListSkeleton";
 import MyHotels from "@/components/hotel/MyHotels";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "My Hotels",
+};
+
 function page() {
   return (
     <div className="container container-layout mx-auto my-2">

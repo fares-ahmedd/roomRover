@@ -66,7 +66,11 @@ function RoomBooking({
     );
   };
   const handleBookingRoom = () => {
-    if (!userId) return toast.error("Opps! Make sure you are logged in.");
+    if (!userId) {
+      toast.error("Login in first before You book a room");
+      router.push("/sign-in");
+      return;
+    }
 
     if (!hotel?.userId)
       return toast.error(

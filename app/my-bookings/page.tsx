@@ -1,6 +1,9 @@
 import MyBookingsList from "@/components/booking/MyBookingsList";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { Suspense } from "react";
+export const metadata = {
+  title: "My Bookings",
+};
 
 function page() {
   return (

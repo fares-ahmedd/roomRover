@@ -1,18 +1,18 @@
 "use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { FaBackward, FaBars } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import { FaBars } from "react-icons/fa";
+import { IoMdArrowRoundBack, IoMdClose } from "react-icons/io";
 import { ToggleTheme } from "../ToggleTheme";
 import Auth from "./Auth";
 import NavLinks from "./NavLinks";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { useAuth } from "@clerk/nextjs";
 
 function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-
+  const { userId } = useAuth();
   function handleToggle() {
     setIsOpen((isOpen) => !isOpen);
   }
@@ -22,6 +22,14 @@ function Menu() {
       <Link href={".."} className="md:hidden text-2xl">
         <IoMdArrowRoundBack />
       </Link>
+    );
+  }
+
+  if (!userId) {
+    return (
+      <div className="md:hidden max-sm:scale-75">
+        <Auth />
+      </div>
     );
   }
   return (
@@ -39,7 +47,7 @@ function Menu() {
         />
       )}
       {isOpen && (
-        <div className="backdrop-blur-sm bg-black/20 absolute h-screen-78 w-full left-0 top-[78px] animate-slide-left z-50">
+        <div className="backdrop-blur-sm bg-black/20 fixed h-screen-78 w-full left-0 top-[78px] animate-slide-left z-50">
           <div className="flex-between p-6 border-b">
             <div className="space-x-2">
               <Auth />

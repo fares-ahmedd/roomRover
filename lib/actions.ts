@@ -109,9 +109,7 @@ export async function createHotel(_: any, formData: any) {
       coffeeShop,
       starRating,
     });
-    setTimeout(() => {
-      revalidatePath("/", "layout");
-    }, 0);
+
     return {
       success: true,
       redirectUrl: `/hotel/${data[0].id}`,

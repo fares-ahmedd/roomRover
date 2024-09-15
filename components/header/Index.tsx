@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import Menu from "./Menu";
 import NavLinks from "./NavLinks";
 
-function NavBar() {
+function Header() {
   return (
     <header className="sticky w-full top-0 left-0 bg-sec-background border-b border-b-color shadow-md shadow-white/10     h-[78px] container-layout z-50  ">
       <div className="flex-between container  m-auto">
@@ -21,4 +21,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Header;

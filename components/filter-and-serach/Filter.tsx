@@ -2,7 +2,7 @@
 import { IoFilter } from "react-icons/io5";
 import Model from "../ui/Model";
 import useLocation from "@/hooks/useLocation";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ICity, IState } from "country-state-city";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PrimaryButton from "../ui/PrimaryButton";

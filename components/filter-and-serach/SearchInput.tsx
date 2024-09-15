@@ -7,13 +7,23 @@ import { FaSearch } from "react-icons/fa";
 
 import useDebounce from "@/hooks/useDebounce";
 
-function SearchInput({ hotelTitles }: { hotelTitles: string[] }) {
+function SearchInput() {
   const [value, setValue] = useState("");
   const [initialRender, setInitialRender] = useState(true);
+  const [hotels, setHotels] = useState<any>([]);
   const debouncedValue = useDebounce<string>(value, 300);
   const pathname = usePathname();
-
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchHotels = async () => {
+      const res = await fetch("/api/posts");
+      if (!res.ok) throw new Error("Something went wrong !");
+      const hotels = await res.json();
+      setHotels(hotels);
+    };
+    fetchHotels();
+  }, []);
 
   useEffect(() => {
     const query = { query: debouncedValue };
@@ -35,6 +45,7 @@ function SearchInput({ hotelTitles }: { hotelTitles: string[] }) {
     setInitialRender(false);
   }, []);
 
+  console.log(hotels);
   if (pathname !== "/") return null;
 
   return (
@@ -48,8 +59,8 @@ function SearchInput({ hotelTitles }: { hotelTitles: string[] }) {
         list="countries-names"
       />
       <datalist id="countries-names">
-        {hotelTitles.map((title, index) => (
-          <option value={title} key={index}></option>
+        {hotels.map((hotel: { title: string }, index: number) => (
+          <option value={hotel.title} key={index}></option>
         ))}
       </datalist>
     </div>

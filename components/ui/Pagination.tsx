@@ -27,7 +27,7 @@ function Pagination({ currentPage, pageCount, query }: Props) {
     router.push(`?${params.toString()}`);
   }
 
-  console.log(query);
+
 
   if (query && query !== " ") return;
   return (

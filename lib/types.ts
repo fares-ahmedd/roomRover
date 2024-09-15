@@ -108,3 +108,7 @@ export interface ErrorRoom {
   queenBed?: string;
   success?: boolean;
 }
+
+export type SearchParamsProps = {
+  searchParams: { query: string; display: string };
+};

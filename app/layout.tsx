@@ -1,7 +1,7 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import NavBar from "@/components/header/NavBar";
+import Header from "@/components/header/Index";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "react-hot-toast";
 import DataProvider from "@/components/DataContext";
@@ -44,7 +44,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <NavBar />
+            <Header />
             <DataProvider> {children}</DataProvider>
             <Toaster position="top-right" reverseOrder={false} />
           </ThemeProvider>

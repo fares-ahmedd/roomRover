@@ -1,12 +1,16 @@
 import { auth } from "@clerk/nextjs/server";
 import { supabase } from "./supabase";
-export async function getHotelById(hotelId: string) {
+export async function getHotelById(hotelId: string, titleOnly = false) {
   const hotel = await supabase
     .from("hotels")
     .select(
       `
-        *,
-        rooms (*)
+      ${
+        titleOnly
+          ? "title"
+          : ` *,
+        rooms (*)`
+      } 
       `
     )
     .eq("id", hotelId)
@@ -15,6 +19,7 @@ export async function getHotelById(hotelId: string) {
 
   return hotel.data;
 }
+
 export async function getHotelByUserId() {
   const { userId } = auth();
 

@@ -1,39 +1,40 @@
+import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Missing environment variables for Supabase");
+  throw new Error("Missing Supabase environment variables");
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function GET() {
   try {
-    const { data, error } = await supabase.from("hotels").select(`
-        *,
-        rooms (*)
-      `);
+    const { data, error } = await supabase.from("hotels").select("title");
 
     if (error) {
       console.error("Supabase error:", error);
-      return res
-        .status(500)
-        .json({ error: "Failed to fetch data from Supabase" });
+      return NextResponse.json(
+        { error: "Failed to fetch hotel titles" },
+        { status: 500 }
+      );
     }
 
-    if (!data) {
-      return res.status(404).json({ error: "No data found" });
+    if (!data || data.length === 0) {
+      return NextResponse.json(
+        { message: "No hotel titles found" },
+        { status: 404 }
+      );
     }
 
-    res.status(200).json(data);
-  } catch (err) {
-    console.error("Unexpected error:", err);
-    res.status(500).json({ error: "An unexpected error occurred" });
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred" },
+      { status: 500 }
+    );
   }
 }

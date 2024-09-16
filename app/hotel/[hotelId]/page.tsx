@@ -1,6 +1,6 @@
 import AddHotelForm from "@/components/hotel/AddHotelForm";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { getHotelById } from "@/lib/dataServices";
+import { getAllHotelsWithRooms, getHotelById } from "@/lib/dataServices";
 import { auth } from "@clerk/nextjs/server";
 import { Suspense } from "react";
 
@@ -9,9 +9,29 @@ interface HotelPageProps {
     hotelId: string;
   };
 }
-export const metadata = {
-  title: "Hotel Operations",
-};
+export async function generateMetadata({ params }: HotelPageProps) {
+  const hotelId = params.hotelId;
+  if (hotelId === "new") {
+    return {
+      title: "New Hotel",
+      description: "Create your own hotel name ",
+    };
+  }
+  const { title } = await getHotelById(hotelId, true);
+
+  return {
+    title: `Edit ${title}`,
+    description: "Edit your own hotel name ",
+  };
+}
+
+export async function generateStaticParams() {
+  const hotels = await getAllHotelsWithRooms();
+
+  return hotels
+    .map((hotel: any) => ({ hotelId: hotel.id }))
+    .concat({ hotelId: "new" });
+}
 
 async function HotelPage({ params }: HotelPageProps) {
   const hotel = await getHotelById(params.hotelId);

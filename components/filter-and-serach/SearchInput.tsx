@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -10,28 +10,31 @@ import useHotelsTitles from "./useHotelsTitles";
 function SearchInput() {
   const searchParams = useSearchParams();
   const [value, setValue] = useState(searchParams.get("query") ?? "");
+  const [initialRender, setInitialRender] = useState(true);
   const hotelsTitles = useHotelsTitles();
 
   const debouncedValue = useDebounce<string>(value, 300);
-  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
+    if (initialRender) return;
     const query = { query: debouncedValue };
 
     const url = qs.stringifyUrl(
       {
         url: window.location.href,
-        query: query,
+        query,
       },
       { skipNull: true }
     );
     router.push(url);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, router]);
 
-  if (pathname !== "/") return null;
-
+  useEffect(() => {
+    setInitialRender(false);
+  }, []);
   return (
     <div className="flex items-center bg-sec-background border border-b-color rounded-md focus-within:ring-2 focus-within:ring-accent-500">
       <FaSearch className="text-sm ml-3 text-gray-400" />

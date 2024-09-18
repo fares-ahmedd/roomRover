@@ -13,13 +13,14 @@ import {
 } from "react-icons/fa";
 import Pagination from "../ui/Pagination";
 import HotelItem from "./HotelItem";
+import { SearchParamsProps } from "@/lib/types";
 
-async function HotelsList({ searchParams }: { searchParams: any }) {
+async function HotelsList({ searchParams }: SearchParamsProps) {
   const hotels = searchParams.query
     ? await filterHotelsWithRooms(searchParams.query)
     : await getAllHotelsWithRooms();
 
-  let filteredHotels = hotels;
+  let filteredHotels = hotels ?? [];
 
   // todo : filter
 
@@ -63,7 +64,7 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
       </main>
     );
   return (
-    <main>
+    <section>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {filteredHotels.map((hotel: any) => {
           const features = [
@@ -87,7 +88,7 @@ async function HotelsList({ searchParams }: { searchParams: any }) {
         pageCount={pageCount}
         query={searchParams.query}
       />
-    </main>
+    </section>
   );
 }
 

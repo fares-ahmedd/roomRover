@@ -6,35 +6,39 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { ICity, IState } from "country-state-city";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PrimaryButton from "../ui/PrimaryButton";
+import Select from "../ui/Select";
 const priceArray = [
   { label: "Lowest Stars", value: "lowest" },
   { label: "highest Stars", value: "highest" },
 ];
 
 function Filter() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
   const { getAllCountries, getCountryStates, getStateCities } = useLocation();
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const countries = getAllCountries();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+
   const defaultRating = searchParams.get("rating");
 
-  const clearFilters = () => {
+  const clearFilters = (close?: () => void) => {
     setSelectedCountry("");
     setSelectedCity("");
     setCities([]);
     setStates([]);
 
-    const newParams = new URLSearchParams();
-    newParams.set("display", "all");
-
-    router.replace(`${pathname}?${newParams.toString()}`, {
+    router.replace(pathname, {
       scroll: false,
     });
+
+    if (typeof close === "function") {
+      close();
+    }
   };
   useEffect(() => {
     const countryStates = getCountryStates(selectedCountry ?? "");
@@ -68,6 +72,7 @@ function Filter() {
       scroll: false,
     });
   };
+
   const handleRating = (e: ChangeEvent<HTMLSelectElement>) => {
     const params = new URLSearchParams(searchParams);
     params.set("rating", e.target.value);
@@ -95,18 +100,13 @@ function Filter() {
               <h2 className="text-xl md:2xl font-bold mb-2 pb-2 border-b">
                 Filter by
               </h2>
-              <label htmlFor="country" className="mt-1 text-sm text-sec-text">
-                Filter Countries:
-              </label>
-              <select
-                className="py-2  bg-sec-background px-4 w-full  border rounded-md font-bold disabled:opacity-35 "
-                value={selectedCountry}
-                onChange={(e) => handleChange(e, "country")}
+              <Select
+                label="Filter Countries:"
+                optionLabel="Filter By Country"
                 id="country"
+                onChange={(e) => handleChange(e, "country")}
+                value={selectedCountry}
               >
-                <option value="" disabled selected>
-                  Filter By Country
-                </option>
                 {countries.map((country) => (
                   <option
                     key={country.isoCode}
@@ -115,53 +115,44 @@ function Filter() {
                     {country.name}
                   </option>
                 ))}
-              </select>
-              <label htmlFor="states" className="mt-1 text-sm text-sec-text">
-                Filter States:
-              </label>
+              </Select>
 
-              <select
-                className="py-2  bg-sec-background px-4 w-full  border rounded-md font-bold disabled:opacity-35 "
+              <Select
+                label="Filter States:"
+                optionLabel="Filter By State"
                 id="states"
-                disabled={states.length < 1}
-                value={selectedCity}
                 onChange={(e) => handleChange(e, "states")}
+                value={selectedCity}
+                disabled={states.length < 1}
               >
-                <option value="" disabled selected>
-                  Filter By State
-                </option>
                 {states.map((state) => (
                   <option key={state.isoCode} value={state.isoCode}>
                     {state.name}
                   </option>
                 ))}
-              </select>
-              <label htmlFor="cities" className="mt-1 text-sm text-sec-text">
-                Filter by cities:
-              </label>
+              </Select>
 
-              <select
-                className="py-2  bg-sec-background px-4 w-full mt-2 border rounded-md font-bold disabled:opacity-35 "
-                disabled={cities.length < 1}
+              <Select
+                label="Filter by cities:"
+                optionLabel="Filter By cities"
                 id="cities"
                 onChange={(e) => handleChange(e, "cities")}
+                defaultValue={""}
+                disabled={cities.length < 1}
               >
-                <option value="" disabled selected>
-                  Filter By City
-                </option>
                 {cities.map((city) => (
                   <option key={city.name} value={city.name}>
                     {city.name}
                   </option>
                 ))}
-              </select>
+              </Select>
               <section className="flex justify-end items-center gap-2 mt-2">
                 <PrimaryButton type="button" onClick={close}>
                   Close
                 </PrimaryButton>
                 {hasActiveFilters() && (
                   <button
-                    onClick={clearFilters}
+                    onClick={() => clearFilters(close)}
                     className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
                   >
                     Clear Filters
@@ -175,9 +166,9 @@ function Filter() {
       <select
         className="p-2   bg-sec-background  w-full max-w-[150px]  text-sm  border rounded-md font-bold disabled:opacity-35  max-md:max-w-[250px]"
         onChange={handleRating}
-        value={defaultRating || ""}
+        value={defaultRating ?? ""}
       >
-        <option value="" disabled selected>
+        <option disabled value="">
           (Sort by Stars)
         </option>
         {priceArray.map((price) => (
@@ -188,7 +179,7 @@ function Filter() {
       </select>
       {hasActiveFilters() && (
         <button
-          onClick={clearFilters}
+          onClick={() => clearFilters()}
           className="bg-red-500 w-full max-w-[180px] text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
         >
           Clear Filters

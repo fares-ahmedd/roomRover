@@ -110,5 +110,13 @@ export interface ErrorRoom {
 }
 
 export type SearchParamsProps = {
-  searchParams: { query: string; display: string };
+  searchParams: {
+    query: string;
+    display: string;
+    country: string;
+    cities: string;
+    page: string;
+    rating: string;
+    states: string;
+  };
 };

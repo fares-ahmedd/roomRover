@@ -7,7 +7,7 @@ import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 export default function HomePage({ searchParams }: SearchParamsProps) {
   return (
-    <div className="container-layout container mx-auto">
+    <main className="container mx-auto p-2">
       <FilterAndSearch />
       <Suspense
         fallback={
@@ -18,6 +18,6 @@ export default function HomePage({ searchParams }: SearchParamsProps) {
       >
         <HotelsList searchParams={searchParams} />
       </Suspense>
-    </div>
+    </main>
   );
 }

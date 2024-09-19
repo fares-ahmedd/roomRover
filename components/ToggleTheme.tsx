@@ -1,21 +1,22 @@
 "use client";
-import * as React from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { useTheme } from "next-themes";
-import { MdDevices } from "react-icons/md";
 import useClickOutside from "@/hooks/useClickOutside";
+import { useTheme } from "next-themes";
+import { useLayoutEffect, useRef, useState } from "react";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { MdDevices } from "react-icons/md";
 
 export function ToggleTheme() {
+  const [currentTheme, setCurrentTheme] = useState<string | undefined>("");
   const { setTheme, theme, systemTheme } = useTheme();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
-  const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useClickOutside([buttonRef, dropdownRef], () => {
     setIsOpen(false);
   });
 
-  const toggleDropdown = (event: React.MouseEvent) => {
+  const toggleDropdown = (event: any) => {
     event.stopPropagation();
     setIsOpen(!isOpen);
   };
@@ -25,7 +26,9 @@ export function ToggleTheme() {
     setIsOpen(false);
   };
 
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  useLayoutEffect(() => {
+    setCurrentTheme(theme === "system" ? systemTheme : theme);
+  }, [systemTheme, theme]);
 
   const getButtonClass = (buttonTheme: string) => {
     const baseClass =

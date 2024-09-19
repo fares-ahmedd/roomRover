@@ -13,50 +13,50 @@ import {
 } from "react-icons/fa";
 import Pagination from "../ui/Pagination";
 import HotelItem from "./HotelItem";
-import { SearchParamsProps } from "@/lib/types";
-
+import { IHotel, SearchParamsProps } from "@/lib/types";
+let PAGE_COUNT = 0;
+let CURRENT_PAGE = 0;
 async function HotelsList({ searchParams }: SearchParamsProps) {
-  const hotels = searchParams.query
+  const hotels: IHotel[] = searchParams.query
     ? await filterHotelsWithRooms(searchParams.query)
     : await getAllHotelsWithRooms();
 
   let filteredHotels = hotels ?? [];
 
+  // todo : pagination
+
+  if (!searchParams.query || searchParams.query === " ") {
+    CURRENT_PAGE = searchParams.page ? Number(searchParams.page) : 1;
+
+    const from = (CURRENT_PAGE - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE;
+    PAGE_COUNT = Math.ceil(filteredHotels.length / PAGE_SIZE);
+
+    filteredHotels = filteredHotels.slice(from, to);
+  }
+
   // todo : filter
 
   if (searchParams.country)
     filteredHotels = hotels.filter(
-      (hotel: any) => hotel.country === searchParams.country
+      (hotel) => hotel.country === searchParams.country
     );
   if (searchParams.states)
     filteredHotels = hotels.filter(
-      (hotel: any) => hotel.state === searchParams.states
+      (hotel) => hotel.state === searchParams.states
     );
 
   if (searchParams.cities)
     filteredHotels = hotels.filter(
-      (hotel: any) => hotel.city === searchParams.cities
+      (hotel) => hotel.city === searchParams.cities
     );
 
   // todo : sort
   if (searchParams.rating === "lowest")
-    filteredHotels.sort((a: any, b: any) => a.starRating - b.starRating);
+    filteredHotels.sort((a, b) => a.starRating - b.starRating);
   if (searchParams.rating === "highest")
-    filteredHotels.sort((a: any, b: any) => b.starRating - a.starRating);
+    filteredHotels.sort((a, b) => b.starRating - a.starRating);
 
-  // todo : pagination
-
-  let pageCount = 0;
-  let currentPage = 0;
-  if (!searchParams.query || searchParams.query === " ") {
-    currentPage = searchParams.page ? Number(searchParams.page) : 1;
-
-    const from = (currentPage - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE;
-    pageCount = Math.ceil(filteredHotels.length / PAGE_SIZE);
-
-    filteredHotels = filteredHotels.slice(from, to);
-  }
   if (!filteredHotels || filteredHotels?.length === 0)
     return (
       <main className="text-center mt-8 text-xl">
@@ -66,7 +66,7 @@ async function HotelsList({ searchParams }: SearchParamsProps) {
   return (
     <section>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        {filteredHotels.map((hotel: any) => {
+        {filteredHotels.map((hotel) => {
           const features = [
             { isTrue: hotel?.gym, label: "Gym", icon: <FaDumbbell /> },
             { isTrue: hotel?.spa, label: "Spa", icon: <FaSpa /> },
@@ -84,8 +84,8 @@ async function HotelsList({ searchParams }: SearchParamsProps) {
       </ul>
 
       <Pagination
-        currentPage={currentPage}
-        pageCount={pageCount}
+        currentPage={CURRENT_PAGE}
+        pageCount={PAGE_COUNT}
         query={searchParams.query}
       />
     </section>

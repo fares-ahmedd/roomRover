@@ -120,3 +120,33 @@ export type SearchParamsProps = {
     states: string;
   };
 };
+
+export type IHotel = {
+  id: string;
+  created_at: string;
+  userId: string;
+  title: string;
+  description: string;
+  image: string;
+  country: string;
+  state: string | null;
+  city: string | null;
+  locationDescription: string;
+  gym: boolean;
+  spa: boolean;
+  bar: boolean;
+  laundry: boolean;
+  restaurant: boolean;
+  shopping: boolean;
+  freeParking: boolean;
+  bikeRental: boolean;
+  freeWifi: boolean;
+  movieNights: boolean;
+  swimmingPool: boolean;
+  coffeeShop: boolean;
+  updatedAt: string;
+  starRating: number;
+  latitude: number;
+  longitude: number;
+  rooms: any[]; // You might want to define a more specific type for rooms
+};

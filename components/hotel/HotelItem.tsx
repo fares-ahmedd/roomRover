@@ -22,6 +22,7 @@ function HotelItem({ hotel, features, isEditing = false }: Props) {
               alt={hotel.title}
               fill
               quality={100}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="rounded-s-lg duration-300  group-hover:scale-110 group-hover:brightness-50"
             />
             <Link
@@ -68,6 +69,7 @@ function HotelItem({ hotel, features, isEditing = false }: Props) {
               alt={hotel.title}
               fill
               quality={100}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="rounded-s-lg duration-300  group-hover:scale-110"
             />
           </div>

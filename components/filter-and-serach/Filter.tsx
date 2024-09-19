@@ -4,42 +4,31 @@ import Model from "../ui/Model";
 import useLocation from "@/hooks/useLocation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { ICity, IState } from "country-state-city";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PrimaryButton from "../ui/PrimaryButton";
 import Select from "../ui/Select";
-const priceArray = [
-  { label: "Lowest Stars", value: "lowest" },
-  { label: "highest Stars", value: "highest" },
-];
+import useUrl from "@/hooks/useUrl";
+import useFilter from "./useFilter";
+import SortByHotelsStars from "./SortByHotelsStars";
+import ClearFilter from "./ClearFilter";
 
 function Filter() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
+  const { pathname, router, searchParams } = useUrl();
   const { getAllCountries, getCountryStates, getStateCities } = useLocation();
+
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+
+  const { clearFilters, hasActiveFilters } = useFilter({
+    setStates,
+    setCities,
+    setSelectedCountry,
+    setSelectedCity,
+  });
+
   const countries = getAllCountries();
 
-  const defaultRating = searchParams.get("rating");
-
-  const clearFilters = (close?: () => void) => {
-    setSelectedCountry("");
-    setSelectedCity("");
-    setCities([]);
-    setStates([]);
-
-    router.replace(pathname, {
-      scroll: false,
-    });
-
-    if (typeof close === "function") {
-      close();
-    }
-  };
   useEffect(() => {
     const countryStates = getCountryStates(selectedCountry ?? "");
     if (countryStates) {
@@ -72,19 +61,6 @@ function Filter() {
       scroll: false,
     });
   };
-
-  const handleRating = (e: ChangeEvent<HTMLSelectElement>) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("rating", e.target.value);
-    router.replace(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-  };
-  const hasActiveFilters = () =>
-    searchParams.get("country") !== null ||
-    searchParams.get("states") !== null ||
-    searchParams.get("cities") !== null ||
-    searchParams.get("rating");
 
   return (
     <div className="flex space-x-2 items-center flex-1">
@@ -150,41 +126,21 @@ function Filter() {
                 <PrimaryButton type="button" onClick={close}>
                   Close
                 </PrimaryButton>
-                {hasActiveFilters() && (
-                  <button
-                    onClick={() => clearFilters(close)}
-                    className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
-                  >
-                    Clear Filters
-                  </button>
-                )}
+                <ClearFilter
+                  close={close}
+                  clearFilters={clearFilters}
+                  hasActiveFilters={hasActiveFilters}
+                />
               </section>
             </div>
           )}
         </Model.Content>
       </Model>
-      <select
-        className="p-2   bg-sec-background  w-full max-w-[150px]  text-sm  border rounded-md font-bold disabled:opacity-35  max-md:max-w-[250px]"
-        onChange={handleRating}
-        value={defaultRating ?? ""}
-      >
-        <option disabled value="">
-          (Sort by Stars)
-        </option>
-        {priceArray.map((price) => (
-          <option key={price.value} value={price.value}>
-            {price.label}
-          </option>
-        ))}
-      </select>
-      {hasActiveFilters() && (
-        <button
-          onClick={() => clearFilters()}
-          className="bg-red-500 w-full max-w-[180px] text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
-        >
-          Clear Filters
-        </button>
-      )}
+      <SortByHotelsStars />
+      <ClearFilter
+        clearFilters={clearFilters}
+        hasActiveFilters={hasActiveFilters}
+      />
     </div>
   );
 }

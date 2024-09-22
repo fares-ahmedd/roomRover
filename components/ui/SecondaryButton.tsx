@@ -38,7 +38,7 @@ function SecondaryButton({
       onClick={onClick}
       disabled={pending || disabled}
       type={type}
-      className={`bg-btn-prim flex-center gap-1 text-btn-text py-2 px-4 rounded-full duration-300 hover:brightness-125  disabled-btn ${className}`}
+      className={`bg-btn-prim flex-center gap-1 text-btn-text py-2 px-4 rounded-lg duration-300 hover:brightness-125  disabled-btn ${className}`}
     >
       {getButtonText()}
     </button>

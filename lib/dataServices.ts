@@ -24,15 +24,7 @@ export async function getHotelByUserId() {
   const { userId } = auth();
 
   if (!userId) throw new Error("UnAuthorized");
-  const hotel = await supabase
-    .from("hotels")
-    .select(
-      `
-          *,
-          rooms (*)
-        `
-    )
-    .eq("userId", userId);
+  const hotel = await supabase.from("hotels").select("*").eq("userId", userId);
 
   if (!hotel?.data) return [];
 

@@ -11,6 +11,7 @@ import {
 import HotelItem from "./HotelItem";
 import Link from "next/link";
 import SecondaryButton from "../ui/SecondaryButton";
+import { Hotels } from "@/lib/types";
 
 async function MyHotels() {
   const hotels = await getHotelByUserId();
@@ -32,7 +33,7 @@ async function MyHotels() {
   return (
     <main>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        {hotels.map((hotel: any) => {
+        {hotels.map((hotel: Hotels) => {
           const features = [
             { isTrue: hotel?.gym, label: "Gym", icon: <FaDumbbell /> },
             { isTrue: hotel?.spa, label: "Spa", icon: <FaSpa /> },

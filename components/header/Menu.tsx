@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { IoMdArrowRoundBack, IoMdClose } from "react-icons/io";
-import { ToggleTheme } from "../ToggleTheme";
+import { ToggleTheme } from "../layout/ToggleTheme";
 import Auth from "./Auth";
 import NavLinks from "./NavLinks";
 import { useAuth } from "@clerk/nextjs";

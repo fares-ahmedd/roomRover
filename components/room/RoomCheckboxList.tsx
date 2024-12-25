@@ -1,4 +1,4 @@
-import { Rooms } from "@/lib/types";
+import { Rooms } from "@/utils/types";
 import CheckBox from "../ui/CheckBox";
 type Props = {
   currentRoom: Rooms | undefined;

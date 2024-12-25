@@ -2,9 +2,9 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/header/Index";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Toaster } from "react-hot-toast";
-import DataProvider from "@/components/DataContext";
+import DataProvider from "@/context/DataContext";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

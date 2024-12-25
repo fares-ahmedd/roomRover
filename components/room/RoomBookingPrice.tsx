@@ -1,6 +1,6 @@
 "use client";
 
-import { useDataContext } from "../DataContext";
+import { useDataContext } from "../../context/DataContext";
 
 function RoomBookingPrice() {
   const { bookingRoomData } = useDataContext();

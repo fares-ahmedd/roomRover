@@ -5,13 +5,13 @@ import qs from "query-string";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import useDebounce from "@/hooks/useDebounce";
-import useHotelsTitles from "./useHotelsTitles";
-
-function SearchInput() {
+type SearchInputProps = {
+  hotelsTitles: { title: string }[];
+};
+function SearchInput({ hotelsTitles }: SearchInputProps) {
   const searchParams = useSearchParams();
   const [value, setValue] = useState(searchParams.get("query") ?? "");
   const [initialRender, setInitialRender] = useState(true);
-  const hotelsTitles = useHotelsTitles();
 
   const debouncedValue = useDebounce<string>(value, 300);
   const router = useRouter();

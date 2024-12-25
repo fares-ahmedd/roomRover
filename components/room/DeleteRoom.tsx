@@ -4,7 +4,7 @@ import PrimaryButton from "../ui/PrimaryButton";
 import DeleteButton from "../ui/DeleteButton";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
-import { deleteHotelAction, deleteRoomAction } from "@/lib/actions";
+import { deleteHotelAction, deleteRoomAction } from "@/actions/actions";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 

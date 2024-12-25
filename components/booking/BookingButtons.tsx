@@ -8,7 +8,7 @@ import DeleteButton from "../ui/DeleteButton";
 import Model from "../ui/Model";
 import PrimaryButton from "../ui/PrimaryButton";
 import SecondaryButton from "../ui/SecondaryButton";
-import { useDataContext } from "../DataContext";
+import { useDataContext } from "../../context/DataContext";
 
 function BookingButtons({ booking }: { booking: any }) {
   const { setBookingRoomData, setPaymentIntentId } = useDataContext();

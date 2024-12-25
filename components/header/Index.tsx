@@ -1,4 +1,4 @@
-import { ToggleTheme } from "../ToggleTheme";
+import { ToggleTheme } from "../layout/ToggleTheme";
 import Auth from "./Auth";
 import Logo from "./Logo";
 import Menu from "./Menu";

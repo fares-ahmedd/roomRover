@@ -1,7 +1,7 @@
 "use client";
 
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
-import { useDataContext } from "../DataContext";
+import { useDataContext } from "../../context/DataContext";
 import RoomCard from "../room/RoomCard";
 import { Elements } from "@stripe/react-stripe-js";
 import RoomPaymentFrom from "./RoomPaymentFrom";

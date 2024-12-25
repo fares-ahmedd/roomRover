@@ -1,6 +1,6 @@
 "use client";
-import { createHotel, updateHotel } from "@/lib/actions";
-import { HotelWithRooms } from "@/lib/types";
+import { createHotel, updateHotel } from "@/actions/actions";
+import { HotelWithRooms } from "@/utils/types";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";

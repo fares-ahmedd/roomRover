@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { uploadImage } from "./cloudinary";
+import { uploadImage } from "../lib/cloudinary";
 import {
   createHotelInDatabase,
   createRoomInDatabase,
@@ -9,9 +9,9 @@ import {
   deleteRoom,
   updateHotelInDatabase,
   updateRoomInDatabase,
-} from "./dataServices";
-import { getData, getRoomData } from "./helpers";
-import { DeleteHotelState, ErrorRoom, Errors } from "./types";
+} from "@/services/dataServices";
+import { getData, getRoomData } from "../utils/utils";
+import { DeleteHotelState, ErrorRoom, Errors } from "../utils/types";
 
 export async function createHotel(_: any, formData: any) {
   let errors: Errors = {};

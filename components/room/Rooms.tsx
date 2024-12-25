@@ -3,7 +3,7 @@ import RoomInfoList from "./RoomInfoList";
 import RoomPrices from "./RoomPrices";
 import DeleteRoom from "./DeleteRoom";
 import CreateAndUpdateRoom from "./CreateAndUpdateRoom";
-import { HotelWithRooms } from "@/lib/types";
+import { HotelWithRooms } from "@/utils/types";
 export const revalidate = 0;
 function Rooms({
   rooms,

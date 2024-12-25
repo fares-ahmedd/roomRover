@@ -9,10 +9,10 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useDataContext } from "../DataContext";
+import { useDataContext } from "../../context/DataContext";
 import NoteMessage from "../ui/NoteMessage";
 import SecondaryButton from "../ui/SecondaryButton";
-import { Booking } from "@/lib/types";
+import { Booking } from "@/utils/types";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 
 interface RoomPaymentFormProps {

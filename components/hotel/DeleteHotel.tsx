@@ -1,6 +1,6 @@
 "use client";
-import { deleteHotelAction } from "@/lib/actions";
-import { HotelWithRooms } from "@/lib/types";
+import { deleteHotelAction } from "@/actions/actions";
+import { HotelWithRooms } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";

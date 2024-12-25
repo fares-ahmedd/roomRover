@@ -11,7 +11,7 @@ import {
 import HotelItem from "./HotelItem";
 import Link from "next/link";
 import SecondaryButton from "../ui/SecondaryButton";
-import { Hotels } from "@/lib/types";
+import { Hotels } from "@/utils/types";
 
 async function MyHotels() {
   const hotels = await getHotelByUserId();

@@ -1,8 +1,8 @@
 "use client";
-import { calculateDayCount, formatDate, isDateDisabled } from "@/lib/helpers";
+import { calculateDayCount, formatDate, isDateDisabled } from "@/utils/utils";
 import { useEffect, useMemo, useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
-import { useDataContext } from "../DataContext";
+import { useDataContext } from "../../context/DataContext";
 import SecondaryButton from "../ui/SecondaryButton";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import toast from "react-hot-toast";

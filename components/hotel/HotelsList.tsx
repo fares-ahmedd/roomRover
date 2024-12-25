@@ -1,8 +1,8 @@
 import {
   filterHotelsWithRooms,
   getAllHotelsWithRooms,
-} from "@/lib/dataServices";
-import { PAGE_SIZE } from "@/lib/helpers";
+} from "@/services/dataServices";
+import { PAGE_SIZE } from "@/utils/utils";
 import {
   FaCocktail,
   FaDumbbell,
@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 import Pagination from "../ui/Pagination";
 import HotelItem from "./HotelItem";
-import { IHotel, SearchParamsProps } from "@/lib/types";
+import { IHotel, SearchParamsProps } from "@/utils/types";
 let PAGE_COUNT = 0;
 let CURRENT_PAGE = 0;
 async function HotelsList({ searchParams }: SearchParamsProps) {

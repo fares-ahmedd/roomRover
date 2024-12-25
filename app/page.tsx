@@ -1,10 +1,9 @@
 import FilterAndSearch from "@/components/filter-and-serach/Index";
 import HotelsList from "@/components/hotel/HotelsList";
 import HotelsListSkeleton from "@/components/hotel/HotelsListSkeleton";
-import { SearchParamsProps } from "@/lib/types";
+import { SearchParamsProps } from "@/utils/types";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
 export default function HomePage({ searchParams }: SearchParamsProps) {
   return (
     <main className="container mx-auto p-2">

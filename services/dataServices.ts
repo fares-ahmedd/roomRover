@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { supabase } from "./supabase";
+import { supabase } from "@/lib/supabase";
 export async function getHotelById(hotelId: string, titleOnly = false) {
   const hotel = await supabase
     .from("hotels")

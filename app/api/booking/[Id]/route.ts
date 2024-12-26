@@ -2,7 +2,7 @@ import {
   deleteBookingHotel,
   getBookingsByHotelId,
   updateBookingStatus,
-} from "@/lib/dataServices";
+} from "@/services/dataServices";
 import { NextResponse } from "next/server";
 
 export async function PATCH(

@@ -17,10 +17,10 @@ const LinkButton = ({ children, href }: Props) => {
     <Link
       className={`
         relative flex items-center gap-1 
-        text-sm font-extrabold text-main-text
+        text-sm font-extrabold text-sec-text
         transition-colors duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)]
-        hover:text-sec-text focus:text-sec-text
-        ${isActive ? "text-sec-text" : ""}
+        hover:text-main-text focus:text-main-text
+        ${isActive ? "text-main-text" : ""}
       `}
       href={href}
     >

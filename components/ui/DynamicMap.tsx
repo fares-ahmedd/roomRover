@@ -12,8 +12,10 @@ const DynamicMap = ({ latitude, longitude }: Props) => {
       src={mapUrl}
       style={{ border: 0 }}
       loading="lazy"
+      aria-label="Hotel Location"
+      title="Hotel Location"
       referrerPolicy="no-referrer-when-downgrade"
-      className="min-h-[350px]  sm:max-w-[250px]"
+      className="min-h-[350px]  block w-full"
     ></iframe>
   );
 };

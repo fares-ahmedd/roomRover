@@ -1,3 +1,4 @@
+import FilterAndSearchSkeleton from "@/components/filter-and-serach/FilterAndSearchSkeleton";
 import FilterAndSearch from "@/components/filter-and-serach/Index";
 import HotelsList from "@/components/hotel/HotelsList";
 import HotelsListSkeleton from "@/components/hotel/HotelsListSkeleton";
@@ -7,14 +8,10 @@ import { Suspense } from "react";
 export default function HomePage({ searchParams }: SearchParamsProps) {
   return (
     <main className="container mx-auto p-2">
-      <FilterAndSearch />
-      <Suspense
-        fallback={
-          <div className="mt-10 text-center">
-            <HotelsListSkeleton />
-          </div>
-        }
-      >
+      <Suspense fallback={<FilterAndSearchSkeleton />}>
+        <FilterAndSearch />
+      </Suspense>
+      <Suspense fallback={<HotelsListSkeleton />}>
         <HotelsList searchParams={searchParams} />
       </Suspense>
     </main>

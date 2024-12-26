@@ -1,4 +1,4 @@
-import { getBookingsByHotelId, getHotelById } from "@/lib/dataServices";
+import { getBookingsByHotelId, getHotelById } from "@/services/dataServices";
 import Image from "next/image";
 import { IoLocation } from "react-icons/io5";
 import RoomCard from "../room/RoomCard";
@@ -24,14 +24,14 @@ async function HotelDetails({ hotelId }: { hotelId: string }) {
         <IoLocation className="text-blue-800 text-lg" /> {hotel.country}
         {hotel.city} {hotel.city && ` , ${hotel.city}`}
       </p>
-      <div className="flex flex-wrap gap-3 max-sm:flex-col mb-3">
-        <div className="min-h-[350px] relative flex-1 rounded-lg max-w-[600px]">
+      <div className="grid grid-cols-[75%,25%] max-md:grid-cols-1 mb-3 gap-2">
+        <div className="min-h-[350px] relative object-cover rounded-lg ">
           <Image
             src={hotel.image}
             alt={hotel.title}
             fill
             quality={100}
-            className="rounded-lg"
+            className="rounded-lg object-cover"
           />
         </div>
         <DynamicMap
@@ -40,7 +40,7 @@ async function HotelDetails({ hotelId }: { hotelId: string }) {
           height="100%"
         />
       </div>
-      <h3 className="mb-1 text-lg md:text-xl font-bold">Location Details</h3>
+      <h2 className="mb-1 text-lg md:text-xl font-bold">Location Details</h2>
       <p className="text-sec-text tracking-wider">
         {hotel.locationDescription}
       </p>{" "}

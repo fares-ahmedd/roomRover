@@ -1,4 +1,4 @@
-import { getBookingsByUserId } from "@/lib/dataServices";
+import { getBookingsByUserId } from "@/services/dataServices";
 import Link from "next/link";
 import SecondaryButton from "../ui/SecondaryButton";
 import BookingItem from "./BookingItem";

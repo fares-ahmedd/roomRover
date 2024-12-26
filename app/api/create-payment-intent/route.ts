@@ -2,7 +2,7 @@ import {
   createBookingInDatabase,
   getFoundBooking,
   updateBookingData,
-} from "@/lib/dataServices";
+} from "@/services/dataServices";
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";

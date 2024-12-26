@@ -5,14 +5,14 @@ import qs from "query-string";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import useDebounce from "@/hooks/useDebounce";
+import useInitialRender from "@/hooks/useInitialRender";
 type SearchInputProps = {
   hotelsTitles: { title: string }[];
 };
 function SearchInput({ hotelsTitles }: SearchInputProps) {
   const searchParams = useSearchParams();
   const [value, setValue] = useState(searchParams.get("query") ?? "");
-  const [initialRender, setInitialRender] = useState(true);
-
+  const initialRender = useInitialRender();
   const debouncedValue = useDebounce<string>(value, 300);
   const router = useRouter();
 
@@ -32,22 +32,19 @@ function SearchInput({ hotelsTitles }: SearchInputProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, router]);
 
-  useEffect(() => {
-    setInitialRender(false);
-  }, []);
   return (
-    <div className="flex items-center bg-sec-background border border-b-color rounded-md focus-within:ring-2 focus-within:ring-accent-500">
+    <div className="flex items-center bg-sec-background border border-b-color rounded-md focus-within:ring-2 focus-within:ring-accent-500 focus:border-none focus-within:border-none">
       <FaSearch className="text-sm ml-3 text-gray-400" />
       <input
         type="search"
         placeholder="Search for hotel..."
-        className="py-2 pl-2 pr-4 w-full bg-transparent outline-none duration-300 min-w-[250px]  focus:min-w-[265px] lg:min-w-[350px] lg:focus:min-w-[365px]"
+        className="py-2 pl-2 pr-4 w-full bg-transparent outline-none duration-300 min-w-[250px]  focus:min-w-[265px] lg:min-w-[350px] lg:focus:min-w-[365px] "
         onChange={(e) => setValue(e.target.value)}
         defaultValue={value}
         list="countries-names"
       />
       <datalist id="countries-names">
-        {hotelsTitles.map((hotel: { title: string }, index: number) => (
+        {hotelsTitles.map((hotel, index: number) => (
           <option value={hotel.title} key={index}></option>
         ))}
       </datalist>

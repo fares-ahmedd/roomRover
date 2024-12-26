@@ -10,7 +10,7 @@ function BackButton() {
   };
 
   return (
-    <button onClick={handleGoBack}>
+    <button onClick={handleGoBack} aria-label="Go back" title="Go back">
       <FaArrowLeft className="text-xl md:text-3xl" />
     </button>
   );

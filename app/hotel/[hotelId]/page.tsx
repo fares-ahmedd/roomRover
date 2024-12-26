@@ -1,5 +1,5 @@
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { getAllHotelsWithRooms, getHotelById } from "@/lib/dataServices";
+import { getAllHotelsWithRooms, getHotelById } from "@/services/dataServices";
 import { auth } from "@clerk/nextjs/server";
 import dynamic from "next/dynamic";
 const AddHotelForm = dynamic(() => import("@/components/hotel/AddHotelForm"), {

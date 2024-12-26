@@ -17,15 +17,15 @@ function RoomCard({
 }) {
   return (
     <li className="border rounded-lg p-2 bg-sec-background text-main-text  max-w-[400px] ">
-      <h5 className="font-extrabold text-lg">#{room.title}</h5>
-      <section className="w-full min-h-[300px] relative overflow-hidden">
+      <h3 className="font-extrabold text-lg">#{room.title}</h3>
+      <div className="w-full min-h-[300px] relative overflow-hidden object-cover">
         <Image
           src={room.image}
           alt={room.title}
           fill
-          className="duration-300 hover:scale-110"
+          className="duration-300 hover:scale-110 object-cover"
         />
-      </section>
+      </div>
       <RoomInfoList room={room} />
       <RoomPrices room={room} />
       {!isPayment ? (

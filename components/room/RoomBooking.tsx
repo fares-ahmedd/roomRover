@@ -201,7 +201,7 @@ function RoomBooking({
         )}
       </p>
       <SecondaryButton
-        className="w-full mt-3"
+        className="w-full mt-3 !text-white"
         disabled={isLoading}
         onClick={() => handleBookingRoom()}
       >

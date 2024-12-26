@@ -1,6 +1,6 @@
 function HotelsListSkeleton() {
   return (
-    <main>
+    <main className="mt-10 text-center">
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {Array.from({ length: 6 }).map((_, index) => {
           return (

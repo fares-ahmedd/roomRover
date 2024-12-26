@@ -1,4 +1,4 @@
-import { getHotelByUserId } from "@/lib/dataServices";
+import { getHotelByUserId } from "@/services/dataServices";
 import {
   FaCocktail,
   FaDumbbell,

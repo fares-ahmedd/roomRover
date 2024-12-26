@@ -67,14 +67,12 @@ function BookRoomClient() {
     <div className="max-w-[700px] mx-auto">
       {clientSecret && bookingRoomData && (
         <div>
-          <h3 className=" text-lg md:text-2xl font-semibold mb-6 ">
+          <h3 className=" text-center text-lg md:text-2xl font-semibold mb-6 ">
             Complete payment to reserve this room!
           </h3>
-          <div className="mb-6 grid justify-center">
-            <ul className="mb-6">
-              <RoomCard room={bookingRoomData.room} isPayment={true} />
-            </ul>
-          </div>
+          <ol className="mb-6 grid justify-center">
+            <RoomCard room={bookingRoomData.room} isPayment={true} />
+          </ol>
           <Elements stripe={stripePromise} options={options}>
             <RoomPaymentFrom
               handleSetPaymentSuccess={handleSetPaymentSuccess}

@@ -27,14 +27,13 @@ function RoomPaymentFrom({ handleSetPaymentSuccess }: RoomPaymentFormProps) {
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
     if (!stripe || !elements || !bookingRoomData) {
       return;
     }
+    setIsLoading(true);
 
     try {
-      setIsLoading(true);
       const res = await fetch(`/api/booking/${bookingRoomData.room.hotelId}`, {
         method: "GET",
       });

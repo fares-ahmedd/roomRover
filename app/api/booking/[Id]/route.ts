@@ -6,7 +6,7 @@ import {
 import { NextResponse } from "next/server";
 
 export async function PATCH(
-  req: Request,
+  _: Request,
   { params }: { params: { Id: string } }
 ) {
   try {

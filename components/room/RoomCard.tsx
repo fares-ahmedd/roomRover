@@ -3,6 +3,7 @@ import RoomInfoList from "./RoomInfoList";
 import RoomPrices from "./RoomPrices";
 import RoomBooking from "./RoomBooking";
 import RoomBookingPrice from "./RoomBookingPrice";
+import { IHotel } from "@/utils/types";
 
 function RoomCard({
   hotel,
@@ -10,14 +11,14 @@ function RoomCard({
   bookings,
   isPayment = false,
 }: {
-  hotel?: any;
+  hotel?: IHotel;
   room?: any;
   bookings?: any;
   isPayment?: boolean;
 }) {
   return (
-    <li className="border rounded-lg p-2 bg-sec-background text-main-text  max-w-[400px] ">
-      <h3 className="font-extrabold text-lg">#{room.title}</h3>
+    <li className="border rounded-lg p-2 bg-sec-background text-main-text ">
+      <h3 className="font-extrabold text-lg mb-2">#{room.title}</h3>
       <div className="w-full min-h-[300px] relative overflow-hidden object-cover">
         <Image
           src={room.image}

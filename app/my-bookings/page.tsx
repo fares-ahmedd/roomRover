@@ -8,9 +8,7 @@ export const metadata = {
 function page() {
   return (
     <div className="container container-layout mx-auto my-2">
-      <h1 className="text-xl md:text-3xl font-extrabold  mb-3 pb-3 border-b-2">
-        My Bookings
-      </h1>
+      <h1 className="text-xl md:text-3xl font-bold  mb-3 ">My Bookings</h1>
       <Suspense
         fallback={
           <div className="mt-10 text-center">

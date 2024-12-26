@@ -141,14 +141,7 @@ function RoomBooking({
         </Model.OpenModel>
         <Model.Content id={room.id} deleteModel={true}>
           {({ close }) => (
-            <>
-              <PrimaryButton
-                type="button"
-                onClick={close}
-                className="mb-2 m-auto w-full"
-              >
-                Close
-              </PrimaryButton>
+            <div className="bg-main-background p-6">
               <DayPicker
                 className="bg-main-background grid justify-center my-custom-day-picker  custom-day-picker rounded-lg py-2"
                 mode="range"
@@ -157,7 +150,7 @@ function RoomBooking({
                 selected={range}
                 disabled={(date) => isDateDisabled(date, bookings)}
               />
-              <div className="flex items-center gap-3 bg-main-background mt-2 px-3">
+              <div className=" flex items-center gap-3 bg-main-background mt-2 px-3">
                 <input
                   type="checkbox"
                   id="breakfast"
@@ -166,8 +159,15 @@ function RoomBooking({
                   onChange={(e) => setIncludeBreakfast(e.target.checked)}
                 />
                 <label htmlFor="breakfast">Include Breakfast</label>
-              </div>
-            </>
+              </div>{" "}
+              <PrimaryButton
+                type="button"
+                onClick={close}
+                className="bg-sec-background my-2 m-auto w-full hover:scale-100 duration-0"
+              >
+                Close
+              </PrimaryButton>
+            </div>
           )}
         </Model.Content>
       </Model>

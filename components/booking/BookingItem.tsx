@@ -8,7 +8,7 @@ import BookingInfo from "./BookingInfo";
 function BookingItem({ booking }: { booking: any }) {
   const { hotels: hotel, rooms: room } = booking;
   return (
-    <li className="border rounded-lg p-2 bg-sec-background text-main-text  ">
+    <li className="flex flex-col justify-between border rounded-lg p-2 bg-sec-background text-main-text  ">
       <h5
         className="truncate  text-lg md:text-xl lg:text-2xl font-bold"
         title={hotel.title}

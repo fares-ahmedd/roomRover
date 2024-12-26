@@ -5,9 +5,10 @@ import RoomCard from "../room/RoomCard";
 import Activities from "../ui/Activities";
 import BackButton from "../ui/BackButton";
 import DynamicMap from "../ui/DynamicMap";
+import { IHotel } from "@/utils/types";
 
 async function HotelDetails({ hotelId }: { hotelId: string }) {
-  const hotel = await getHotelById(hotelId);
+  const hotel: IHotel = await getHotelById(hotelId);
   if (!hotel) return <div>Something Went Wrong</div>;
 
   const bookings = await getBookingsByHotelId(hotelId);
@@ -51,8 +52,8 @@ async function HotelDetails({ hotelId }: { hotelId: string }) {
       <Activities hotel={hotel} />
       <h3 className="mb-1 text-lg md:text-xl font-bold my-2">Hotel Rooms</h3>
       {!!hotel?.rooms?.length ? (
-        <ul className="grid-layout">
-          {hotel.rooms.map((room: any) => (
+        <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          {hotel.rooms.map((room) => (
             <RoomCard
               hotel={hotel}
               room={room}

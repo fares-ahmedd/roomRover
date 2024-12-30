@@ -47,18 +47,15 @@ function Menu() {
         />
       )}
       {isOpen && (
-        <div className="backdrop-blur-sm bg-black/20 fixed h-screen-78 w-full left-0 top-[78px] animate-slide-left z-50">
-          <div className="flex-between p-6 border-b">
+        <div className=" bg-sec-background fixed  w-full left-0 top-[78px] animate-slide-left z-50">
+          <div className="flex justify-end gap-5 px-3 container mx-auto my-4">
             <div className="space-x-2">
               <Auth />
             </div>
             <ToggleTheme />
           </div>
 
-          <div
-            className="my-6 w-fit mx-auto bg-sec-background p-2 rounded-md"
-            onClick={handleToggle}
-          >
+          <div onClick={handleToggle}>
             <NavLinks menu={true} />
           </div>
         </div>

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: HotelPageProps) {
 
   return {
     title: `Edit ${title}`,
-    description: "Edit your own hotel name ",
+    description: "Edit your own hotel name",
   };
 }
 
@@ -42,7 +42,7 @@ async function HotelPage({ params }: HotelPageProps) {
   return (
     <main>
       <div className="container container-layout mx-auto my-2">
-        <h1 className="text-lg md:text-3xl font-bold mb-2 border-b pb-2 ">
+        <h1 className="text-lg md:text-3xl font-bold  pb-2 ">
           Describe your hotel
         </h1>
 

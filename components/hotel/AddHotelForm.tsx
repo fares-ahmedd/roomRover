@@ -31,22 +31,6 @@ function AddHotelForm({ hotel, userId }: AddHotelFormProps) {
     {}
   );
 
-  useEffect(() => {
-    if (state.success && hotel) {
-      toast.success("updated hotel done!");
-    }
-    if (state.success && !hotel) {
-      toast.success("Created hotel successfully");
-      redirect(state.redirectUrl ?? "/");
-    }
-    if (state.success === false && hotel) {
-      toast.error("failed to update hotel");
-    }
-    if (state.success === false && !hotel) {
-      toast.error("failed to Create hotel");
-    }
-  }, [state, hotel]);
-
   return (
     <form action={formAction} className="flex flex-col  md:flex-row gap-3">
       <section className="flex-1">

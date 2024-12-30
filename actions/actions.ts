@@ -12,6 +12,7 @@ import {
 } from "@/services/dataServices";
 import { getData, getRoomData } from "../utils/utils";
 import { DeleteHotelState, ErrorRoom, Errors } from "../utils/types";
+import { redirect } from "next/navigation";
 
 export async function createHotel(_: any, formData: any) {
   let errors: Errors = {};
@@ -76,6 +77,30 @@ export async function createHotel(_: any, formData: any) {
     return errors;
   }
 
+  console.log(
+    bar,
+    bikeRental,
+    starRating,
+    city,
+    coffeeShop,
+    country,
+    description,
+    freeParking,
+    freeWifi,
+    gym,
+    image,
+    laundry,
+    locationDescription,
+    movieNights,
+    restaurant,
+    shopping,
+    spa,
+    state,
+    swimmingPool,
+    title,
+    userId
+  );
+
   let imageUrl;
   try {
     imageUrl = await uploadImage(image);
@@ -83,42 +108,34 @@ export async function createHotel(_: any, formData: any) {
     throw new Error("Image upload failed please try again later");
   }
 
-  try {
-    const data = await createHotelInDatabase({
-      title,
-      userId,
-      description,
-      locationDescription,
-      image: imageUrl,
-      country: country.split("?")[0],
-      latitude: country.split("?")[2],
-      longitude: country.split("?")[3],
-      state,
-      city,
-      gym,
-      spa,
-      bar,
-      laundry,
-      restaurant,
-      shopping,
-      freeParking,
-      bikeRental,
-      freeWifi,
-      movieNights,
-      swimmingPool,
-      coffeeShop,
-      starRating,
-    });
+  const data = await createHotelInDatabase({
+    title,
+    userId,
+    description,
+    locationDescription,
+    image: imageUrl,
+    country: country.split("?")[0],
+    latitude: country.split("?")[2],
+    longitude: country.split("?")[3],
+    state,
+    city,
+    gym,
+    spa,
+    bar,
+    laundry,
+    restaurant,
+    shopping,
+    freeParking,
+    bikeRental,
+    freeWifi,
+    movieNights,
+    swimmingPool,
+    coffeeShop,
+    starRating,
+  });
 
-    return {
-      success: true,
-      redirectUrl: `/hotel/${data[0].id}`,
-    };
-  } catch {
-    return {
-      success: false,
-    };
-  }
+  revalidatePath(`/hotel/${data[0].id}`);
+  redirect(`/hotel/${data[0].id}`);
 }
 
 export async function updateHotel(_: any, formData: any) {
@@ -191,40 +208,31 @@ export async function updateHotel(_: any, formData: any) {
     imageUrl = selectedImage;
   }
 
-  try {
-    const data = await updateHotelInDatabase(id, {
-      title,
-      userId,
-      description,
-      locationDescription,
-      image: imageUrl,
-      country: country.split("?")[0],
-      state,
-      city,
-      gym,
-      spa,
-      starRating,
+  const data = await updateHotelInDatabase(id, {
+    title,
+    userId,
+    description,
+    locationDescription,
+    image: imageUrl,
+    country: country.split("?")[0],
+    state,
+    city,
+    gym,
+    spa,
+    starRating,
 
-      bar,
-      laundry,
-      restaurant,
-      shopping,
-      freeParking,
-      bikeRental,
-      freeWifi,
-      movieNights,
-      swimmingPool,
-      coffeeShop,
-    });
-    setTimeout(() => {
-      revalidatePath("/", "layout");
-      revalidatePath(`/hotel/${data[0].id}`);
-    }, 0);
-
-    return { success: true };
-  } catch {
-    return { success: false };
-  }
+    bar,
+    laundry,
+    restaurant,
+    shopping,
+    freeParking,
+    bikeRental,
+    freeWifi,
+    movieNights,
+    swimmingPool,
+    coffeeShop,
+  });
+  revalidatePath(`/hotel/${data[0].id}`);
 }
 
 export async function deleteHotelAction(
@@ -233,12 +241,9 @@ export async function deleteHotelAction(
 ): Promise<DeleteHotelState> {
   const hotelId = formData.get("hotelId");
 
-  try {
-    await deleteHotel(hotelId as string);
-    return { success: true, redirectUrl: `/` };
-  } catch (error) {
-    return { success: false, redirectUrl: "" };
-  }
+  await deleteHotel(hotelId as string);
+  revalidatePath("/", "layout");
+  redirect("/");
 }
 export async function deleteRoomAction(
   _: DeleteHotelState,
@@ -340,44 +345,31 @@ export async function createRoom(_: any, formData: any) {
     throw new Error("Image upload failed please try again later");
   }
 
-  try {
-    await createRoomInDatabase({
-      hotelId,
-      title,
-      description,
-      TV,
-      image: imageUrl,
-      roomPrice,
+  await createRoomInDatabase({
+    hotelId,
+    title,
+    description,
+    TV,
+    image: imageUrl,
+    roomPrice,
 
-      soundProofed,
-      airConditions,
-      mountainView,
-      forestView,
-      balcony,
-      cityView,
-      oceanView,
-      freeWifi,
-      roomService,
-      bedCount,
-      guestCount,
-      bathroomCount,
-      breakFastPrice,
-      kingBed,
-      queenBed,
-    });
-    setTimeout(() => {
-      revalidatePath("/", "layout");
-    }, 0);
-    return {
-      success: true,
-    };
-  } catch (error: any) {
-    console.log(error?.message);
-
-    return {
-      success: false,
-    };
-  }
+    soundProofed,
+    airConditions,
+    mountainView,
+    forestView,
+    balcony,
+    cityView,
+    oceanView,
+    freeWifi,
+    roomService,
+    bedCount,
+    guestCount,
+    bathroomCount,
+    breakFastPrice,
+    kingBed,
+    queenBed,
+  });
+  revalidatePath("/", "layout");
 }
 
 export async function updateRoom(_: any, formData: any) {
@@ -465,40 +457,29 @@ export async function updateRoom(_: any, formData: any) {
     imageUrl = selectedImage;
   }
 
-  try {
-    await updateRoomInDatabase(roomId, {
-      id: roomId,
-      title,
-      description,
-      TV,
-      image: imageUrl,
-      roomPrice,
+  await updateRoomInDatabase(roomId, {
+    id: roomId,
+    title,
+    description,
+    TV,
+    image: imageUrl,
+    roomPrice,
 
-      soundProofed,
-      airConditions,
-      mountainView,
-      forestView,
-      balcony,
-      cityView,
-      oceanView,
-      freeWifi,
-      roomService,
-      bedCount,
-      guestCount,
-      bathroomCount,
-      breakFastPrice,
-      kingBed,
-      queenBed,
-    });
-
-    return {
-      success: true,
-    };
-  } catch (error: any) {
-    console.log(error?.message);
-
-    return {
-      success: false,
-    };
-  }
+    soundProofed,
+    airConditions,
+    mountainView,
+    forestView,
+    balcony,
+    cityView,
+    oceanView,
+    freeWifi,
+    roomService,
+    bedCount,
+    guestCount,
+    bathroomCount,
+    breakFastPrice,
+    kingBed,
+    queenBed,
+  });
+  revalidatePath("/", "layout");
 }

@@ -13,20 +13,11 @@ interface AddHotelFormProps {
   hotel: HotelWithRooms | null;
 }
 function DeleteHotel({ hotel }: AddHotelFormProps) {
-  const router = useRouter();
-  const [state, formAction] = useFormState(deleteHotelAction, {
+  const [_, formAction] = useFormState(deleteHotelAction, {
     success: null,
     redirectUrl: "",
   });
-  useEffect(() => {
-    if (state.success) {
-      toast.success("Deleted hotel successfully");
-      router.push("/");
-      router.refresh();
-    } else if (state.success === false) {
-      toast.error("Failed to delete hotel");
-    }
-  }, [state, hotel, router]);
+
   return (
     <>
       {hotel && (

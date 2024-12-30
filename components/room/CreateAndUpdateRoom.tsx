@@ -25,26 +25,6 @@ function CreateAndUpdateRoom({ hotel, room }: AddHotelFormProps) {
     currentRoom ? updateRoom : createRoom,
     {}
   );
-  const router = useRouter();
-
-  useEffect(() => {
-    if (state?.success && !currentRoom?.id) {
-      router.refresh();
-      toast.success("Created room");
-      state.success = undefined;
-    }
-    if (state?.success === false && !currentRoom?.id) {
-      toast.error("failed to create  room");
-    }
-    if (state?.success && currentRoom?.id) {
-      router.refresh();
-      toast.success("updated room");
-      state.success = undefined;
-    }
-    if (state?.success === false && currentRoom?.id) {
-      toast.error("failed to update room");
-    }
-  }, [state, router, currentRoom?.id]);
 
   return (
     <div

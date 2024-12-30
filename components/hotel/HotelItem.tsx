@@ -61,16 +61,16 @@ function HotelItem({ hotel, features, isEditing = false }: Props) {
       ) : (
         <Link
           href={`hotel-details/${hotel.id}`}
-          className="grid grid-cols-2 rounded-lg bg-sec-background group relative "
+          className="h-full grid grid-cols-2 rounded-lg bg-sec-background group relative "
         >
-          <div className=" min-h-[200px] md:min-h-[300px]  relative overflow-hidden rounded-s-lg">
+          <div className="relative overflow-hidden rounded-s-lg object-cover">
             <Image
               src={hotel.image}
               alt={hotel.title}
               fill
               quality={100}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="rounded-s-lg duration-300  group-hover:scale-110"
+              className="rounded-s-lg duration-300  group-hover:scale-110 object-cover"
             />
           </div>
           <section className="p-3 mt-3">
@@ -86,13 +86,13 @@ function HotelItem({ hotel, features, isEditing = false }: Props) {
               {hotel?.country}
               {hotel?.city && ` , ${hotel.city}`}
             </span>
-            <ul className=" flex flex-wrap gap-2 mt-2 ">
+            <ul className=" flex flex-wrap gap-2 my-4 ">
               {features.map((feature, index) => (
                 <li
                   key={index}
-                  className="bg-main-background p-1 px-3 rounded-lg flex gap-2 text-sm items-center "
+                  className="bg-main-background flex-1 text-center p-1 px-3 rounded-lg  gap-2 text-sm flex-center min-h-[48px] "
                 >
-                  {feature.icon} {feature.label}
+                  {feature.icon} <span>{feature.label}</span>
                 </li>
               ))}
             </ul>

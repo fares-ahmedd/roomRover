@@ -1,14 +1,7 @@
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import AddHotelForm from "@/components/hotel/AddHotelForm";
 import { getAllHotelsWithRooms, getHotelById } from "@/services/dataServices";
 import { auth } from "@clerk/nextjs/server";
-import dynamic from "next/dynamic";
-const AddHotelForm = dynamic(() => import("@/components/hotel/AddHotelForm"), {
-  loading: () => (
-    <div className="mt-10 text-center">
-      <LoadingSpinner />
-    </div>
-  ),
-});
+
 interface HotelPageProps {
   params: {
     hotelId: string;
